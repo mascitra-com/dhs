@@ -6,7 +6,8 @@ class Katalog extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-        $this->data['title'] = 'Katalog';
+        $this->data['title'] = 'Katalog Barang';
+        $this->data['js'] = 'katalog';
 		// Load model, library, helper disini
 	}
 
@@ -25,7 +26,7 @@ class Katalog extends MY_Controller {
      */
     public function store()
     {
-
+        $data = $this->input->post();
     }
 
     /**

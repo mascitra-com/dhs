@@ -13,6 +13,23 @@
 	padding-bottom: 10px;
 }
 
-.side-filter{
-	padding: 10px;
+.side-group{
+	padding: 5px 0px 0 10px;
+}
+
+#navbar{
+	background-color: #34495e;
+	color: white;
+}
+
+#navbar *{
+	color: white;
+}
+
+#navbar .dropdown-menu *{
+	color: #34495e;
+}
+
+.kosong{
+	border-color: red;
 }

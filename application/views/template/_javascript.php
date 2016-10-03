@@ -12,4 +12,4 @@
 <!-- Custom Helper -->
 <script src="<?= base_url() ?>assets/js/helper.js" type="text/javascript"></script>
 <!--  Custom JS -->
-<script src="<?= base_url() ?>assets/js/kustom.js"></script>
+<script src="<?= base_url().'assets/js-view/'.$js.'.js' ?>"></script>

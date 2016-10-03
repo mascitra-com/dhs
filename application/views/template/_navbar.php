@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="navbar">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
             <span class="sr-only">Toggle navigation</span>
