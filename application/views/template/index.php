@@ -17,7 +17,7 @@
 </div>
 <?php $this->load->view('template/_footer'); ?>
 <!-- Load modal -->
-<?php $this->load->view($modal); ?>
+<?php if(isset($modal)){$this->load->view($modal);} ?>
 
 </body>
 <?php $this->load->view('template/_javascript'); ?>

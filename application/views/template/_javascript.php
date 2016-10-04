@@ -1,5 +1,5 @@
 <!--   Core JS Files   -->
-<script src="<?= base_url() ?>assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
 <script src="<?= base_url() ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
 <!--  Checkbox, Radio & Switch Plugins -->
 <!-- <script src="<?= base_url() ?>assets/js/bootstrap-checkbox-radio-switch.js"></script> -->
@@ -12,4 +12,6 @@
 <!-- Custom Helper -->
 <script src="<?= base_url() ?>assets/js/helper.js" type="text/javascript"></script>
 <!--  Custom JS -->
-<script src="<?= base_url().'assets/js-view/'.$js.'.js' ?>"></script>
+<?php if (isset($js)): ?>
+    <script src="<?= base_url() . 'assets/js-view/' . $js . '.js' ?>"></script>
+<?php endif; ?>

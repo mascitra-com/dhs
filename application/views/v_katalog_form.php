@@ -32,7 +32,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Upload Gambar</label>
-                    <input type="file" name="gambar">
+                    <input type="file" name="gambar" accept="image/">
                   </div>
                   <div class="form-group">
                     <label for="">Harga Pokok</label>
@@ -44,20 +44,20 @@
                   </div>
                   <div class="form-group">
                     <label for="">Kategori</label>
-                    <select name="kategori" class="form-control">
-                      <option value="0" selected>Pilih kategori</option>
-                      <option value="">Pilihan1</option>
-                      <option value="">Pilihan2</option>
+                    <select name="id_kategori" class="form-control">
+                      <option value = "0" selected>Pilih kategori</option>
+                      <option value = "1">Hardware</option>
+                      <option value = "2">Software</option>
                     </select>
                   </div>
                 </div>
                 <!-- akhir kanan -->
             </div>
-        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="barang_simpan()">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-reset-barang">Batal</button>
+        <button type="submit" class="btn btn-primary" id="btn-simpan-barang">Simpan</button>
+        </form>
       </div>
     </div>
   </div>

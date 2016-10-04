@@ -16,7 +16,7 @@ class Blank extends MY_Controller {
 	{
 	    $this->data['title'] = 'Blank Content';
 	    $this->data['content'] = 'v_blank';
-		$this->init('v_blank');
+		$this->init();
 	}
 
 }
