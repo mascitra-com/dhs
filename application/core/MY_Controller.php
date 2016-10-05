@@ -5,8 +5,11 @@ class MY_Controller extends CI_Controller
 {
     protected $data;
     protected $template = 'template/index';
-
-    // Methode _remap
+    /**
+     * @param $method
+     * @param array $param
+     * @return mixed
+     */
     public function _remap($method, $param = array())
     {
         if (method_exists($this, $method) && $method != 'index') {
@@ -25,5 +28,15 @@ class MY_Controller extends CI_Controller
     protected function init()
     {
         $this->load->view($this->template, $this->data);
+    }
+
+    /**
+     *  Melakukan pengecekan status login
+     */
+    protected function checkLoggedIn(){
+        if ($this->ion_auth->logged_in() == FALSE){
+            $this->session->set_flashdata('force', TRUE);
+            redirect('users/login');
+        }
     }
 }

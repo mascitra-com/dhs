@@ -11,7 +11,7 @@
             <!-- Kiri -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Nama Barang</label>
+                        <label>Nama Barang <span class="text-danger">*</span></label>
                         <input type="text" name="nama" class="form-control" placeholder="Nama Barang" required>
                     </div>
                     <div class="form-group">
@@ -35,20 +35,22 @@
                     <input type="file" name="gambar" accept="image/">
                   </div>
                   <div class="form-group">
-                    <label for="">Harga Pokok</label>
-                    <input type="number" min="0" name="hargaPokok" class="form-control" required>
+                    <label for="">Harga Pokok <span class="text-danger">*</span></label>
+                    <input type="number" min="0" name="hargaPokok" value="0" class="form-control" required>
                   </div>
                   <div class="form-group">
                     <label for="">Harga Satuan</label>
-                    <input type="number" min="0" name="hargaSatuan" class="form-control">
+                    <input type="number" min="0" name="hargaSatuan" value="0" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="">Kategori</label>
+                    <label for="">Kategori <span class="text-danger">*</span></label>
                     <select name="id_kategori" class="form-control">
                       <option value = "0" selected>Pilih kategori</option>
-                      <option value = "1">Hardware</option>
-                      <option value = "2">Software</option>
+                      <?php foreach($kategori as $key): ?>
+                      <option value = "<?=$key->kategori->id?>"><?=$key->kategori->nama?></option>
+                      <?php endforeach; ?>
                     </select>
+                    <p class="help-block"><i class="fa fa-asterisk text-danger"></i> Wajib diisi</p>
                   </div>
                 </div>
                 <!-- akhir kanan -->
@@ -62,3 +64,9 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+var data_nama = <?=$autocomplete['nama']?>;
+var data_tipe = <?=$autocomplete['tipe']?>;
+var data_merk = <?=$autocomplete['merk']?>;
+</script>

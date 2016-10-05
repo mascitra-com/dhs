@@ -85,7 +85,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	 ***************** YOUR MODELS *****************
 	 * @property user_model          $user_model            User Class
 	 * @property ion_auth_model      $ion_auth_model        Ion Auth Class
-	 * @property barang_m           $barang_m               barang_m Class
+	 * @property barang_m            $barang_m               barang_m Class
+	 * @property kategori_m          $kategori_m            kategori_m Class
 	 */
 	class CI_Controller {
 		public function __construct() {

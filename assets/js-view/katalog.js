@@ -1,5 +1,12 @@
 $(document).ready(function(){
-
+	// Set auto complete
+	$("input[name='nama']").autocomplete({source:data_nama});
+	$("input[name='tipe']").autocomplete({source:data_tipe});
+	$("input[name='merk']").autocomplete({source:data_merk});
+	// Set tampilan autocomplete setelah form agar tidak ketindihan
+	$("input[name='nama']").autocomplete("widget").insertAfter($("#form_barang"));
+	$("input[name='tipe']").autocomplete("widget").insertAfter($("#form_barang"));
+	$("input[name='merk']").autocomplete("widget").insertAfter($("#form_barang"));
 });
 
 $("#mymodal").on('hide.bs.modal', function(){
@@ -10,7 +17,6 @@ $("#form_barang").on('submit',function(e){
 	e.preventDefault();
 	if(validated('form_barang')){
 
-		$("#myModalLabel").html("Tambah Barang");
 		$("#btn-simpan-barang").empty().html("<i class='fa fa-refresh fa-spin fa-1x fa-fw'></i>Menyimpan data...").prop('disabled', true);
 		$("#btn-reset-barang").prop('disabled', true);
 
@@ -24,6 +30,7 @@ $("#form_barang").on('submit',function(e){
 			success: function(data){
 				alert('Data berhasil diinputkan');
 				reset_modal();
+				// window.location('')
 			},
 			error: function(xhr, ajaxOption, thrownError){
 				// console.log(xhr);
@@ -33,47 +40,23 @@ $("#form_barang").on('submit',function(e){
 			} 	        
 		});
 	}else{
-		$("#myModalLabel").html("Tambah Barang <font color='red'>(isi data yang kosong)</font>")
 	}
 });
-
-// function barang_simpan()
-// {
-// 	if (validated('form_barang')) {
-// 		$("#myModalLabel").html("Tambah Barang");
-// 		$("#btn-simpan-barang").empty().html("<i class='fa fa-refresh fa-spin fa-1x fa-fw'></i>Menyimpan data...").prop('disabled', true);
-// 		$("#btn-reset-barang").prop('disabled', true);
-
-// 		// AJAX Simpan barang
-// 		var form = $('#form_barang')[0];
-// 		var formData = new formData();
-// 		formData.append('section', 'general');
-// 		formData.append('action', 'previewImg');
-// 		formData.append('image', $('input[type=file]')[0].files[0], '153set-f.jpg');
-
-// 		$.ajax({
-// 			type: 'POST',
-// 			url	: 'katalog/store',
-// 			data: data,
-// 			contentType: false,
-//     		processData: false,
-// 			success: function(result){
-// 				console.log(result);
-// 			},
-// 			error: function(xhr, ajaxOption, thrownError){
-// 				console.log(xhr+"");
-// 			}
-// 		});
-
-// 	}else{
-// 		$("#myModalLabel").html("Tambah Barang <font color='red'>(isi data yang kosong)</font>")
-// 	}
-// }
 
 function validated(form_id){
 	var par = true;
 	$("#"+form_id+" input[required], #"+form_id+" textarea[required]").each(function(){
 		if ($(this).val()=='') {
+			par = false;
+			$(this).addClass('kosong');
+
+		}else{
+			$(this).removeClass('kosong');
+		}
+	});
+
+	$("#"+form_id+" input[type='number'][required]").each(function(){
+		if ($(this).val()=='0') {
 			par = false;
 			$(this).addClass('kosong');
 		}else{
@@ -104,10 +87,10 @@ function get_data(form_id)
 
 function reset_modal()
 {
-	$("#form_barang input[required], #form_barang textarea[required]").val('').removeClass('kosong');
+	$("#form_barang input, #form_barang textarea").val('').removeClass('kosong');
+	$("#form_barang input[type='number']").val('0');
 	$("#form_barang select option[value='0']").prop('selected', true);
 	$("#form_barang select").removeClass('kosong');
-	$("#myModalLabel").html("Tambah Barang");
 	$("#btn-simpan-barang").empty().html("Simpan").prop('disabled', false);
 	$("#btn-reset-barang").prop('disabled', false);
 }

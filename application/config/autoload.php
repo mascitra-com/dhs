@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'language');
+$autoload['helper'] = array('url', 'language', 'general');
 
 /*
 | -------------------------------------------------------------------
@@ -103,7 +103,7 @@ $autoload['helper'] = array('url', 'language');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('ion_auth');
+$autoload['config'] = array();
 
 /*
 | -------------------------------------------------------------------

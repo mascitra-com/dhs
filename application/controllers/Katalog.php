@@ -7,9 +7,11 @@ class Katalog extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->checkLoggedIn();
         $this->data['title'] = 'Katalog Barang';
         $this->data['js'] = 'katalog';
         $this->load->model('barang_m');
+        $this->load->library('upload');
         // Load model, library, helper disini
     }
 
@@ -18,9 +20,16 @@ class Katalog extends MY_Controller
      */
     public function index()
     {
-        $this->data['content'] = 'v_katalog';
-        $this->data['modal'] = 'v_katalog_form';
+        $this->load->model('kategori_m');
+
+        $this->data['content']      = 'katalog/index';
+        $this->data['modal']        = 'katalog/form';
+        $this->data['kategori']     = $this->kategori_m->get_all();
+        $this->data['data']         = $this->barang_m->get_all_data();
+        $this->data['autocomplete'] = $this->barang_m->get_autocomplete_data(); 
+
         $this->init();
+        // dump($this->data);
     }
 
     /**
@@ -28,18 +37,24 @@ class Katalog extends MY_Controller
      */
     public function store()
     {
-        $data               = $this->input->post();
-        $data['gambar']     = 'img-' . date('dmYhis');
-        $data['createdAt']  = date('Y-m-d');
-        $data['createdBy']  = '121212';
+        $data           = $this->input->post();
+        $data['gambar'] = 'img-' . date('dmYhis');
+        
+        if ($this->do_upload($data['gambar'])){
+            
+            $data['createdAt']  = date('Y-m-d h:i:s');
+            $data['createdBy']  = $this->ion_auth->get_user_id();
+            $data['gambar'] = $this->upload->data('file_name');
 
-        if ($this->barang_m->insert($data) != FALSE) {
-            if ($this->do_upload($data['gambar'])) {
+            if ($this->barang_m->insert($data) != FALSE) {
                 echo "sukses";
             }else{
+                echo "SALAH input";
+                delete_files($this->upload->data('full_path'));
                 show_404();
             }
         }else{
+            echo "Salah Upload";
             show_404();
         }
     }
@@ -48,12 +63,12 @@ class Katalog extends MY_Controller
     {
         $config['upload_path'] = '././assets/img-user';
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = 100;
+        $config['max_size'] = 1000;
         $config['max_width'] = 1024;
         $config['max_height'] = 768;
         $config['file_name'] = $name;
 
-        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
 
         if (!$this->upload->do_upload('gambar')) {
             return false;

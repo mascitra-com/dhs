@@ -12,6 +12,11 @@
         <?php $this->load->view('template/_navbar'); ?>
     </nav>
     <div class="container-fluid">
+        <?php if (isset($message)): ?>
+            <div class="alert alert-<?=$operation?>" role="alert">
+                <div id="infoMessage"><?php echo $message; ?></div>
+            </div>
+        <?php endif; ?>
         <?php $this->load->view($content); ?>
     </div>
 </div>

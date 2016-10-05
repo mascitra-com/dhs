@@ -168,7 +168,7 @@ class MY_Model extends CI_Model
     public function get_many_by()
     {
         $where = func_get_args();
-        
+
         $this->_set_where($where);
 
         return $this->get_all();
@@ -250,23 +250,19 @@ class MY_Model extends CI_Model
     {
         $data = $this->trigger('before_update', $data);
 
-        if ($skip_validation === FALSE)
-        {
+        if ($skip_validation === FALSE) {
             $data = $this->validate($data);
         }
 
-        if ($data !== FALSE)
-        {
-            $result = $this->_database->where($this->primary_key, $primary_value)
-                               ->set($data)
-                               ->update($this->_table);
+        if ($data !== FALSE) {
+            $this->_database->set($data);
+            $this->_database->where($this->primary_key, $primary_value);
+            $result = $this->_database->update($this->_table);
 
             $this->trigger('after_update', array($data, $result));
 
             return $result;
-        }
-        else
-        {
+        } else {
             return FALSE;
         }
     }
@@ -896,7 +892,7 @@ class MY_Model extends CI_Model
                     }
                 }
             }
-        } 
+        }
         else if (count($params) == 1)
         {
             $this->_database->where($params[0]);
@@ -905,7 +901,7 @@ class MY_Model extends CI_Model
 		{
             if (is_array($params[1]))
             {
-                $this->_database->where_in($params[0], $params[1]);    
+                $this->_database->where_in($params[0], $params[1]);
             }
             else
             {
@@ -920,7 +916,7 @@ class MY_Model extends CI_Model
         {
             if (is_array($params[1]))
             {
-                $this->_database->where_in($params[0], $params[1]);    
+                $this->_database->where_in($params[0], $params[1]);
             }
             else
             {
