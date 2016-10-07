@@ -34,6 +34,7 @@
                     </div>
                 </div>
                 <?php echo form_input($user_id); ?>
+                <a class="btn btn-default btn-fill" href="javascript:goBack()">Kembali</a>
                 <button type="submit" class="btn btn-info btn-fill pull-right">Simpan Profil</button>
                 <div class="clearfix"></div>
                 </form>

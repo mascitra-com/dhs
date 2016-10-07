@@ -1,7 +1,8 @@
 <div class="row">
 <?php $this->load->view('katalog/filter'); ?>
 	<div class="col-md-10">
-		<button class="btn btn-info btn-md btn-fill" data-toggle="modal" data-target="#mymodal">Tambah Data</button>
+		<button class="btn btn-info btn-md btn-fill" data-toggle="modal" data-target="#mymodal"><i class="fa fa-plus"></i>Tambah Data</button>
+		<a href="<?=site_url('katalog')?>"><button class="btn btn-success btn-md btn-fill"><i class="fa fa-refresh"></i>Segarkan Tabel</button></a>
 		<br><br>
 		<div class="row">
 			<?php foreach($data as $key): ?>
@@ -35,10 +36,6 @@
 								<tr>
 									<td>Kategori</td>
 									<td>&nbsp: <?=$key->kategori?></td>
-								</tr>
-								<tr>
-									<td>Tanggal Input</td>
-									<td>&nbsp: <?=date('d M Y', strtotime($key->createdAt))?></td>
 								</tr>
 							</table>
 						</p>

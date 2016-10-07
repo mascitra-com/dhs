@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 05 Okt 2016 pada 10.15
+-- Generation Time: 07 Okt 2016 pada 11.16
 -- Versi Server: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -49,7 +49,11 @@ CREATE TABLE `barang` (
 INSERT INTO `barang` (`id`, `nama`, `merk`, `tipe`, `spesifikasi`, `gambar`, `hargaPokok`, `hargaSatuan`, `id_kategori`, `createdAt`, `updateAt`, `createdBy`, `updateBy`) VALUES
 (1, 'Komputer', 'Dell', 'Inspiron', 'jhgfhj', 'img-05102016092730.jpg', 20000, 20000, 1, '2016-10-04 17:00:00', NULL, 1, NULL),
 (2, 'Laptop', 'Asus', 'AAA', 'Intel', 'img-05102016093645.jpg', 2000, 20000, 1, '2016-10-04 17:00:00', NULL, 1, NULL),
-(3, 'Layar', 'Samsung', 'ABC', 'LED', 'img-05102016093818.jpg', 20000, 2000, 1, '2016-10-05 02:38:18', NULL, 1, NULL);
+(3, 'Layar', 'Samsung', 'ABC', 'LED', 'img-05102016093818.jpg', 20000, 2000, 1, '2016-10-05 02:38:18', NULL, 1, NULL),
+(4, 'Layar LCD', 'Dell', 'AAA', '13 inch', 'img-06102016072311.jpg', 1000, 2000, 1, '2016-10-06 00:23:11', NULL, 1, NULL),
+(6, 'Mouse', 'Logitech', 'ADSG', 'Bluetooth', 'img-06102016080339.png', 10000, 10000, 1, '2016-10-06 01:03:39', NULL, 1, NULL),
+(7, 'Speaker', 'Simbada', '234000', 'Speaker 51', 'img-06102016080623.jpg', 12000, 10000, 1, '2016-10-06 01:06:23', NULL, 1, NULL),
+(8, 'Layar TV', 'Samsung', 'ADC4000', '13 Inch', 'img-07102016091816.jpg', 10000, 200000, 1, '2016-10-07 02:18:16', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -134,8 +138,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$08$rhHTUoj5J8nSMXW1Emb8MeAnX7goa6tUolWgYMnuYpZOPrIV7ObZG', '', 'admin@admin.com', '3ddd7f9b2f5d42b7921311dcc92b865f7707b2be', NULL, NULL, NULL, 1268889823, 1475654180, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '::1', 'rizkiherda@gmail.com', '$2y$08$jA.RbGG7rjOU/j00mW6TGelEzk02j5ITj0.KAvVpuzZwiXHg2Ys5q', NULL, 'rizkiherda@gmail.com', '7798e5d4e73154feff599b062f9373c10bc7a7b1', NULL, NULL, NULL, 1475639007, NULL, 0, 'Rizki', 'Herdatullah', 'MasCitra', '082234367866');
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, 'LNovQL3sncAHvhpbmHDBXe', 1268889823, 1475831571, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(2, '::1', 'rizkiherda@gmail.com', '$2y$08$rhJwtbO/Q6M26847s1dfFeJ77WcJbZqBue67L.4FOoaPtuVLixsfm', NULL, 'rizkiherda@gmail.com', NULL, 'o.gpY4GpP9WBnu-Zi1Dsc.09b3725c196d398db2', 1475723946, NULL, 1475722620, 1475722653, 1, 'Rizki', 'Herdatullah', 'MasCitra', '082234367866');
 
 -- --------------------------------------------------------
 
@@ -210,7 +214,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `groups`
 --

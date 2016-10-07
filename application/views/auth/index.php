@@ -27,7 +27,7 @@
                                 <?php endforeach ?>
                             </td>
                             <td><?php echo ($user->active) ? anchor("users/deactivate/" . $user->id, lang('index_active_link'), 'class = "alert alert-success"') : anchor("users/activate/" . $user->id, lang('index_inactive_link'), 'class = "alert alert-danger"'); ?></td>
-                            <td><?php echo anchor("users/edit_user/" . $user->id, 'Edit', 'class="btn btn-sm btn-default"'); ?></td>
+                            <td><?php echo anchor("users/edit/" . $user->id, 'Edit', 'class="btn btn-sm btn-default"'); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

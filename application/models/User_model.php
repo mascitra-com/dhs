@@ -16,12 +16,15 @@ class User_model extends MY_Model
     protected $has_many = array('questions', 'answers');
 
     public $validation = array(
-        array('field' => 'email',
+        array('field' => 'identity',
               'label' => 'Email',
               'rules' => 'required|valid_email|trim'),
         array('field' => 'password',
               'label' => 'Password',
-              'rules' => 'required|trim'));
+              'rules' => 'required|trim'),
+        array('field' => 'remember',
+              'label' => 'Ingatkan Saya',
+              'rules' => 'trim'));
 
     public function __construct()
     {

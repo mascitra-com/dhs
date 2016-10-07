@@ -186,6 +186,7 @@ class Auth extends MY_Controller {
 	// forgot password
 	public function forgot_password()
 	{
+	    $this->data['title'] = 'Lupa Kata Sandi';
 		// setting validation rules by checking whether identity is username or email
 		if($this->config->item('identity', 'ion_auth') != 'email' )
 		{
@@ -216,7 +217,7 @@ class Auth extends MY_Controller {
 			// set any errors and display the form
             $this->data['operation'] = 'danger';
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->_render_page('auth/forgot_password', $this->data);
+			$this->load->view('auth/forgot_password', $this->data);
 		}
 		else
 		{

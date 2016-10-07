@@ -53,7 +53,18 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+$server = $_SERVER['HTTP_HOST'];
+switch ($server) {
+    case "localhost":
+    case "127.0.0.1":
+    case "[::1]":
+    case "192.168.1.102":
+        $env = 'development';
+        break;
+    default:
+        $env = 'production';
+}
+define('ENVIRONMENT', $env);
 
 /*
  *---------------------------------------------------------------

@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Tambah Barang</h4>
       </div>
       <div class="modal-body">
-        <form id="form_barang">
+        <form id="form_barang" action="<?=site_url()?>katalog/store">
             <div class="row">
             <!-- Kiri -->
                 <div class="col-md-6">
@@ -47,7 +47,7 @@
                     <select name="id_kategori" class="form-control">
                       <option value = "0" selected>Pilih kategori</option>
                       <?php foreach($kategori as $key): ?>
-                      <option value = "<?=$key->kategori->id?>"><?=$key->kategori->nama?></option>
+                      <option value = "<?=$key->id?>"><?=$key->nama?></option>
                       <?php endforeach; ?>
                     </select>
                     <p class="help-block"><i class="fa fa-asterisk text-danger"></i> Wajib diisi</p>

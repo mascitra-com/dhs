@@ -21,16 +21,15 @@ $("#form_barang").on('submit',function(e){
 		$("#btn-reset-barang").prop('disabled', true);
 
 		$.ajax({
-			url			: "katalog/store",
+			url			: $(this).attr('action'),
 			type 		: "POST",
 			data 		: new FormData(this),
 			contentType	: false,
 			cache		: false,
 			processData	: false,
-			success: function(data){
+			success: function(result){
 				alert('Data berhasil diinputkan');
-				reset_modal();
-				// window.location('')
+				window.location = '';
 			},
 			error: function(xhr, ajaxOption, thrownError){
 				// console.log(xhr);
@@ -39,7 +38,6 @@ $("#form_barang").on('submit',function(e){
 				$("#btn-reset-barang").prop('disabled', false);
 			} 	        
 		});
-	}else{
 	}
 });
 

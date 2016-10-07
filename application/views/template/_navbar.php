@@ -14,7 +14,7 @@
         </ul> -->
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
+            <!-- <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-globe"></i>
                     <b class="caret"></b>
@@ -27,23 +27,27 @@
                     <li><a href="#">Notification 4</a></li>
                     <li><a href="#">Another notification</a></li>
                 </ul>
+            </li> -->
+            <li>
+                <a href="<?=site_url('katalog')?>"katalog/><i class="fa fa-archive"></i> Katalog</a>
             </li>
-            <li><a href="<?= site_url('users') ?>">Kelola Pengguna</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Akun
+                    <i class="fa fa-user"></i> Akun
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="<?= site_url('users/edit') ?>">Edit Profil</a></li>
-                    <li><a href="<?= site_url('users/change_password') ?>">Ganti Password</a></li>
+                    <li><a href="<?= site_url('users/edit') ?>"><i class="fa fa-user"></i> Edit Profil</a></li>
+                    <li><a href="<?= site_url('users/change_password') ?>"><i class="fa fa-lock"></i> Ganti Password</a></li>
 
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                    <?php if ($this->ion_auth->is_admin()): ?>
+                        <li class="divider"></li>
+                        <li><a href="<?= site_url('users') ?>"><i class="fa fa-users"></i>  Kelola Pengguna</a></li>
+                    <?php endif; ?>
                 </ul>
             </li>
             <li>
-                <a href="<?= site_url('users/logout') ?>">Log out</a>
+                <a href="<?= site_url('users/logout') ?>"><i class="fa fa-power-off"></i> Log out</a>
             </li>
         </ul>
     </div>

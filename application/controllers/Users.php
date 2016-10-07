@@ -6,7 +6,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-include __DIR__.'\Auth.php';
+include __DIR__.'/Auth.php';
 
 class Users extends Auth
 {
@@ -37,27 +37,26 @@ class Users extends Auth
     public function login()
     {
         $this->data['message'] = null;
-        // redirect if already logged in
+        // redirect jika sudah login
         if ($this->ion_auth->logged_in() == TRUE) {
             redirect('katalog');
         }
 
-        // Validate the form
+        // Validasi form
         $this->form_validation->set_rules($this->user_model->validation);
         if ($this->form_validation->run() == TRUE) {
-            // Try to login
+            // Mencoba login
             if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $this->input->post('remember'))) {
                 redirect('katalog');
             } else {
                 $this->data['operation'] = 'danger';
-                $this->data['message'] = 'Maaf. Sedang terjadi kesalahan sistem';
+                $this->data['message'] = 'E-mail dan Password yang Anda masukkan salah!';
             }
         }
 
-        // Tampilan Login
+        // Tampilkan Login Form
         $this->data['title'] = 'Login';
         $this->data['content'] = 'auth/login';
-
         // Tampilkan pesan error jika non user memaksa kesuatu fitur
         if ($this->session->flashdata('force')) {
             $this->data['operation'] = 'danger';
@@ -69,9 +68,11 @@ class Users extends Auth
     /**
      *  Menampilkan informasi Akun User yg sedang login
      */
-    public function edit()
+    public function edit($id_user = NULL)
     {
-        $id_user = $this->ion_auth->get_user_id();
+        if (is_null($id_user)){
+            $id_user = $this->ion_auth->get_user_id();
+        }
         $this->data['title'] = 'Profil Akun';
         $this->data['content'] = 'auth/profile';
         $this->data['message'] = null;
@@ -79,9 +80,11 @@ class Users extends Auth
         $this->init();
     }
 
-    public function update()
+    public function update($id_user = NULL)
     {
-        $id_user = $this->ion_auth->get_user_id();
+        if (is_null($id_user)){
+            $id_user = $this->ion_auth->get_user_id();
+        }
         $data = $this->input->post();
         if($this->user_model->update($id_user, $data) == TRUE){
             $this->session->set_flashdata('operation', 'success');

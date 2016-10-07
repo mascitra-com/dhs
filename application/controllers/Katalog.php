@@ -9,7 +9,8 @@ class Katalog extends MY_Controller
         parent::__construct();
         $this->checkLoggedIn();
         $this->data['title'] = 'Katalog Barang';
-        $this->data['js'] = 'katalog';
+        $this->data['js']    = 'katalog';
+        $this->data['modal'] = 'katalog/form';
         $this->load->model('barang_m');
         $this->load->library('upload');
         // Load model, library, helper disini
@@ -20,13 +21,18 @@ class Katalog extends MY_Controller
      */
     public function index()
     {
+        $data = $this->input->get();
+
         $this->load->model('kategori_m');
 
         $this->data['content']      = 'katalog/index';
-        $this->data['modal']        = 'katalog/form';
         $this->data['kategori']     = $this->kategori_m->get_all();
-        $this->data['data']         = $this->barang_m->get_all_data();
-        $this->data['autocomplete'] = $this->barang_m->get_autocomplete_data(); 
+        $this->data['data']         = $this->barang_m->get_all_data($data);
+        $this->data['autocomplete'] = $this->barang_m->get_autocomplete_data();
+        
+        if(! empty($data)){
+            $this->data['filter'] = $data;
+        }
 
         $this->init();
         // dump($this->data);
@@ -38,24 +44,36 @@ class Katalog extends MY_Controller
     public function store()
     {
         $data           = $this->input->post();
-        $data['gambar'] = 'img-' . date('dmYhis');
-        
-        if ($this->do_upload($data['gambar'])){
-            
-            $data['createdAt']  = date('Y-m-d h:i:s');
-            $data['createdBy']  = $this->ion_auth->get_user_id();
-            $data['gambar'] = $this->upload->data('file_name');
+        $uploadSukses   = false;
+        $data['gambar'] = 'default.png';
 
-            if ($this->barang_m->insert($data) != FALSE) {
-                echo "sukses";
+        if(! empty($_FILES['gambar']['name'])){
+            
+            $data['gambar'] = 'img-' . date('dmYhis');
+
+            if ($this->do_upload($data['gambar'])){
+                
+                $data['createdAt']  = date('Y-m-d h:i:s');
+                $data['createdBy']  = $this->ion_auth->get_user_id();
+                $data['gambar']     = $this->upload->data('file_name');
+
+                if ($this->barang_m->insert($data) == FALSE) {
+                    delete_files($this->upload->data('full_path'));
+                    // echo "Salah input";
+                    show_404();
+                }
             }else{
-                echo "SALAH input";
-                delete_files($this->upload->data('full_path'));
+                // echo "Salah Upload";
                 show_404();
             }
         }else{
-            echo "Salah Upload";
-            show_404();
+            $data['createdAt']  = date('Y-m-d h:i:s');
+            $data['createdBy']  = $this->ion_auth->get_user_id();
+
+            if ($this->barang_m->insert($data) == FALSE) {
+                // echo "Salah input";
+                show_404();
+            }
         }
     }
 
