@@ -48,3 +48,28 @@
 	font-size: 12pt;
 	font-weight: bolder;
 }
+
+.form-login{
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	max-height: 100vh;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-login form{
+	width: 400px;
+	padding: 20px;
+	border: 1px #afafaf solid;
+	background-color: #FFF;
+	/*border-radius: 3px;*/
+}
+
+.form-title h2{
+	padding-top: 5px;
+	margin-top: 0;
+	margin-bottom: 25px;
+	line-height: 20pt;
+	font-weight: bolder;
+}
