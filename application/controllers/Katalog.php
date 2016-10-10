@@ -63,7 +63,7 @@ class Katalog extends MY_Controller
                     show_404();
                 }
             }else{
-                // echo "Salah Upload";
+                // echo $this->upload->display_errors();
                 show_404();
             }
         }else{
@@ -71,7 +71,7 @@ class Katalog extends MY_Controller
             $data['createdBy']  = $this->ion_auth->get_user_id();
 
             if ($this->barang_m->insert($data) == FALSE) {
-                // echo "Salah input";
+                // echo "Salah input2";
                 show_404();
             }
         }
@@ -79,11 +79,11 @@ class Katalog extends MY_Controller
 
     public function do_upload($name)
     {
-        $config['upload_path'] = '././assets/img-user';
+        $config['upload_path'] ='././assets/img-user';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = 1000;
         $config['max_width'] = 1024;
-        $config['max_height'] = 768;
+        $config['max_height'] = 1024;
         $config['file_name'] = $name;
 
         $this->upload->initialize($config);
@@ -95,9 +95,11 @@ class Katalog extends MY_Controller
         }
     }
 
-    public function show($id)
+    public function detail($id=0)
     {
-
+        $this->data['content'] = 'katalog/detail';
+        $this->data['detail']  = $this->barang_m->get($id);
+        $this->init();
     }
 
     /**

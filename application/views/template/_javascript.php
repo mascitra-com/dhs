@@ -10,6 +10,8 @@
 <script src="<?= base_url() ?>assets/js/bootstrap-notify.js"></script>
 <!-- Data Table -->
 <script src="<?= base_url() ?>assets/js/datatable.js" type="text/javascript"></script>
+<!-- TinyMCE -->
+<script src="<?= base_url() ?>assets/js/tinymce/tinymce.min.js" type="text/javascript"></script>
 <!-- Custom Helper -->
 <script src="<?= base_url() ?>assets/js/helper.js" type="text/javascript"></script>
 <!--  Custom JS -->

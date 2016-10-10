@@ -17,6 +17,12 @@
 	padding: 5px 0px 0 10px;
 }
 
+.img-thumbnail{
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+}
+
 #navbar{
 	background-color: #34495e;
 	color: white;
@@ -32,4 +38,13 @@
 
 .kosong{
 	border-color: red;
+}
+
+.img-thumbnail{
+	width: 100%;
+}
+
+.tabel tr td{
+	font-size: 12pt;
+	font-weight: bolder;
 }

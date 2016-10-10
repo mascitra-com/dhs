@@ -18,19 +18,19 @@ class barang_m extends MY_Model
         if ($filter != null) {
             $where = "1";
             // Nama
-            if ($filter['nama'] != '') {
+            if (isset($filter['nama']) && $filter['nama'] != '') {
                 $where .= " AND b.nama like '%".$filter['nama']."%'";
             }
             // Merk
-            if ($filter['tipe'] != '') {
+            if (isset($filter['tipe']) && $filter['tipe'] != '') {
                 $where .= " AND tipe like '%".$filter['tipe']."%'";
             }
             // Tipe
-            if ($filter['merk'] != '') {
+            if (isset($filter['merk']) && $filter['merk'] != '') {
                 $where .= " AND merk like '%".$filter['merk']."%'";
             }
             // Harga Pokok
-            if ($filter['hargaPokok'][0] != '' || $filter['hargaPokok'][1] !='') {
+            if (isset($filter['hargaPokok'][0]) && ($filter['hargaPokok'][0] != '' || $filter['hargaPokok'][1] !='')) {
                 if ($filter['hargaPokok'][0] != '' && $filter['hargaPokok'][1] !='') {
                     $where .= " AND hargaPokok BETWEEN ".$filter['hargaPokok'][0]." AND ".$filter['hargaPokok'][1];
                 }elseif($filter['hargaPokok'][0] != '' && $filter['hargaPokok'][1] ==''){
@@ -40,7 +40,7 @@ class barang_m extends MY_Model
                 }
             }
             // Harga Satuan
-            if ($filter['hargaSatuan'][0] != '' || $filter['hargaSatuan'][1] !='') {
+            if (isset($filter['hargaSatuan'][0]) && ($filter['hargaSatuan'][0] != '' || $filter['hargaSatuan'][1] !='')) {
                 if ($filter['hargaSatuan'][0] != '' && $filter['hargaSatuan'][1] !='') {
                     $where .= " AND hargaSatuan BETWEEN ".$filter['hargaSatuan'][0]." AND ".$filter['hargaSatuan'][1];
                 }elseif($filter['hargaSatuan'][0] != '' && $filter['hargaSatuan'][1] ==''){
@@ -69,7 +69,7 @@ class barang_m extends MY_Model
         );
 
 
-        $index = ($filter != null)?$filter['urutan']:0;
+        $index = ($filter != null && isset($filter['urutan']))?$filter['urutan']:0;
         
         $this->order_by($urutan[$index][0], $urutan[$index][1]);
 
