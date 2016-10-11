@@ -7,7 +7,7 @@
 		<div class="row">
 			<?php foreach($data as $key): ?>
 			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="thumbnail">
+				<div class="thumbnail" id="barang<?=$key->id?>">
 					<img src="<?=base_url()?>assets/img-user/<?=$key->gambar?>" alt="<?=$key->nama?>">
 					<div class="caption">
 						<h4><a href="<?=site_url('katalog/detail/'.$key->id)?>" target='_blank'><?=$key->nama?></a></h4>
@@ -38,7 +38,7 @@
 						<p>
 							<a href="<?=site_url('katalog/detail/'.$key->id)?>" target='_blank' class="btn btn-default btn-xs" role="button">detail</a>
 							<a href="#" class="btn btn-primary btn-xs" role="button">edit</a>
-							<a href="#" class="btn btn-danger btn-xs" role="button">hapus</a>
+							<button type="button" class="btn btn-danger btn-xs" role="button" onclick="hapus(<?=$key->id?>, '<?=$key->gambar?>')">hapus</button>
 						</p>
 					</div>
 				</div>

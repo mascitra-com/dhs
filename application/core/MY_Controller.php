@@ -5,6 +5,7 @@ class MY_Controller extends CI_Controller
 {
     protected $data;
     protected $template = 'template/index';
+
     /**
      * @param $method
      * @param array $param
@@ -33,8 +34,9 @@ class MY_Controller extends CI_Controller
     /**
      *  Melakukan pengecekan status login
      */
-    protected function checkLoggedIn(){
-        if ($this->ion_auth->logged_in() == FALSE){
+    protected function checkLoggedIn()
+    {
+        if ($this->ion_auth->logged_in() == FALSE) {
             $this->session->set_flashdata('force', TRUE);
             redirect('users/login');
         }

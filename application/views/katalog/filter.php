@@ -21,33 +21,37 @@
     <div class="side-group">
         <div class="form-group">
             <label>Nama Barang</label>
-            <input type="text" class="form-control" name="nama" placeholder="Nama Barang" value="<?=(isset($filter['nama'])?$filter['nama']:'')?>">
+            <input type="text" class="form-control input-sm" name="nama" placeholder="Nama Barang" value="<?=(isset($filter['nama'])?$filter['nama']:'')?>">
         </div>
     </div>
     <div class="side-group">
         <div class="form-group">
             <label>Merk</label>
-            <input type="text" class="form-control" name="merk" placeholder="Merk Barang" value="<?=(isset($filter['merk'])?$filter['merk']:'')?>">
+            <input type="text" class="form-control input-sm" name="merk" placeholder="Merk Barang" value="<?=(isset($filter['merk'])?$filter['merk']:'')?>">
         </div>
     </div>
     <div class="side-group">
         <div class="form-group">
             <label>Tipe</label>
-            <input type="text" class="form-control" name="tipe" placeholder="Tipe Barang" value="<?=(isset($filter['tipe'])?$filter['tipe']:'')?>">
+            <input type="text" class="form-control input-sm" name="tipe" placeholder="Tipe Barang" value="<?=(isset($filter['tipe'])?$filter['tipe']:'')?>">
         </div>
     </div>
     <div class="side-group">
-        <div class="form-group">
-            <label>Harga Pokok</label>
-            <input type="number" min="0" class="form-control" name="hargaPokok[0]" placeholder="Harga Minimum" value="<?=(isset($filter['hargaPokok'])?$filter['hargaPokok'][0]:'')?>">
-            <input type="number" min="0" class="form-control" name="hargaPokok[1]" placeholder="Harga Maximum" value="<?=(isset($filter['hargaSatuan'])?$filter['hargaPokok'][1]:'')?>">
+        <label>Harga Pokok</label>
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaPokok[0]" placeholder="Min" value="<?=(isset($filter['hargaPokok'])?$filter['hargaPokok'][0]:'')?>">
+                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaPokok[1]" placeholder="Max" value="<?=(isset($filter['hargaSatuan'])?$filter['hargaPokok'][1]:'')?>">
+            </div>
         </div>
     </div>
     <div class="side-group">
-        <div class="form-group">
-            <label>Harga Satuan</label>
-            <input type="number" min="0" class="form-control" name="hargaSatuan[0]" placeholder="Harga Minimum" value="<?=(isset($filter)?$filter['hargaSatuan'][0]:'')?>">
-            <input type="number" min="0" class="form-control" name="hargaSatuan[1]" placeholder="Harga Maximum" value="<?=(isset($filter)?$filter['hargaSatuan'][1]:'')?>">
+        <label>Harga Satuan</label>
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaSatuan[0]" placeholder="Min" value="<?=(isset($filter)?$filter['hargaSatuan'][0]:'')?>">
+                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaSatuan[1]" placeholder="Max" value="<?=(isset($filter)?$filter['hargaSatuan'][1]:'')?>">
+            </div>
         </div>
     </div>
     <div class="side-group">

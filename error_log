@@ -1,0 +1,4 @@
+[07-Oct-2016 07:56:51 UTC] PHP Fatal error:  Class 'Auth' not found in /home/mascitra/public_html/dhs/application/controllers/Users.php on line 12
+[07-Oct-2016 08:16:56 UTC] PHP Fatal error:  Class 'Auth' not found in /home/mascitra/public_html/dhs/application/controllers/Users.php on line 12
+[07-Oct-2016 08:19:46 UTC] PHP Fatal error:  Class 'Auth' not found in /home/mascitra/public_html/dhs/application/controllers/Users.php on line 12
+[07-Oct-2016 08:23:21 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting variable (T_VARIABLE) or '$' in /home/mascitra/public_html/dhs/application/config/production/config.php on line 397

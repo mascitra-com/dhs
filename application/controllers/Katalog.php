@@ -123,8 +123,20 @@ class Katalog extends MY_Controller
     /**
      *  Hapus data di database
      */
-    public function destroy($id)
+    public function hapus()
     {
+        $id     = $this->input->post('id');
+        $gambar = $this->input->post('gambar');
 
+        if($this->barang_m->delete($id)){
+            // hapus file
+            if (unlink('./assets/img-user/'.$gambar)) {
+                echo "true";
+            }else{
+                echo "true-false";
+            }
+        }else{
+            echo "false";
+        }
     }
 }

@@ -29,7 +29,24 @@
                 </ul>
             </li> -->
             <li>
-                <a href="<?=site_url('katalog')?>"katalog/><i class="fa fa-archive"></i> Katalog</a>
+                
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-archive"></i> Katalog
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="<?=site_url('katalog')?>"><i class="fa fa-archive"></i> Katalog</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-upload"></i> Import Data</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-download"></i> Export Data</a>
+                    </li>
+                </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

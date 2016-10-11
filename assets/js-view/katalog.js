@@ -21,6 +21,7 @@ $("#mymodal").on('hide.bs.modal', function(){
 	reset_modal();
 });
 
+// Simpan data
 $("#form_barang").on('submit',function(e){
 	e.preventDefault();
 	if(validated('form_barang')){
@@ -58,6 +59,24 @@ $("#form_barang").on('submit',function(e){
 		});
 	}
 });
+
+//hapus data
+function hapus(id, gambar)
+{
+	if(confirm('Apakah anda yakin akan menghapus barang ini?')){
+		$.post('katalog/hapus', {id:id, gambar:gambar}, function(result, status){
+			if(status=='success' && result=='true'){
+				$.notify('Data berhasil dihapus', 'success');
+				$("#barang"+id).remove();
+			} else if(status=='success' && result=='true-false'){
+				$.notify('Data berhasil dihapus namun gambar tidak bisa dihapus', 'warning');
+				$("#barang"+id).remove();
+			}else{
+				$.notify('Data gagal dihapus', 'danger');
+			}
+		}, 'html');
+	}
+}
 
 function validated(form_id){
 	var par = true;

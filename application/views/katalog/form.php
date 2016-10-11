@@ -23,10 +23,6 @@
                 <input type="text" name="tipe" class="form-control" placeholder="Tipe Barang">
               </div>
               <div class="form-group">
-                <label>Upload Gambar</label>
-                <input type="file" name="gambar" accept="image/">
-              </div>
-              <div class="form-group">
                 <label for="">Harga Pokok <span class="text-danger">*</span></label>
                 <input type="number" min="0" name="hargaPokok" value="0" class="form-control" required>
               </div>
@@ -39,14 +35,18 @@
             <!-- kanan -->
             <div class="col-md-6">
               <div class="form-group">
-                  <label for="">Kategori <span class="text-danger">*</span></label>
-                  <select name="id_kategori" class="form-control">
-                    <option value = "0" selected>Pilih kategori</option>
-                    <?php foreach($kategori as $key): ?>
-                      <option value = "<?=$key->id?>"><?=$key->nama?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
+                <label for="">Kategori <span class="text-danger">*</span></label>
+                <select name="id_kategori" class="form-control">
+                  <option value = "0" selected>Pilih kategori</option>
+                  <?php foreach($kategori as $key): ?>
+                    <option value = "<?=$key->id?>"><?=$key->nama?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Upload Gambar</label>
+                <input type="file" name="gambar" accept="image/">
+              </div>
               <div class="form-group">
                 <label>Spesifikasi</label>
                 <textarea name="spesifikasi" id="tx-spesifikasi" class="form-control" placeholder="Spesifikasi Barang"></textarea>
