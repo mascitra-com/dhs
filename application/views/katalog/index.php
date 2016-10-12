@@ -17,7 +17,7 @@
 			<div class="col-sm-6 col-md-4 col-lg-3">
 				<div class="thumbnail" id="barang<?=$key->id?>" style="background-color: #fafafa">
 					<div class="thumbnail-action" style="position:absolute; top:10px; right:25px">
-						<a href="#" class="btn btn-primary btn-fill btn-xs" role="button"><i class="fa fa-pencil"></i></a>
+						<a href="<?=site_url('katalog/edit/'.$key->id)?>" class="btn btn-primary btn-fill btn-xs" role="button"><i class="fa fa-pencil"></i></a>
 						<button type="button" class="btn btn-danger btn-fill btn-xs btn-round" role="button" onclick="hapus(<?=$key->id?>, '<?=$key->gambar?>')"><i class="fa fa-trash"></i></button>
 					</div>
 					<img src="<?=base_url()?>assets/img-user/<?=cek_file($key->gambar)?>" alt="<?=$key->gambar?>">

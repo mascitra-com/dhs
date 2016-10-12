@@ -48,7 +48,6 @@ class Katalog extends MY_Controller
     {
         $data = $this->input->post();
         $uploadSukses = false;
-        $data['gambar'] = 'default.png';
 
         if (!empty($_FILES['gambar']['name'])) {
 
@@ -109,18 +108,70 @@ class Katalog extends MY_Controller
      * Tampilan edit data
      * @param $id
      */
-    public function edit($id)
+    public function edit($id=0)
     {
+        if ($id != 0) {
+            $this->load->model('kategori_m');
 
+            $this->data['content']  = 'katalog/edit';
+            $this->data['kategori'] = $this->kategori_m->get_all();
+            $this->data['data']     = $this->barang_m->get($id);
+            $this->init();
+        }else{
+            redirect(site_url('katalog'));
+        }
     }
 
     /**
      * Update data di database
      * @param $id
      */
-    public function update($id)
+    public function update()
     {
+        $data = $this->input->post();
+        $id = $data['id'];
+        unset($data['id']);
+        $uploadSukses = false;
 
+        if (!empty($_FILES['gambar']['name'])) {
+
+            $data['gambar'] = 'img-' . date('dmYhis');
+
+            if ($this->do_upload($data['gambar'])) {
+
+                $data['updatedAt'] = date('Y-m-d h:i:s');
+                $data['createdBy'] = $this->ion_auth->get_user_id();
+                $data['gambar'] = $this->upload->data('file_name');
+
+                if ($this->barang_m->update($id, $data) == FALSE) {
+                    delete_files($this->upload->data('full_path'));
+                    // echo "Salah input";
+                    $this->session->set_flashdata('Terjadi kesalahan input');
+                    redirect(site_url('katalog/edit/'.$id));
+                }else{
+                    $this->session->set_flashdata('data berhasil disimpan');
+                    redirect(site_url('katalog'));
+                }
+            } else {
+                // echo $this->upload->display_errors();
+                // show_404();
+                $this->session->set_flashdata('Terjadi kesalahan upload');
+                redirect(site_url('katalog/edit/'.$id));
+            }
+        } else {
+            $data['createdAt'] = date('Y-m-d h:i:s');
+            $data['createdBy'] = $this->ion_auth->get_user_id();
+
+            if ($this->barang_m->update($id, $data) == FALSE) {
+                // echo "Salah input2";
+                // show_404();
+                $this->session->set_flashdata('Terjadi kesalahan input');
+                redirect(site_url('katalog/edit/'.$id));
+            }else{
+                $this->session->set_flashdata('data berhasil disimpan');
+                redirect(site_url('katalog'));
+            }
+        }
     }
 
     /**
@@ -133,7 +184,7 @@ class Katalog extends MY_Controller
 
         if ($this->barang_m->delete($id)) {
             // hapus file
-            if ($gambar == '' || unlink('./assets/img-user/' . $gambar)) {
+            if (! file_exists('./assets/img-user/'.$gambar) || $gambar == '' || unlink('./assets/img-user/' . $gambar)) {
                 echo "true";
             } else {
                 echo "true-false";
