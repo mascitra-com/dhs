@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="">Preview Gambar</label>
-                  <img src="./assets/img-user/default.png" alt="tes" width="180px" height="180px" id="img-preview" class="img-fit" style="border:1px grey solid">
+                  <img src="<?=base_url()?>assets/img-user/default.png" alt="preview" width="180px" height="180px" id="img-preview" class="img-fit" style="border:1px grey solid">
                 </div>
               </div>
 

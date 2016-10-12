@@ -7,10 +7,22 @@
 		<div class="row">
 			<?php foreach($data as $key): ?>
 			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="thumbnail" id="barang<?=$key->id?>">
+				<div class="thumbnail" id="barang<?=$key->id?>" style="background-color: #fafafa">
+					<div class="thumbnail-action" style="position:absolute; top:10px; right:25px">
+						<a href="#" class="btn btn-primary btn-fill btn-xs" role="button"><i class="fa fa-pencil"></i></a>
+						<button type="button" class="btn btn-danger btn-fill btn-xs" role="button" onclick="hapus(<?=$key->id?>, '<?=$key->gambar?>')"><i class="fa fa-trash"></i></button>
+					</div>
 					<img src="<?=base_url()?>assets/img-user/<?=cek_file($key->gambar)?>" alt="<?=$key->gambar?>">
 					<div class="caption">
-						<h4><a href="<?=site_url('katalog/detail/'.$key->id)?>" target='_blank'><?=$key->nama?></a></h4>
+						<div class="row">
+							<div class="col-md-8">
+								<h4 style="margin-top:20px; margin-bottom: 3px"><a href="<?=site_url('katalog/detail/'.$key->id)?>" target='_blank'><?=$key->nama?></a></h4>
+							</div>
+							<div class="col-md-4">
+								<div style="margin-top: 10px"><i class="label label-default"><?=$key->kategori?></i></div>
+							</div>
+						</div>
+						<hr style="margin-top:15px;">
 						<p>
 							<table>
 								<tr>
@@ -25,20 +37,17 @@
 									<td>Tipe</td>
 									<td>&nbsp: <?=$key->tipe?></td>
 								</tr>
-								<tr>
-									<td>Harga Satuan</td>
-									<td>&nbsp: <?=$key->hargaSatuan?></td>
-								</tr>
-								<tr>
-									<td>Kategori</td>
-									<td>&nbsp: <?=$key->kategori?></td>
-								</tr>
 							</table>
 						</p>
-						<p>
-							<a href="<?=site_url('katalog/detail/'.$key->id)?>" target='_blank' class="btn btn-default btn-xs" role="button">detail</a>
-							<a href="#" class="btn btn-primary btn-xs" role="button">edit</a>
-							<button type="button" class="btn btn-danger btn-xs" role="button" onclick="hapus(<?=$key->id?>, '<?=$key->gambar?>')">hapus</button>
+						<p style="margin-top: 20px;">
+						<div class="row">
+							<div class="col-md-3">
+								<a href="<?=site_url('katalog/detail/'.$key->id)?>" target='_blank' class="btn btn-success btn-fill btn-xs" role="button">detail</a>
+							</div>
+							<div class="col-md-9 text-right">
+								<h1 style="font-size:19pt; line-height:0; margin: 0; padding-top: 10px;">Rp.<?=$key->hargaSatuan?></h1>
+							</div>
+						</div>	
 						</p>
 					</div>
 				</div>
