@@ -4,16 +4,16 @@
         <div class="form-group">
             <label>Urutkan</label>
             <select name="urutan" class="form-control">
-                <option value="0" <?=(isset($filter) && $filter['urutan']==0)?'selected':''?> >Terbaru</option>
-                <option value="1" <?=(isset($filter) && $filter['urutan']==1)?'selected':''?> >Terlama</option>
-                <option value="2" <?=(isset($filter) && $filter['urutan']==2)?'selected':''?> >Termahal</option>
-                <option value="3" <?=(isset($filter) && $filter['urutan']==3)?'selected':''?> >Termurah</option>
-                <option value="4" <?=(isset($filter) && $filter['urutan']==4)?'selected':''?> >Nama A-Z</option>
-                <option value="5" <?=(isset($filter) && $filter['urutan']==5)?'selected':''?> >Nama Z-A</option>
-                <option value="6" <?=(isset($filter) && $filter['urutan']==6)?'selected':''?> >Merk A-Z</option>
-                <option value="7" <?=(isset($filter) && $filter['urutan']==7)?'selected':''?> >Merek Z-A</option>
-                <option value="8" <?=(isset($filter) && $filter['urutan']==8)?'selected':''?> >Tipe A-Z</option>
-                <option value="9" <?=(isset($filter) && $filter['urutan']==9)?'selected':''?> >Tipe Z-A</option>
+                <option value="0" <?=(isset($filter['urutan']) && $filter['urutan']==0)?'selected':''?> >Terbaru</option>
+                <option value="1" <?=(isset($filter['urutan']) && $filter['urutan']==1)?'selected':''?> >Terlama</option>
+                <option value="2" <?=(isset($filter['urutan']) && $filter['urutan']==2)?'selected':''?> >Termahal</option>
+                <option value="3" <?=(isset($filter['urutan']) && $filter['urutan']==3)?'selected':''?> >Termurah</option>
+                <option value="4" <?=(isset($filter['urutan']) && $filter['urutan']==4)?'selected':''?> >Nama A-Z</option>
+                <option value="5" <?=(isset($filter['urutan']) && $filter['urutan']==5)?'selected':''?> >Nama Z-A</option>
+                <option value="6" <?=(isset($filter['urutan']) && $filter['urutan']==6)?'selected':''?> >Merk A-Z</option>
+                <option value="7" <?=(isset($filter['urutan']) && $filter['urutan']==7)?'selected':''?> >Merek Z-A</option>
+                <option value="8" <?=(isset($filter['urutan']) && $filter['urutan']==8)?'selected':''?> >Tipe A-Z</option>
+                <option value="9" <?=(isset($filter['urutan']) && $filter['urutan']==9)?'selected':''?> >Tipe Z-A</option>
             </select>
         </div>
         <div class="form-group"><button class="btn btn-primary btn-block btn-xs"><i class="fa fa-sort"></i></button></div>
@@ -41,7 +41,7 @@
         <div class="form-inline">
             <div class="form-group">
                 <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaPokok[0]" placeholder="Min" value="<?=(isset($filter['hargaPokok'])?$filter['hargaPokok'][0]:'')?>">
-                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaPokok[1]" placeholder="Max" value="<?=(isset($filter['hargaSatuan'])?$filter['hargaPokok'][1]:'')?>">
+                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaPokok[1]" placeholder="Max" value="<?=(isset($filter['hargaPokok'])?$filter['hargaPokok'][1]:'')?>">
             </div>
         </div>
     </div>
@@ -49,8 +49,8 @@
         <label>Harga Satuan</label>
         <div class="form-inline">
             <div class="form-group">
-                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaSatuan[0]" placeholder="Min" value="<?=(isset($filter)?$filter['hargaSatuan'][0]:'')?>">
-                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaSatuan[1]" placeholder="Max" value="<?=(isset($filter)?$filter['hargaSatuan'][1]:'')?>">
+                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaSatuan[0]" placeholder="Min" value="<?=(isset($filter['hargaSatuan'])?$filter['hargaSatuan'][0]:'')?>">
+                <input type="number" min="0" class="form-control input-sm" style="width: 48%" name="hargaSatuan[1]" placeholder="Max" value="<?=(isset($filter['hargaSatuan'])?$filter['hargaSatuan'][1]:'')?>">
             </div>
         </div>
     </div>

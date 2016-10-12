@@ -130,7 +130,7 @@ class Katalog extends MY_Controller
 
         if($this->barang_m->delete($id)){
             // hapus file
-            if (unlink('./assets/img-user/'.$gambar)) {
+            if ($gambar == '' || unlink('./assets/img-user/'.$gambar)) {
                 echo "true";
             }else{
                 echo "true-false";

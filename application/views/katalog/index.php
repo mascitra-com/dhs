@@ -8,7 +8,7 @@
 			<?php foreach($data as $key): ?>
 			<div class="col-sm-6 col-md-4 col-lg-3">
 				<div class="thumbnail" id="barang<?=$key->id?>">
-					<img src="<?=base_url()?>assets/img-user/<?=$key->gambar?>" alt="<?=$key->nama?>">
+					<img src="<?=base_url()?>assets/img-user/<?=cek_file($key->gambar)?>" alt="<?=$key->gambar?>">
 					<div class="caption">
 						<h4><a href="<?=site_url('katalog/detail/'.$key->id)?>" target='_blank'><?=$key->nama?></a></h4>
 						<p>
@@ -47,3 +47,13 @@
 		</div>
 	</div>
 </div>
+
+<?php
+function cek_file($filename){
+	if (! file_exists('./assets/img-user/'.$filename) || $filename == '') {
+		$filename = 'default.png';
+	}
+	return $filename;
+}
+
+?>

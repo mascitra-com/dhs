@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-3" style="padding-left: 20px;">
-		<img src="<?=base_url()?>assets/img-user/<?=$detail->gambar?>" alt="Gambar Barang" class="img-thumbnail">
+		<img src="<?=base_url()?>assets/img-user/<?=cek_file($detail->gambar)?>" alt="Gambar Barang" class="img-thumbnail">
 	</div>
 	<div class="col-md-9" style="padding-right: 100px;">
 		<table class="table">
@@ -35,3 +35,11 @@
 		</table>
 	</div>
 </div>
+<?php
+function cek_file($filename){
+	if (! file_exists('./assets/img-user/'.$filename) || $filename == '') {
+		$filename = 'default.png';
+	}
+	return $filename;
+}
+?>

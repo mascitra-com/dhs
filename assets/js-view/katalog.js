@@ -78,6 +78,11 @@ function hapus(id, gambar)
 	}
 }
 
+// Preview IMAGE
+$("input[name='gambar']").change(function(){
+    readURL(this);
+});
+
 function validated(form_id){
 	var par = true;
 	$("#"+form_id+" input[required], #"+form_id+" textarea[required]").each(function(){
@@ -128,6 +133,8 @@ function reset_modal()
 	$("#form_barang select").removeClass('kosong');
 	$("#btn-simpan-barang").empty().html("Simpan").prop('disabled', false);
 	$("#btn-reset-barang").prop('disabled', false);
+	tinyMCE.activeEditor.setContent('');
+    $('#img-preview').attr('src', './assets/img-user/default.png');
 }
 
 function refresh_badge()
@@ -137,4 +144,18 @@ function refresh_badge()
 	if (data_count > 0){
 		$(".badge").html(data_count+"");
 	}
+}
+
+// preview image
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#img-preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }
