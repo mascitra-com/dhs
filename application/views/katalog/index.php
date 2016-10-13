@@ -1,8 +1,16 @@
 <div class="row">
 <?php $this->load->view('katalog/filter'); ?>
 	<div class="col-md-10">
-		<button class="btn btn-info btn-md btn-fill" data-toggle="modal" data-target="#mymodal"><i class="fa fa-plus"></i>Tambah Data</button>
-		<button class="btn btn-success btn-md btn-fill" onclick="location.reload()"><i class="fa fa-refresh"></i>Segarkan Tabel <span class="badge"></span></button>
+		<div class="row">
+			<div class="col-md-8">
+				<button class="btn btn-info btn-md btn-fill" data-toggle="modal" data-target="#mymodal"><i class="fa fa-plus"></i>Tambah Data</button>
+				<button class="btn btn-success btn-md btn-fill" onclick="location.reload()"><i class="fa fa-refresh"></i>Segarkan Tabel <span class="badge"></span></button>
+			</div>
+			<div class="col-md-4 text-right">
+				<button class="btn btn-success btn-fill"><i class="fa fa-file-excel-o"></i></button>
+				<button class="btn btn-danger btn-fill"><i class="fa fa-file-pdf-o"></i></button>
+			</div>
+		</div>
 		<br><br>
 		<div class="row">
 			<?php foreach($data as $key): ?>
@@ -10,7 +18,7 @@
 				<div class="thumbnail" id="barang<?=$key->id?>" style="background-color: #fafafa">
 					<div class="thumbnail-action" style="position:absolute; top:10px; right:25px">
 						<a href="#" class="btn btn-primary btn-fill btn-xs" role="button"><i class="fa fa-pencil"></i></a>
-						<button type="button" class="btn btn-danger btn-fill btn-xs" role="button" onclick="hapus(<?=$key->id?>, '<?=$key->gambar?>')"><i class="fa fa-trash"></i></button>
+						<button type="button" class="btn btn-danger btn-fill btn-xs btn-round" role="button" onclick="hapus(<?=$key->id?>, '<?=$key->gambar?>')"><i class="fa fa-trash"></i></button>
 					</div>
 					<img src="<?=base_url()?>assets/img-user/<?=cek_file($key->gambar)?>" alt="<?=$key->gambar?>">
 					<div class="caption">
