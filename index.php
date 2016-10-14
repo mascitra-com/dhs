@@ -59,8 +59,6 @@ switch ($server) {
     case "127.0.0.1":
     case "[::1]":
     case "192.168.1.102":
-    case "ci.dev":
-    case "ci.dev":
         $env = 'development';
         break;
     default:
