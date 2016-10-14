@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Tambah Barang</h4>
       </div>
       <div class="modal-body">
-        <form id="form_barang" action="<?=site_url()?>katalog/store">
+        <form id="form_barang" action="<?=site_url("katalog/store")?>" method="POST">
           <div class="row">
             <!-- Kiri -->
             <div class="col-md-6">

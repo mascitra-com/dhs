@@ -1,5 +1,5 @@
 <div class="col-md-2">
-<form action="<?=site_url()?>/katalog" method="get">
+<form action="<?=site_url("katalog")?>" method="get">
     <div class="side-group">
         <div class="form-group">
             <label>Urutkan</label>
