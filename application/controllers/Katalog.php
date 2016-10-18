@@ -10,7 +10,7 @@ class Katalog extends MY_Controller
         $this->checkLoggedIn();
         $this->data['title'] = 'Katalog Barang';
 //        $this->data['js'] = 'view-katalog';
-        $this->data['modal'] = 'katalog/form';
+        // $this->data['modal'] = 'katalog/form';
         $this->load->model('barang_m');
         $this->load->library(array('upload', 'pagination'));
         $this->load->helper("file");
@@ -28,7 +28,11 @@ class Katalog extends MY_Controller
 
         $this->load->model('kategori_m');
 
-        $this->data['content'] = 'katalog/index';
+        // prepare view
+        $this->data['content'] = 'katalog/index-re';
+        $this->data['css']     = 'katalog';
+        $this->data['js']     = 'katalog';
+
         $this->data['kategori'] = $this->kategori_m->get_all();
         $this->data['data'] = $this->barang_m->get_all_data($data);
         $this->data['autocomplete'] = $this->barang_m->get_autocomplete_data();
@@ -37,11 +41,6 @@ class Katalog extends MY_Controller
             $this->data['filter'] = $data;
         }
         $this->init();
-    }
-
-    public function page()
-    {
-        $this->index();
     }
 
     /**

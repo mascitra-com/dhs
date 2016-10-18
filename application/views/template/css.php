@@ -11,6 +11,6 @@
 <link href="<?=base_url()?>/assets/plugin/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
 <!--  Load custom CSS  -->
 <?php if(isset($css) && $css != ''): ?>
-<link href="assets/css/<?=$css?>.css" rel="stylesheet" />
+<link href="<?=base_url()?>assets/css/_<?=$css?>.css" rel="stylesheet" />
 <?php endif ?>
 

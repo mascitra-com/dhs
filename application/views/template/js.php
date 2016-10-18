@@ -9,6 +9,6 @@
 <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 <script src="<?=base_url()?>/assets/plugin/template/js/light-bootstrap-dashboard.js"></script>
 <!--  Load custom JS -->
-<?php if(isset($css) && $js != ''): ?>
-<script src="assets/js/<?=(isset($js))?$js.'.js':''?>"></script>
+<?php if(isset($js) && $js != ''): ?>
+<script src="<?=base_url()?>assets/js/_<?=$js?>.js"></script>
 <?php endif ?>

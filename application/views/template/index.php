@@ -1,8 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <?php $this->load->view('template/header'); ?>
-    <?php $this->load->view('template/styles'); ?>
+    <meta charset="utf-8"/>
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <title><?=(isset($title))?$title:'SI DHSB Lumajang'; ?></title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width"/>
+
+    <!-- Load CSS -->
+    <?php $this->load->view('template/css'); ?>
+
 </head>
 <body>
 
@@ -15,15 +25,11 @@
 
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi consequuntur deserunt dolorem doloremque dolores doloribus dolorum et, excepturi, illo ipsum maxime minus necessitatibus omnis porro qui reprehenderit, sed voluptas.</p>
-                    </div>
-                </div>
+                <?php if(isset($content)) $this->load->view($content) ?>
             </div>
         </div>
 
-
+        <!-- Load footer   -->
         <?php $this->load->view('template/footer'); ?>
 
     </div>
@@ -32,6 +38,7 @@
 
 </body>
 
+<!-- Load JS -->
 <?php $this->load->view('template/js'); ?>
 
 

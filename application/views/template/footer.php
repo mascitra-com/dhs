@@ -11,7 +11,7 @@
             </ul>
         </nav>
         <p class="copyright pull-right">
-            &copy; 2016 <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+            copyright &copy; <?=date('Y')?> <a href="http://www.mascitra.com">MasCitra.com</a>, made with love for a better web
         </p>
     </div>
 </footer>

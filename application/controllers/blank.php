@@ -14,7 +14,6 @@ class Blank extends MY_Controller {
      */
     public function index()
 	{
-	    $this->data['content'] = 'katalog/index';
 	    $this->init();
 
 	}

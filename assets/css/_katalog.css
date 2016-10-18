@@ -1,0 +1,72 @@
+.badge{
+	color: #FFF;
+	font-weight: normal;
+}
+
+.badge:hover{
+	background-color: yellow;
+	color: black;
+	border: 1px grey solid;
+}
+
+.table tbody tr td{
+	word-wrap: break-word;
+}
+.table-img{
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border: 1px solid gray;
+}
+
+.table-img:hover{
+	cursor: pointer;
+	border: 2px solid red;
+}
+
+.table tbody tr td h1,
+.table tbody tr td h2,
+.table tbody tr td h3,
+.table tbody tr td h4,
+.table tbody tr td p{
+	margin-top:0px;
+	margin-bottom:0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.table tbody tr td a{
+	color: #161616;
+}
+
+.table tbody tr td a:hover{
+	color: #ff2626;
+}
+
+.table tbody tr td p{
+	margin-bottom: 5px;
+	padding-bottom: 3px;
+	font-size: 10pt;
+	border-bottom: 1px #adadad dashed;
+}
+
+.table tbody tr td button{
+	display: block;
+	margin-bottom: 5px;
+	width: 75px;
+	text-align: left;
+}
+
+.table tbody tr td .fa{
+	margin-right: 5px;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
