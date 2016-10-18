@@ -54,6 +54,7 @@
             </div>
         </div>
     </div>
+    <br/>
     <div class="side-group">
         <button class="btn btn-success btn-fill btn-block">Filter</button>
     </div>

@@ -58,13 +58,13 @@ switch ($server) {
     case "localhost":
     case "127.0.0.1":
     case "[::1]":
-    case "192.168.1.102":
+    case "192.168.1.%":
         $env = 'development';
         break;
     default:
         $env = 'production';
 }
-define('ENVIRONMENT', $env);
+define('ENVIRONMENT', 'development');
 
 /*
  *---------------------------------------------------------------

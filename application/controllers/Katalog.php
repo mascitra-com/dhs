@@ -9,10 +9,10 @@ class Katalog extends MY_Controller
         parent::__construct();
         $this->checkLoggedIn();
         $this->data['title'] = 'Katalog Barang';
-        $this->data['js'] = 'katalog';
+//        $this->data['js'] = 'view-katalog';
         $this->data['modal'] = 'katalog/form';
         $this->load->model('barang_m');
-        $this->load->library('upload');
+        $this->load->library(array('upload', 'pagination'));
         $this->load->helper("file");
         require_once APPPATH . 'libraries/PHPExcel.php';
         include_once APPPATH . 'libraries/PHPExcel/Writer/PDF.php';
@@ -36,9 +36,12 @@ class Katalog extends MY_Controller
         if (!empty($data)) {
             $this->data['filter'] = $data;
         }
-
         $this->init();
-        // dump($this->data);
+    }
+
+    public function page()
+    {
+        $this->index();
     }
 
     /**
@@ -65,7 +68,6 @@ class Katalog extends MY_Controller
                     show_404();
                 }
             } else {
-                // echo $this->upload->display_errors();
                 show_404();
             }
         } else {
@@ -73,7 +75,6 @@ class Katalog extends MY_Controller
             $data['createdBy'] = $this->ion_auth->get_user_id();
 
             if ($this->barang_m->insert($data) == FALSE) {
-                // echo "Salah input2";
                 show_404();
             }
         }
@@ -101,6 +102,12 @@ class Katalog extends MY_Controller
     {
         $this->data['content'] = 'katalog/detail';
         $this->data['detail'] = $this->barang_m->get($id);
+        $increment = (int)$this->data['detail']->popularitas;
+        $update['popularitas'] = $increment + 1;
+        $this->barang_m->update($id, $update);
+        $filter['kategori'] = $this->data['detail']->id_kategori;
+        $this->data['terkait'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
+        $this->data['top'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
         $this->init();
     }
 
@@ -108,16 +115,16 @@ class Katalog extends MY_Controller
      * Tampilan edit data
      * @param $id
      */
-    public function edit($id=0)
+    public function edit($id = 0)
     {
         if ($id != 0) {
             $this->load->model('kategori_m');
 
-            $this->data['content']  = 'katalog/edit';
+            $this->data['content'] = 'katalog/edit';
             $this->data['kategori'] = $this->kategori_m->get_all();
-            $this->data['data']     = $this->barang_m->get($id);
+            $this->data['data'] = $this->barang_m->get($id);
             $this->init();
-        }else{
+        } else {
             redirect(site_url('katalog'));
         }
     }
@@ -147,8 +154,8 @@ class Katalog extends MY_Controller
                     delete_files($this->upload->data('full_path'));
                     // echo "Salah input";
                     $this->session->set_flashdata('Terjadi kesalahan input');
-                    redirect(site_url('katalog/edit/'.$id));
-                }else{
+                    redirect(site_url('katalog/edit/' . $id));
+                } else {
                     $this->session->set_flashdata('data berhasil disimpan');
                     redirect(site_url('katalog'));
                 }
@@ -156,7 +163,7 @@ class Katalog extends MY_Controller
                 // echo $this->upload->display_errors();
                 // show_404();
                 $this->session->set_flashdata('Terjadi kesalahan upload');
-                redirect(site_url('katalog/edit/'.$id));
+                redirect(site_url('katalog/edit/' . $id));
             }
         } else {
             $data['createdAt'] = date('Y-m-d h:i:s');
@@ -166,8 +173,8 @@ class Katalog extends MY_Controller
                 // echo "Salah input2";
                 // show_404();
                 $this->session->set_flashdata('Terjadi kesalahan input');
-                redirect(site_url('katalog/edit/'.$id));
-            }else{
+                redirect(site_url('katalog/edit/' . $id));
+            } else {
                 $this->session->set_flashdata('data berhasil disimpan');
                 redirect(site_url('katalog'));
             }
@@ -184,7 +191,7 @@ class Katalog extends MY_Controller
 
         if ($this->barang_m->delete($id)) {
             // hapus file
-            if (! file_exists('./assets/img-user/'.$gambar) || $gambar == '' || unlink('./assets/img-user/' . $gambar)) {
+            if (!file_exists('./assets/img-user/' . $gambar) || $gambar == '' || unlink('./assets/img-user/' . $gambar)) {
                 echo "true";
             } else {
                 echo "true-false";
@@ -210,7 +217,7 @@ class Katalog extends MY_Controller
     {
         $fileName = time() . '-' . $_FILES['file']['name'];
 
-        $config['upload_path'] = '././assets/'; //buat folder dengan nama assets di root folder
+        $config['upload_path'] = base_url('/assets/'); //buat folder dengan nama assets di root folder
         $config['file_name'] = $fileName;
         $config['allowed_types'] = 'xls|xlsx|csv';
         $config['max_size'] = 10000;
@@ -222,7 +229,7 @@ class Katalog extends MY_Controller
             $this->upload->display_errors();
         }
         $filepath = $this->upload->data('full_path');
-        $inputFileName = '././assets/' . $fileName;
+        $inputFileName = base_url('/assets/') . $fileName;
 
         try {
             $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
@@ -259,7 +266,7 @@ class Katalog extends MY_Controller
                 //sesuaikan nama dengan nama tabel
                 $this->db->insert("barang", $data);
             }
-            $this->session->set_flashdata('message', array('Berhasil di Upload','success'));
+            $this->session->set_flashdata('message', array('Berhasil di Upload', 'success'));
         } else {
             $this->session->set_flashdata('message', array('Gagal di Upload', 'danger'));
         }
