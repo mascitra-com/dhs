@@ -2,11 +2,6 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="content">
-				<marquee>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, ex, velit. Porro id ipsa quasi voluptate! Error recusandae porro explicabo!</marquee>
-			</div>
-		</div>
-		<div class="card">
-			<div class="header">
 				<div class="row">
 					<div class="col-md-9">
 						<!-- Dropdown Kategori -->
@@ -33,67 +28,119 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-3 pull-right">
-						<select name="urut" class="form-control">
-							<option value="0" selected>urutkan berdasar...</option>
+					<div class="col-md-3">
+						<select name="order" id="sl-urut" class="form-control">
+							<option value="0" <?=(isset($filter['order']) && $filter['order']==0)?'selected':''?> >Terbaru</option>
+							<option value="1" <?=(isset($filter['order']) && $filter['order']==1)?'selected':''?> >Terlama</option>
+							<option value="2" <?=(isset($filter['order']) && $filter['order']==2)?'selected':''?> >Termahal</option>
+							<option value="3" <?=(isset($filter['order']) && $filter['order']==3)?'selected':''?> >Termurah</option>
+							<option value="4" <?=(isset($filter['order']) && $filter['order']==4)?'selected':''?> >Nama A-Z</option>
+							<option value="5" <?=(isset($filter['order']) && $filter['order']==5)?'selected':''?> >Nama Z-A</option>
+							<option value="6" <?=(isset($filter['order']) && $filter['order']==6)?'selected':''?> >Merk A-Z</option>
+							<option value="7" <?=(isset($filter['order']) && $filter['order']==7)?'selected':''?> >Merek Z-A</option>
+							<option value="8" <?=(isset($filter['order']) && $filter['order']==8)?'selected':''?> >Tipe A-Z</option>
+							<option value="9" <?=(isset($filter['order']) && $filter['order']==9)?'selected':''?> >Tipe Z-A</option>
 						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="header">
+				<div class="row">
+					<div class="col-md-2">
+					<div class="form-group"><input type="text" class="form-control" id="ip-nama" value="<?=(isset($filter['nama']))?$filter['nama']:''?>" placeholder="Nama"></div>
+					</div>
+					<div class="col-md-2">
+					<div class="form-group"><input type="text" class="form-control" id="ip-merk" value="<?=(isset($filter['merk']))?$filter['merk']:''?>" placeholder="Merk"></div>
+					</div>
+					<div class="col-md-2">
+					<div class="form-group"><input type="text" class="form-control" id="ip-tipe" value="<?=(isset($filter['tipe']))?$filter['tipe']:''?>" placeholder="Tipe"></div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-inline">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="harga min">
+								<input type="text" class="form-control" placeholder="harga max">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="form-group"><button class="btn btn-info btn-fill" id="bt-filter"><i class="fa fa-search"></i></button></div>
 					</div>
 				</div>
 			</div>
 			<div class="content table-responsive table-full-width">
 				<table class="table table-hover">
 					<tbody>
-						<?php for($i=1; $i<=5; $i++): ?>
-							<tr>
+						<?php foreach($barang as $brg): ?>
+							<tr id="brg<?=$brg->id?>">
 								<td width="15%">
-									<img class="table-img" src="<?=base_url()?>assets/img/default-avatar.png" alt="">
+									<img class="table-img" src="<?=base_url()?>assets/img/img-barang/<?=cek_file($brg->gambar)?>" alt="">
 								</td>
 								<td>
 									<h5>
 										<a href="#"><span class="badge">Kategori</span></a> 
 										<i class="fa fa-angle-double-right"></i> 
-										<a href="#"><span class="badge">subkategori</span></a>
+										<a href="#"><span class="badge"><?=$brg->kategori?></span></a>
 									</h5>
-									<h5><a href="#"><b class="text-muted">IDBARANG012345</b></a></h5>
-									<h4><a href="#"><b>JUDUL BARANG DAN NAMA MERK ABCDEFG</b></a></h4>
+									<h5><a href="<?=site_url('katalog/detail/'.$brg->id)?>"><b class="text-muted">BRG<?=strtoupper($brg->kategori)?><?=$brg->id?></b></a></h5>
+									<h4><a href="<?=site_url('katalog/detail/'.$brg->id)?>"><b><?=$brg->nama.' '.$brg->merk.' '.$brg->tipe?></b></a></h4>
 								</td>
 								<td width="30%">
-									<p><i class="fa fa-tag fa-fw"></i> Harga: Rp.100.000</p>
-									<p><i class="fa fa-tags fa-fw"></i> Update Harga: n/a</p>
-									<p><i class="fa fa-paper-plane fa-fw"></i> Penyedia: ABC</p>
-									<p><i class="fa fa-calendar fa-fw"></i> Berlaku sd: 31 Oktober 2017</p>
+									<p><i class="fa fa-tag fa-fw"></i> Harga: Rp.<?=number_format($brg->hargaSatuan, '0' , '' , '.' )?>,-</p>
+									<p><i class="fa fa-tags fa-fw"></i><!--  Update Harga: n/a --></p>
+									<p><i class="fa fa-paper-plane fa-fw"></i><!--  Penyedia: ABC --></p>
+									<p><i class="fa fa-calendar fa-fw"></i><!--  Berlaku sd: 31 Oktober 2017 --></p>
 								</td>
 								<td width="15%" align="center">
-									<button class="btn btn-info btn-fill btn-xs"><i class="fa fa-pencil"></i> ubah</button>
-									<button class="btn btn-danger btn-fill btn-xs"><i class="fa fa-trash"></i> hapus</button>
+									<a href="<?=site_url('katalog/edit/'.$brg->id)?>" class="btn btn-info btn-fill btn-xs"><i class="fa fa-pencil"></i> ubah</a>
+									<button class="btn btn-danger btn-fill btn-xs" onclick="hapus(<?=$brg->id?>, '<?= $brg->gambar ?>')"><i class="fa fa-trash"></i> hapus</button>
 								</td>
 							</tr>
-						<?php endfor; ?>
+						<?php endforeach; ?>
 						<tr>
-							<td colspan="4" align="center">
+							<td colspan="2" align="left">
 								<nav aria-label="Page navigation">
 									<ul class="pagination">
-										<li>
-											<a href="#" aria-label="Previous">
-												<span aria-hidden="true">&laquo;</span>
-											</a>
-										</li>
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li>
-											<a href="#" aria-label="Next">
-												<span aria-hidden="true">&raquo;</span>
-											</a>
-										</li>
+										<li><a style="cursor: pointer;">Banyak Data</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(2)">2</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(10)">10</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(20)">20</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(50)">50</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(100)">100</a></li>
+									</ul>
+								</nav>
+							</td>
+							<td colspan="2" align="right">
+								<?php
+								if(! isset($filter['pg'])):
+									$filter['pg'] = 1;
+								endif;
+								$pg = $filter['pg'];
+								?>
+								<nav aria-label="Page navigation">
+									<ul class="pagination">
+										<li><a style="cursor: pointer;" onclick="pagination(1)">awal</a></li>
+										<li><a style="cursor: pointer;" onclick="pagination(<?=$pg-1?>)"><i class="fa fa-arrow-left"></i></a></li>
+										<li><a style="cursor: pointer;" onclick="pagination(<?=$pg+1?>)"><i class="fa fa-arrow-right"></i></a></li>
 									</ul>
 								</nav>
 							</td>
 						</tr>
-					</table>
-				</div>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+</div>
+
+<?php
+function cek_file($filename)
+{
+	if (!file_exists('./assets/img/img-barang/' . $filename) || $filename == '') {
+		$filename = 'default.png';
+	}
+	return $filename;
+}
+?>

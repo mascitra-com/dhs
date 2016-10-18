@@ -15,6 +15,7 @@ $(document).ready(function () {
         selector: '#tx-spesifikasi',
         menubar: false
     });
+
     $('#file').on('fileselect', function (event, numFiles, label) {
 
         var input = $(this).parents('.input-group').find(':text'),
@@ -70,28 +71,6 @@ $("#form_barang").on('submit', function (e) {
             }
         });
     }
-});
-
-//hapus data
-function hapus(id, gambar) {
-    if (confirm('Apakah anda yakin akan menghapus barang ini?')) {
-        $.post('katalog/hapus', {id: id, gambar: gambar}, function (result, status) {
-            if (status == 'success' && result == 'true') {
-                $.notify('Data berhasil dihapus', 'success');
-                $("#barang" + id).remove();
-            } else if (status == 'success' && result == 'true-false') {
-                $.notify('Data berhasil dihapus namun gambar tidak bisa dihapus', 'warning');
-                $("#barang" + id).remove();
-            } else {
-                $.notify('Data gagal dihapus', 'danger');
-            }
-        }, 'html');
-    }
-}
-
-// Preview IMAGE
-$("input[name='gambar']").change(function () {
-    readURL(this);
 });
 
 function validated(form_id) {
@@ -154,19 +133,7 @@ function refresh_badge() {
     }
 }
 
-// preview image
-function readURL(input) {
 
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#img-preview').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 
 // We can attach the `fileselect` event to all file inputs on the page

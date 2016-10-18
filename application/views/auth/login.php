@@ -5,8 +5,8 @@
     <title>Login | Daftar Harga Satuan</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?=base_url()?>assets/css/kustom.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/plugin/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/css/_login.css">
 </head>
 <body style="background-color: #ecf0f1">
     <div class="container">
