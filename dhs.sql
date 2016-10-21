@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 07 Okt 2016 pada 11.16
+-- Generation Time: 21 Okt 2016 pada 08.54
 -- Versi Server: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -28,14 +28,24 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `barang` (
   `id` int(11) NOT NULL,
+  `id_kategori` int(11) NOT NULL,
+  `kode_barang` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `merk` varchar(255) DEFAULT NULL,
+  `ukuran` varchar(255) NOT NULL,
   `tipe` varchar(255) DEFAULT NULL,
   `spesifikasi` text,
+  `satuan` varchar(255) NOT NULL,
   `gambar` text,
+  `hargaPasar` double NOT NULL,
+  `biayaKirim` double NOT NULL,
+  `resitensi` double NOT NULL,
+  `ppn` double NOT NULL,
+  `hargashsb` double NOT NULL,
   `hargaPokok` double DEFAULT NULL,
   `hargaSatuan` double NOT NULL,
-  `id_kategori` int(11) NOT NULL,
+  `keterangan` text NOT NULL,
+  `popularitas` int(11) DEFAULT '0',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updateAt` timestamp NULL DEFAULT NULL,
   `createdBy` int(11) NOT NULL,
@@ -46,14 +56,10 @@ CREATE TABLE `barang` (
 -- Dumping data untuk tabel `barang`
 --
 
-INSERT INTO `barang` (`id`, `nama`, `merk`, `tipe`, `spesifikasi`, `gambar`, `hargaPokok`, `hargaSatuan`, `id_kategori`, `createdAt`, `updateAt`, `createdBy`, `updateBy`) VALUES
-(1, 'Komputer', 'Dell', 'Inspiron', 'jhgfhj', 'img-05102016092730.jpg', 20000, 20000, 1, '2016-10-04 17:00:00', NULL, 1, NULL),
-(2, 'Laptop', 'Asus', 'AAA', 'Intel', 'img-05102016093645.jpg', 2000, 20000, 1, '2016-10-04 17:00:00', NULL, 1, NULL),
-(3, 'Layar', 'Samsung', 'ABC', 'LED', 'img-05102016093818.jpg', 20000, 2000, 1, '2016-10-05 02:38:18', NULL, 1, NULL),
-(4, 'Layar LCD', 'Dell', 'AAA', '13 inch', 'img-06102016072311.jpg', 1000, 2000, 1, '2016-10-06 00:23:11', NULL, 1, NULL),
-(6, 'Mouse', 'Logitech', 'ADSG', 'Bluetooth', 'img-06102016080339.png', 10000, 10000, 1, '2016-10-06 01:03:39', NULL, 1, NULL),
-(7, 'Speaker', 'Simbada', '234000', 'Speaker 51', 'img-06102016080623.jpg', 12000, 10000, 1, '2016-10-06 01:06:23', NULL, 1, NULL),
-(8, 'Layar TV', 'Samsung', 'ADC4000', '13 Inch', 'img-07102016091816.jpg', 10000, 200000, 1, '2016-10-07 02:18:16', NULL, 1, NULL);
+INSERT INTO `barang` (`id`, `id_kategori`, `kode_barang`, `nama`, `merk`, `ukuran`, `tipe`, `spesifikasi`, `satuan`, `gambar`, `hargaPasar`, `biayaKirim`, `resitensi`, `ppn`, `hargashsb`, `hargaPokok`, `hargaSatuan`, `keterangan`, `popularitas`, `createdAt`, `updateAt`, `createdBy`, `updateBy`) VALUES
+(5, 1, '', 'Laptop', 'Macbook', '', 'PRO 2016', '', '', '3x4 Rizki.jpg', 0, 0, 0, 0, 0, 1000, 120000, '', 0, '2016-10-17 05:39:52', NULL, 1, NULL),
+(6, 1, '', 'Layar', 'Dell', '', 'ASd230', '', '', 'enc.jpg', 0, 0, 0, 0, 0, 1000, 12000, '', 3, '2016-10-17 05:39:08', NULL, 1, NULL),
+(7, 2, '', 'Microsoft Office', 'Office 2016', '', 'Office Tool', '', '', '', 0, 0, 0, 0, 0, 650000, 700000, '', 5, '2016-10-17 10:13:48', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -83,16 +89,29 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 
 CREATE TABLE `kategori` (
   `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL
+  `kode_kategori` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `id_induk_kategori` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `kategori`
 --
 
-INSERT INTO `kategori` (`id`, `nama`) VALUES
-(1, 'Hardware'),
-(2, 'Software');
+INSERT INTO `kategori` (`id`, `kode_kategori`, `nama`, `id_induk_kategori`) VALUES
+(1, '02', 'Golongan Peralatan dan Mesin', 0),
+(2, '02.02', 'Alat-alat Besar', 1),
+(3, '02.03', 'Alat-alat Angkutan', 1),
+(4, '02.04', 'Alat-alat Bengkel, Tukang dan Alat Ukur', 1),
+(5, '02.05', 'Alat-alat Pertanian', 1),
+(6, '02.06', 'Alat-alat Kantor dan Rumah Tangga', 1),
+(7, '02.06.01', 'Alat Kantor', 6),
+(8, '02.06.02', 'Alat Rumah Tangga', 6),
+(9, '02.06.03', 'Komputer', 6),
+(10, '02.06.04', 'Meja dan Kursi Kerja / Rapat Pejabat', 6),
+(11, '02.07', 'Alat Studio dan Komunikasi', 1),
+(12, '02.08', 'Alat-alat Kedokteran', 1),
+(13, '02.09', 'Alat-alat Laboratorium', 1);
 
 -- --------------------------------------------------------
 
@@ -138,7 +157,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, 'LNovQL3sncAHvhpbmHDBXe', 1268889823, 1475831571, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, 'LNovQL3sncAHvhpbmHDBXe', 1268889823, 1476865799, 1, 'Admin', 'istrator', 'ADMIN', '0'),
 (2, '::1', 'rizkiherda@gmail.com', '$2y$08$rhJwtbO/Q6M26847s1dfFeJ77WcJbZqBue67L.4FOoaPtuVLixsfm', NULL, 'rizkiherda@gmail.com', NULL, 'o.gpY4GpP9WBnu-Zi1Dsc.09b3725c196d398db2', 1475723946, NULL, 1475722620, 1475722653, 1, 'Rizki', 'Herdatullah', 'MasCitra', '082234367866');
 
 -- --------------------------------------------------------
@@ -214,7 +233,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -224,7 +243,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --

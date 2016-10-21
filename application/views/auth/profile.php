@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-default btn-fill" href="javascript:goBack()">Kembali</a>
+                    <a class="btn btn-default btn-fill" href="<?=site_url('users')?>">Kembali</a>
                     <button type="submit" class="btn btn-info btn-fill pull-right">Simpan Profil</button>
                     <div class="clearfix"></div>
                 </form>
@@ -80,7 +80,7 @@
             <div class="content">
                 <div class="author">
                     <div>
-                        <img class="avatar border-gray" src="<?=base_url('assets/img/faces/face-3.jpg')?>" alt="..."/>
+                        <img class="avatar border-gray" src="<?=base_url('assets/img/avatar.png')?>" alt="..."/>
 
                         <h4 class="title"><?=$user->first_name?> <?=$user->last_name?><br/>
                             <a href="mailto:<?=$user->email?>?Subject=Hello%20<?=$user->first_name?>""><small><?=$user->email?></small></a>

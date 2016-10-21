@@ -15,8 +15,16 @@ class kategori_m extends MY_Model
         $this->_table = 'kategori';
     }
 
-    public function index()
-    {
-        
+    public function fetch_data($limit, $start) {
+        $this->db->limit($limit, $start);
+        $query = $this->db->get("kategori");
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
     }
 }

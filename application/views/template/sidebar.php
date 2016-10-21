@@ -22,13 +22,13 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=site_url('katalog')?>">
                     <i class="fa fa-archive"></i>
                     <p>Katalog</p>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=site_url('kategori')?>">
                     <i class="fa fa-tags"></i>
                     <p>Kategori</p>
                 </a>
@@ -41,12 +41,18 @@
             </li>
             <li>
                 <a href="#">
+                    <i class="fa fa-institution"></i>
+                    <p>Regulasi</p>
+                </a>
+            </li>
+            <li>
+                <a href="<?=site_url('users')?>">
                     <i class="fa fa-users"></i>
                     <p>Pengguna</p>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=site_url('profil')?>">
                     <i class="fa fa-lock"></i>
                     <p>Akun</p>
                 </a>
