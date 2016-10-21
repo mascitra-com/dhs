@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 21 Okt 2016 pada 08.54
+-- Generation Time: 21 Okt 2016 pada 14.45
 -- Versi Server: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -57,8 +57,7 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `id_kategori`, `kode_barang`, `nama`, `merk`, `ukuran`, `tipe`, `spesifikasi`, `satuan`, `gambar`, `hargaPasar`, `biayaKirim`, `resitensi`, `ppn`, `hargashsb`, `hargaPokok`, `hargaSatuan`, `keterangan`, `popularitas`, `createdAt`, `updateAt`, `createdBy`, `updateBy`) VALUES
-(5, 1, '', 'Laptop', 'Macbook', '', 'PRO 2016', '', '', '3x4 Rizki.jpg', 0, 0, 0, 0, 0, 1000, 120000, '', 0, '2016-10-17 05:39:52', NULL, 1, NULL),
-(6, 1, '', 'Layar', 'Dell', '', 'ASd230', '', '', 'enc.jpg', 0, 0, 0, 0, 0, 1000, 12000, '', 3, '2016-10-17 05:39:08', NULL, 1, NULL),
+(5, 1, '', 'Laptop', 'Macbook', '', 'PRO 2016', '', '', '1.logo-ppm-new.png', 0, 0, 0, 0, 0, 1000, 120000, '', 0, '2016-10-20 18:56:18', NULL, 1, NULL),
 (7, 2, '', 'Microsoft Office', 'Office 2016', '', 'Office Tool', '', '', '', 0, 0, 0, 0, 0, 650000, 700000, '', 5, '2016-10-17 10:13:48', NULL, 1, NULL);
 
 -- --------------------------------------------------------
@@ -91,27 +90,34 @@ CREATE TABLE `kategori` (
   `id` int(11) NOT NULL,
   `kode_kategori` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
-  `id_induk_kategori` int(11) DEFAULT NULL
+  `kode_induk_kategori` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `kategori`
 --
 
-INSERT INTO `kategori` (`id`, `kode_kategori`, `nama`, `id_induk_kategori`) VALUES
-(1, '02', 'Golongan Peralatan dan Mesin', 0),
-(2, '02.02', 'Alat-alat Besar', 1),
-(3, '02.03', 'Alat-alat Angkutan', 1),
-(4, '02.04', 'Alat-alat Bengkel, Tukang dan Alat Ukur', 1),
-(5, '02.05', 'Alat-alat Pertanian', 1),
-(6, '02.06', 'Alat-alat Kantor dan Rumah Tangga', 1),
-(7, '02.06.01', 'Alat Kantor', 6),
-(8, '02.06.02', 'Alat Rumah Tangga', 6),
-(9, '02.06.03', 'Komputer', 6),
-(10, '02.06.04', 'Meja dan Kursi Kerja / Rapat Pejabat', 6),
-(11, '02.07', 'Alat Studio dan Komunikasi', 1),
-(12, '02.08', 'Alat-alat Kedokteran', 1),
-(13, '02.09', 'Alat-alat Laboratorium', 1);
+INSERT INTO `kategori` (`id`, `kode_kategori`, `nama`, `kode_induk_kategori`) VALUES
+(1, '02', 'Golongan Peralatan dan Mesin', NULL),
+(2, '02.02', 'Alat-alat Besar', '02'),
+(3, '02.03', 'Alat-alat Angkutan', '02'),
+(4, '02.04', 'Alat-alat Bengkel, Tukang dan Alat Ukur', '02'),
+(5, '02.05', 'Alat-alat Pertanian', '02'),
+(6, '02.06', 'Alat-alat Kantor dan Rumah Tangga', '02'),
+(7, '02.06.01', 'Alat Kantor', '02.06'),
+(8, '02.06.02', 'Alat Rumah Tangga', '02.06'),
+(9, '02.06.03', 'Komputer', '02.06'),
+(10, '02.06.04', 'Meja dan Kursi Kerja / Rapat Pejabat', '02.06'),
+(11, '02.07', 'Alat Studio dan Komunikasi', '02'),
+(12, '02.08', 'Alat-alat Kedokteran', '02'),
+(13, '02.09', 'Alat-alat Laboratorium', '02'),
+(14, '03', 'Golongan Gedung dan Bangunan', NULL),
+(15, '04', 'Golongan Jalan, Irigasi dan Jaringan Air Bersih', NULL),
+(41, '05', 'Golongan Aset Tetap Lainnya', NULL),
+(42, '05.18', 'Barang Bercorak Kebudayaan', '05'),
+(43, '05.18.01', 'Alat Kesenian', '05.18'),
+(44, '05.18.02', 'Alat Olahraga Lainnya', '05.18'),
+(45, '05.19', 'Hewan, Ternak dan Tanaman', '05');
 
 -- --------------------------------------------------------
 
@@ -157,7 +163,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, 'LNovQL3sncAHvhpbmHDBXe', 1268889823, 1476865799, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, 'LNovQL3sncAHvhpbmHDBXe', 1268889823, 1477050504, 1, 'Admin', 'istrator', 'ADMIN', '0'),
 (2, '::1', 'rizkiherda@gmail.com', '$2y$08$rhJwtbO/Q6M26847s1dfFeJ77WcJbZqBue67L.4FOoaPtuVLixsfm', NULL, 'rizkiherda@gmail.com', NULL, 'o.gpY4GpP9WBnu-Zi1Dsc.09b3725c196d398db2', 1475723946, NULL, 1475722620, 1475722653, 1, 'Rizki', 'Herdatullah', 'MasCitra', '082234367866');
 
 -- --------------------------------------------------------
@@ -202,7 +208,8 @@ ALTER TABLE `groups`
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode_kategori` (`kode_kategori`);
 
 --
 -- Indexes for table `login_attempts`
@@ -243,7 +250,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
