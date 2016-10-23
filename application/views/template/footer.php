@@ -11,7 +11,7 @@
             </ul>
         </nav>
         <p class="copyright pull-right">
-            copyright &copy; <?=date('Y')?> <a href="http://www.mascitra.com">MasCitra.com</a>, made with love for a better web
+            Copyright &copy; <?=date('Y')?> <a href="http://www.mascitra.com">MasCitra.com</a>, made with love for a better web
         </p>
     </div>
 </footer>

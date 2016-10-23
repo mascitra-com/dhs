@@ -51,50 +51,50 @@ switch ($menu) {
         </div>
 
         <ul class="nav">
-            <li class="<?=$dashboard_active?>">
+            <li class="<?= $dashboard_active ?>">
                 <a href="#">
                     <i class="fa fa-dashboard"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
-            <li class="<?=$katalog_active?>">
+            <li class="<?= $katalog_active ?>">
                 <a href="<?= site_url('katalog') ?>">
                     <i class="fa fa-archive"></i>
                     <p>Katalog</p>
                 </a>
             </li>
-            <li class="<?=$kategori_active?>">
+            <li class="<?= $kategori_active ?>">
                 <a href="<?= site_url('kategori') ?>">
                     <i class="fa fa-tags"></i>
                     <p>Kategori</p>
                 </a>
             </li>
-            <li class="<?=$pengumuman_active?>">
+            <li class="<?= $pengumuman_active ?>">
                 <a href="<?= site_url('pengumuman') ?>">
                     <i class="fa fa-bell"></i>
                     <p>Pengumuman</p>
                 </a>
             </li>
-            <li class="<?=$regulasi_active?>">
-                <a href="#">
+            <li class="<?= $regulasi_active ?>">
+                <a href="<?= site_url('regulasi') ?>">
                     <i class="fa fa-institution"></i>
                     <p>Regulasi</p>
                 </a>
             </li>
-            <li class="<?=$pengguna_active?>">
+            <li class="<?= $pengguna_active ?>">
                 <a href="<?= site_url('users') ?>">
                     <i class="fa fa-users"></i>
                     <p>Pengguna</p>
                 </a>
             </li>
-            <li class="<?=$akun_active?>">
+            <li class="<?= $akun_active ?>">
                 <a href="<?= site_url('profil') ?>">
                     <i class="fa fa-lock"></i>
                     <p>Akun</p>
                 </a>
             </li>
             <li>
-                <a href="<?=site_url('users/logout')?>">
+                <a href="<?= site_url('users/logout') ?>">
                     <i class="fa fa-power-off"></i>
                     <p>Logout</p>
                 </a>

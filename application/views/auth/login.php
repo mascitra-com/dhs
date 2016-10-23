@@ -48,7 +48,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!-----start-copyright---->
 <div class="copy-right">
-    <p>Copyright &copy <a href="http://mascitra.com">MasCitra.com</a></p>
+    <p>Copyright &copy <a href="http://www.mascitra.com" target="_blank">MasCitra.com</a></p>
 </div>
 <!-----//end-copyright---->
 
