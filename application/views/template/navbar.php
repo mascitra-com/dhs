@@ -9,12 +9,5 @@
             </button>
             <a class="navbar-brand" href="#"><?= (isset($title) ? $title : 'Dashboard') ?></a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="">
-                    Account
-                </a>
-            </li>
-        </ul>
     </div>
 </nav>

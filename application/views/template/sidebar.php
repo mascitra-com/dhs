@@ -34,7 +34,7 @@ switch ($menu) {
 }
 
 ?>
-<div class="sidebar" data-color="blue" data-image="">
+<div class="sidebar" data-color="orange" data-image="">
 
     <!--
 
@@ -70,7 +70,7 @@ switch ($menu) {
                 </a>
             </li>
             <li class="<?=$pengumuman_active?>">
-                <a href="#">
+                <a href="<?= site_url('pengumuman') ?>">
                     <i class="fa fa-bell"></i>
                     <p>Pengumuman</p>
                 </a>
@@ -94,7 +94,7 @@ switch ($menu) {
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=site_url('users/logout')?>">
                     <i class="fa fa-power-off"></i>
                     <p>Logout</p>
                 </a>
