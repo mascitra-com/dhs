@@ -18,3 +18,9 @@ if (in_array($js, $load)): ?>
 <?php if (isset($js) && $js != ''): ?>
     <script src="<?= base_url() ?>assets/js/_<?= $js ?>.js"></script>
 <?php endif ?>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
