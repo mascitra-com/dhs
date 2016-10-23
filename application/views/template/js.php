@@ -14,6 +14,7 @@
 <script src="<?= base_url('assets/plugin/jquery-marquee/jquery.marquee.min.js') ?>"></script>
 
 <!--  Load custom JS -->
+<<<<<<< HEAD
 <?php 
 $load = array('kategori');
 if (isset($js) && $js != ''): 
@@ -29,4 +30,9 @@ $(document).ready(function(){
 	$("input[type='date']").datepicker({dateFormat: "yy-mm-dd"});
 });
 
+</script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
 </script>
