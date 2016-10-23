@@ -1,109 +1,146 @@
-<div class="row" style="background-color: #f2f3f4;">
-    <?php $this->load->view('katalog/filter'); ?>
-    <div class="col-md-10">
-        <div class="row">
-            <div class="col-md-6">
-                <button class="btn btn-info btn-md btn-fill" data-toggle="modal" data-target="#mymodal"><i
-                        class="fa fa-plus"></i> Tambah Data
-                </button>
-                <button class="btn btn-success btn-md btn-fill" onclick="location.reload()"><i
-                        class="fa fa-refresh"></i> Segarkan Tabel <span class="badge"></span></button>
-            </div>
-            <div class="col-md-6 text-right">
-                <a class="btn btn-success btn-fill" href="<?= site_url("export/katalog/excel5") ?>"><i
-                        class="fa fa-file-excel-o"></i> Export to Excel</a>
-                <a class="btn btn-danger btn-fill" href="<?= site_url("export/katalog/pdf") ?>"><i
-                        class="fa fa-file-pdf-o"></i> Export to PDF</a>
-            </div>
-        </div>
-        <br><br>
-        <div class="row">
-            <?php foreach ($data as $key): ?>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="thumbnail" id="barang<?= $key->id ?>">
-                        <div class="thumbnail-action" style="position:absolute; top:10px; right:25px">
-                            <a href="<?= site_url('katalog/edit/' . $key->id) ?>"
-                               class="btn btn-primary btn-fill btn-xs" role="button"><i class="fa fa-pencil"></i></a>
-                            <button type="button" class="btn btn-danger btn-fill btn-xs btn-round" role="button"
-                                    onclick="hapus(<?= $key->id ?>, '<?= $key->gambar ?>')"><i class="fa fa-trash"></i>
-                            </button>
-                        </div>
-                        <img src="<?= base_url() ?>assets/img/img-barang/<?= cek_file($key->gambar) ?>"
-                             alt="<?= $key->gambar ?>">
-                        <div class="caption">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h4 style="margin-top:20px; margin-bottom: 3px"><a
-                                            href="<?= site_url('katalog/detail/' . $key->id) ?>"
-                                            target='_blank'><?= $key->nama ?></a></h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <div style="margin-top: 10px"><i
-                                            class="label label-default"><?= $key->kategori ?></i></div>
-                                </div>
-                            </div>
-                            <hr style="margin-top:15px;">
-                            <p>
-                            <table>
-                                <tr>
-                                    <td>No</td>
-                                    <td>&nbsp: <?= $key->id ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Merk</td>
-                                    <td>&nbsp: <a
-                                            href="<?= site_url('katalog?merk=' . $key->merk) ?>"><?= $key->merk ?></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Tipe</td>
-                                    <td>&nbsp: <?= $key->tipe ?></td>
-                                </tr>
-                            </table>
-                            </p>
-                            <p style="margin-top: 20px;">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <a href="<?= site_url('katalog/detail/' . $key->id) ?>" target='_blank'
-                                       class="btn btn-success btn-fill btn-xs" role="button">detail</a>
-                                </div>
-                                <div class="col-md-9 text-right">
-                                    <h1 style="font-size:19pt; line-height:0; margin: 0; padding-top: 10px;">
-                                        <?='Rp. ' . number_format($key->hargaSatuan, '0' , '' , '.' ) . ',-';?>
-                                        </h1>
-                                </div>
-                            </div>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-        <div class="row">
-            <div class="col-md-12" style="display: flex; justify-content: center">
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <a class="btn">Prev</a>
-                        <a class="btn">First</a>
-                    </div>
-                    <input type="text" class="form-control" aria-label="...">
-                    <div class="input-group-btn">
-                        <a class="btn">Go!</a>
-                        <a class="btn">Next</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="content">
+				<div class="row">
+					<div class="col-md-9">
+						<!-- Dropdown Kategori -->
+						<div class="dropdown">
+							<!-- judul kategori -->
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+								<i class="fa fa-navicon"></i> Kategori Barang
+								<span class="caret"></span>
+							</button>
+							<!-- list dropdown -->
+							<ul class="dropdown-menu">
+								<li><a tabindex="-1" href="#">Kategori A</a></li>
+								<li><a tabindex="-1" href="#">Kategori B</a></li>
+								<!-- sub-list -->
+								<li class="dropdown-submenu">
+									<!-- judul sub-list -->
+									<a class="test" tabindex="-1" href="#">Kategori C <span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<!-- list dropdown sublist -->
+										<li><a tabindex="-1" href="#">Kategori C-1</a></li>
+										<li><a tabindex="-1" href="#">Kategori C-2</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<select name="order" id="sl-urut" class="form-control">
+							<option value="0" <?=(isset($filter['order']) && $filter['order']==0)?'selected':''?> >Terbaru</option>
+							<option value="1" <?=(isset($filter['order']) && $filter['order']==1)?'selected':''?> >Terlama</option>
+							<option value="2" <?=(isset($filter['order']) && $filter['order']==2)?'selected':''?> >Termahal</option>
+							<option value="3" <?=(isset($filter['order']) && $filter['order']==3)?'selected':''?> >Termurah</option>
+							<option value="4" <?=(isset($filter['order']) && $filter['order']==4)?'selected':''?> >Nama A-Z</option>
+							<option value="5" <?=(isset($filter['order']) && $filter['order']==5)?'selected':''?> >Nama Z-A</option>
+							<option value="6" <?=(isset($filter['order']) && $filter['order']==6)?'selected':''?> >Merk A-Z</option>
+							<option value="7" <?=(isset($filter['order']) && $filter['order']==7)?'selected':''?> >Merek Z-A</option>
+							<option value="8" <?=(isset($filter['order']) && $filter['order']==8)?'selected':''?> >Tipe A-Z</option>
+							<option value="9" <?=(isset($filter['order']) && $filter['order']==9)?'selected':''?> >Tipe Z-A</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="header">
+				<div class="row">
+					<div class="col-md-2">
+					<div class="form-group"><input type="text" class="form-control" id="ip-nama" value="<?=(isset($filter['nama']))?$filter['nama']:''?>" placeholder="Nama"></div>
+					</div>
+					<div class="col-md-2">
+					<div class="form-group"><input type="text" class="form-control" id="ip-merk" value="<?=(isset($filter['merk']))?$filter['merk']:''?>" placeholder="Merk"></div>
+					</div>
+					<div class="col-md-2">
+					<div class="form-group"><input type="text" class="form-control" id="ip-tipe" value="<?=(isset($filter['tipe']))?$filter['tipe']:''?>" placeholder="Tipe"></div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-inline">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="harga min">
+								<input type="text" class="form-control" placeholder="harga max">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="form-group"><button class="btn btn-info btn-fill" id="bt-filter"><i class="fa fa-search"></i></button></div>
+					</div>
+				</div>
+			</div>
+			<div class="content table-responsive table-full-width">
+				<table class="table table-hover">
+					<tbody>
+						<?php foreach($barang as $brg): ?>
+							<tr id="brg<?=$brg->id?>">
+								<td width="15%">
+									<img class="table-img" src="<?=base_url()?>assets/img/img-barang/<?=cek_file($brg->gambar)?>" alt="">
+								</td>
+								<td>
+									<h5>
+										<a href="#"><span class="badge">Kategori</span></a> 
+										<i class="fa fa-angle-double-right"></i> 
+										<a href="#"><span class="badge"><?=$brg->kategori?></span></a>
+									</h5>
+									<h5><a href="<?=site_url('katalog/detail/'.$brg->id)?>"><b class="text-muted">BRG<?=strtoupper($brg->kategori)?><?=$brg->id?></b></a></h5>
+									<h4><a href="<?=site_url('katalog/detail/'.$brg->id)?>"><b><?=$brg->nama.' '.$brg->merk.' '.$brg->tipe?></b></a></h4>
+								</td>
+								<td width="30%">
+									<p><i class="fa fa-tag fa-fw"></i> Harga: Rp.<?=number_format($brg->hargaSatuan, '0' , '' , '.' )?>,-</p>
+									<p><i class="fa fa-tags fa-fw"></i><!--  Update Harga: n/a --></p>
+									<p><i class="fa fa-paper-plane fa-fw"></i><!--  Penyedia: ABC --></p>
+									<p><i class="fa fa-calendar fa-fw"></i><!--  Berlaku sd: 31 Oktober 2017 --></p>
+								</td>
+								<td width="15%" align="center">
+									<a href="<?=site_url('katalog/edit/'.$brg->id)?>" class="btn btn-info btn-fill btn-xs"><i class="fa fa-pencil"></i> ubah</a>
+									<button class="btn btn-danger btn-fill btn-xs" onclick="hapus(<?=$brg->id?>, '<?= $brg->gambar ?>')"><i class="fa fa-trash"></i> hapus</button>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+						<tr>
+							<td colspan="2" align="left">
+								<nav aria-label="Page navigation">
+									<ul class="pagination">
+										<li><a style="cursor: pointer;">Banyak Data</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(5)">5</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(10)">10</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(20)">20</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(50)">50</a></li>
+										<li><a style="cursor: pointer;" onclick="offset(100)">100</a></li>
+									</ul>
+								</nav>
+							</td>
+							<td colspan="2" align="right">
+								<?php
+								if(! isset($filter['pg'])):
+									$filter['pg'] = 1;
+								endif;
+								$pg = $filter['pg'];
+								?>
+								<nav aria-label="Page navigation">
+									<ul class="pagination">
+										<li><a style="cursor: pointer;" onclick="pagination(1)">awal</a></li>
+										<li><a style="cursor: pointer;" onclick="pagination(<?=$pg-1?>)"><i class="fa fa-arrow-left"></i></a></li>
+										<li><a style="cursor: pointer;" onclick="pagination(<?=$pg+1?>)"><i class="fa fa-arrow-right"></i></a></li>
+									</ul>
+								</nav>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 
 <?php
 function cek_file($filename)
 {
-    if (!file_exists('./assets/img-user/' . $filename) || $filename == '') {
-        $filename = 'default.png';
-    }
-    return $filename;
+	if (!file_exists('./assets/img/img-barang/' . $filename) || $filename == '') {
+		$filename = 'default.png';
+	}
+	return $filename;
 }
-
 ?>
