@@ -16,30 +16,35 @@
 </head>
 <body>
 
-<div class="wrapper">
-    <?php $this->load->view('template/sidebar'); ?>
+    <div class="wrapper">
+        <?php $this->load->view('template/sidebar'); ?>
 
-    <div class="main-panel">
-        <?php $this->load->view('template/navbar'); ?>
+        <div class="main-panel">
+            <?php $this->load->view('template/navbar'); ?>
 
 
-        <div class="content">
-            <div class="container-fluid">
-                <?php if(isset($content)) $this->load->view($content) ?>
+            <div class="content">
+                <div class="container-fluid">
+                    <?php if(isset($content)) $this->load->view($content) ?>
+                </div>
             </div>
+
+            <!-- Load footer   -->
+            <?php $this->load->view('template/footer'); ?>
+
         </div>
-
-        <!-- Load footer   -->
-        <?php $this->load->view('template/footer'); ?>
-
     </div>
-</div>
+    <div class="pengumuman">
+        <?php foreach($pengumuman as $data): ?>
+            <span>[ <?=date('d-m-Y', strtotime($data->createdAt))?> ]</span>
+            <span <?=($data->penting != 0 || $data->penting != null)?"class='penting'":""?>><?=$data->isi?></span>
+        <?php endforeach; ?>
+    </div>
 
 
 </body>
 
 <!-- Load JS -->
 <?php $this->load->view('template/js'); ?>
-
 
 </html>

@@ -28,6 +28,10 @@ class MY_Controller extends CI_Controller
      */
     protected function init()
     {
+        //load pengumuman
+        $this->load->model('Pengumuman_m', 'pengumuman_m');
+        $this->data['pengumuman'] = $this->pengumuman_m->get_all();
+        
         $this->load->view($this->template, $this->data);
     }
 

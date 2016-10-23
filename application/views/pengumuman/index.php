@@ -7,23 +7,27 @@
 			<div class="content table-responsive table-full-width">
 				<table class="table table-striped">
 					<tbody>
-						<?php for($i=0;$i<3;$i++): ?>
-							<tr>
-								<td><button class="btn btn-fill btn-xs btn-st btn-info">aktif</button></td>
+						<?php foreach($pengumuman as $data): ?>
+							<tr id="tr<?=$data->id?>">
 								<td>
-									<h4>Judul Pengumuman</h4>
-									<p>Lorem ipsum dolor sit amet, consectetur 
-										adipisicing elit. Optio provident ducimus doloremque 
-										ut laudantium voluptates quo libero sunt dolor soluta, voluptatum, 
-										fuga dignissimos cum inventore?</p>
-										<b class="badge">Berlaku sampai: 16-12-2016</b>
+									<?php if($data->status != 0): ?>
+									<button onclick="set_status(this, '<?=$data->id?>')" id="dt-status" class="btn btn-fill btn-xs btn-st btn-info">aktif</button>
+									<?php else: ?>
+									<button onclick="set_status(this, '<?=$data->id?>')" id="dt-status" class="btn btn-fill btn-xs btn-st btn-danger">non-aktif</button>
+									<?php endif; ?>
+								</td>
+								<td>
+									<h4 id="dt-judul"><?=$data->judul?></h4>
+									<p id="dt-isi"><?=$data->isi?></p>
+										<b class="badge">Berlaku sampai: <i id="dt-masaaktif"><?=($data->masa_aktif != null)?date('d-m-Y', strtotime($data->masa_aktif)):'-'?></i></b>
+										<b class="badge badge-danger" id="dt-penting"><?=($data->penting != 0 || $data->penting != null)?'penting':''?></b>
 									</td>
 									<td>
-										<button class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></button>
-										<button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+										<button class="btn btn-xs btn-info" onclick="edit('<?=$data->id?>')"><i class="fa fa-pencil"></i></button>
+										<button class="btn btn-xs btn-danger" onclick="hapus('<?=$data->id?>')"><i class="fa fa-trash"></i></button>
 									</td>
 								</tr>
-							<?php endfor; ?>
+							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div>
@@ -36,7 +40,8 @@
 					<hr>
 				</div>
 				<div class="content">
-					<form>
+					<form action="<?=site_url('pengumuman/store')?>" method="post">
+						<input type="hidden" name="id" value="">
 						<div class="form-group">
 							<label>Judul Pengumuman</label>
 							<input type="text" name="judul" class="form-control" placeholder="judul pengumuman" required>
@@ -47,18 +52,26 @@
 						</div>
 						<div class="form-group">
 							<label>Masa Aktif</label>
-							<input type="date" name="masaAktif" class="form-control" placeholder="Masa Aktif">
+							<input type="date" name="masa_aktif" class="form-control" placeholder="Masa Aktif">
+						</div>
+						<div class="form-group form-inline">
+							<label>Status</label><br>
+							<label class="radio">
+	                            <input type="radio" name="status" value="1" data-toggle="radio" checked><span>Aktif</span>
+	                        </label>&nbsp
+	                        <label class="radio">
+	                            <input type="radio" name="status" value="0" data-toggle="radio"><span>Non-Aktif</span>
+	                        </label>
 						</div>
 						<div class="form-group">
-							<label>Status</label>
-							<select name="status" class="form-control">
-								<option value="1" selected>aktif</option>
-								<option value="0">non-aktif</option>
-							</select>
+							<label class="checkbox">
+								<input type="checkbox" name="penting" data-toggle="checkbox"><span>Pengumuman Penting</span>
+							</label>
+							<span id="helpBlock" class="help-block">* Pengumuman penting akan diberi penekanan.</span>
 						</div>
-						<div class="form-group">
-							<button class="btn btn-block btn-fill btn-success">simpan</button>
-							<button class="btn btn-block btn-fill btn-warning" type="reset">batal</button>
+						<div class="form-group form-inline text-center">
+							<button class="btn btn-fill btn-success" style="width:65%">simpan</button>
+							<button class="btn btn-fill btn-warning" style="width:30%" type="reset"><i class="fa fa-refresh"></i></button>
 						</div>
 					</form>
 				</div>
