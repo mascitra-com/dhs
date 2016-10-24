@@ -22,12 +22,13 @@ class Katalog extends MY_Controller
         $filter = $this->input->get();
 
         $this->load->model('kategori_m');
+        if (!isset($filter['offset']))
+            $filter['offset'] = 5;
 
-        // prepare view
-        $this->data['title']   = 'Katalog Barang';
-        $this->data['content'] = 'katalog/index-re';
-        $this->data['css']     = 'katalog';
-        $this->data['js']      = 'katalog';
+        $this->data['title'] = 'Katalog Barang';
+        $this->data['content'] = 'katalog/index';
+        $this->data['css'] = 'katalog';
+        $this->data['js'] = 'katalog';
 
         $this->data['kategori'] = $this->kategori_m->get_all();
         $this->data['barang'] = $this->barang_m->get_all_data($filter);
@@ -97,18 +98,18 @@ class Katalog extends MY_Controller
     public function detail($id = 0)
     {
         // Prepare view
-        $this->data['title']    = 'Detail Barang';
-        $this->data['content']  = 'katalog/detail';
-        $this->data['css']      = 'katalog';
-        $this->data['js']       = 'katalog';
+        $this->data['title'] = 'Detail Barang';
+        $this->data['content'] = 'katalog/detail';
+        $this->data['css'] = 'katalog';
+        $this->data['js'] = 'katalog';
         // Prepare data
-        $this->data['detail']   = $this->barang_m->get($id);
-        $increment              = (int)$this->data['detail']->popularitas;
-        $update['popularitas']  = $increment + 1;
+        $this->data['detail'] = $this->barang_m->get($id);
+        $increment = (int)$this->data['detail']->popularitas;
+        $update['popularitas'] = $increment + 1;
         $this->barang_m->update($id, $update);
-        $filter['kategori']     = $this->data['detail']->id_kategori;
-        $this->data['terkait']  = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
-        $this->data['top']      = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
+        $filter['kategori'] = $this->data['detail']->id_kategori;
+        $this->data['terkait'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
+        $this->data['top'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
         // Do init
         $this->init();
     }
@@ -122,13 +123,13 @@ class Katalog extends MY_Controller
         if ($id != 0) {
             $this->load->model('kategori_m');
             // Prepare view
-            $this->data['title']    = 'Edit Barang';
-            $this->data['content']  = 'katalog/edit';
-            $this->data['css']      = 'katalog';
-            $this->data['js']       = 'katalog';
+            $this->data['title'] = 'Edit Barang';
+            $this->data['content'] = 'katalog/edit';
+            $this->data['css'] = 'katalog';
+            $this->data['js'] = 'katalog';
             // Prepare data
             $this->data['kategori'] = $this->kategori_m->get_all();
-            $this->data['data']     = $this->barang_m->get($id);
+            $this->data['data'] = $this->barang_m->get($id);
             // Do init()
             $this->init();
         } else {
@@ -143,8 +144,8 @@ class Katalog extends MY_Controller
     public function update()
     {
         // Prepare data & var
-        $data         = $this->input->post();
-        $id           = $data['id'];
+        $data = $this->input->post();
+        $id = $data['id'];
         $uploadSukses = false;
         // Unset unusefull data
         unset($data['id']);
@@ -157,7 +158,7 @@ class Katalog extends MY_Controller
 
                 $data['updatedAt'] = date('Y-m-d h:i:s');
                 $data['createdBy'] = $this->ion_auth->get_user_id();
-                $data['gambar']    = $this->upload->data('file_name');
+                $data['gambar'] = $this->upload->data('file_name');
 
                 if ($this->barang_m->update($id, $data) == FALSE) {
                     delete_files($this->upload->data('full_path'));
@@ -195,7 +196,7 @@ class Katalog extends MY_Controller
      */
     public function hapus()
     {
-        $id     = $this->input->post('id');
+        $id = $this->input->post('id');
         $gambar = $this->input->post('gambar');
 
         if ($this->barang_m->delete($id)) {

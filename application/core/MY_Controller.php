@@ -30,8 +30,7 @@ class MY_Controller extends CI_Controller
     {
         //load pengumuman
         $this->load->model('Pengumuman_m', 'pengumuman_m');
-        $this->data['pengumuman'] = $this->pengumuman_m->get_all();
-        
+        $this->data['info'] = $this->pengumuman_m->get_info();
         $this->load->view($this->template, $this->data);
     }
 

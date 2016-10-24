@@ -82,10 +82,6 @@
                     <label for="">Sub dari:</label>
                     <select class="form-control" name="indukUpdate" id="indukUpdate" onchange="selectUpdate()">
                         <option value="">Pilih kategori</option>
-                        <?php foreach ($kategori as $list): ?>
-                            <option value="<?= $list->id ?>"><?= $list->kode_kategori ?>
-                                . <?= $list->nama ?></option>
-                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="form-group">
@@ -99,7 +95,7 @@
                            placeholder="Nama Kategori" required>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" onclick="refresh()">Cancel</>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</>
                     <button type="submit" class="btn btn-info">Simpan</button>
                 </div>
             </form>
@@ -134,7 +130,7 @@
             url: "<?=site_url('kategori/edit?id=')?>" + id,
             success: function (data) {
                 console.log(data);
-                $("#indukUpdate option[value='" + data.id + "']").remove();
+                $("#indukUpdate").html(data.kategori);
                 $("#idUpdate").val(data.id);
                 $("#indukUpdate").val(data.id_induk);
                 $("#sub_kategoriUpdate").val(data.kode_kategori);

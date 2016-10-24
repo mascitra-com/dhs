@@ -47,8 +47,14 @@ class Kategori extends MY_Controller
         } else {
             $data->id_induk = "";
         }
+        $data->kategori = array('<option value="">Pilih kategori</option>');
+        $kategori = $this->kategori_m->get_all();
+        foreach ($kategori as $list){
+            if ($list->id != $id){
+                array_push($data->kategori, "<option value='$list->id'>$list->kode_kategori. $list->nama</option>");
+            }
+        }
         echo json_encode($data);
-
     }
 
     public function update()

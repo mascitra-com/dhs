@@ -13,7 +13,7 @@
                                 <h4><b><?= $list->judul ?></b></h4>
                                 <p><?= $list->isi ?></p>
                                 <p class="text text-warning"><?php echo date('d-m-Y', strtotime(str_replace('-', '/', $list->tgl_dikeluarkan))); ?></p>
-                                <b class="badge">Dikeluarkan Oleh: Bupati Jember</b>
+                                <b class="badge">Dikeluarkan Oleh: <?= $list->dikeluarkan_oleh ?></b>
                             </td>
                             <td>
                                 <a href="<?= base_url('assets/regulasi/' . $list->file) ?>"

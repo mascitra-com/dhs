@@ -14,4 +14,13 @@ class Pengumuman_m extends MY_Model
         parent::__construct();
         $this->_table = 'pengumuman';
     }
+
+    public function get_info()
+    {
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $this->db->where("status = 1 AND (masa_aktif > now() OR masa_aktif is NULL OR masa_aktif = '')");
+        $this->db->order_by('createdAt', 'DESC');
+        return $this->db->get()->result();
+    }
 }
