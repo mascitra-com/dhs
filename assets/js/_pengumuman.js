@@ -33,5 +33,5 @@ function edit(id)
 	$("form input[name='judul']").val($("#tr"+id+" td #dt-judul").html());
 	$("form textarea[name='isi']").text($("#tr"+id+" td #dt-isi").html());
 	$("form input[name='masa_aktif']").val($("#tr"+id+" td #dt-masaaktif").html());
-	// $("form button[type='submit']").prop('action', 'pengumuman/update');
+	$("form input[name=id]").val(id);
 }

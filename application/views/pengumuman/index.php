@@ -19,8 +19,8 @@
 								<td>
 									<h4 id="dt-judul"><?=$data->judul?></h4>
 									<p id="dt-isi"><?=$data->isi?></p>
-										<b class="badge">Berlaku sampai: <i id="dt-masaaktif"><?=($data->masa_aktif != null)?date('d-m-Y', strtotime($data->masa_aktif)):'-'?></i></b>
-										<b class="badge badge-danger" id="dt-penting"><?=($data->penting != 0 || $data->penting != null)?'penting':''?></b>
+										<b class="label label-warning">Berlaku sampai: <i id="dt-masaaktif"><?=($data->masa_aktif != null)?date('d-m-Y', strtotime($data->masa_aktif)):'-'?></i></b>
+										<b class="label label-danger" id="dt-penting"><?=($data->penting != 0 || $data->penting != null)?'penting':''?></b>
 									</td>
 									<td>
 										<button class="btn btn-xs btn-info" onclick="edit('<?=$data->id?>')"><i class="fa fa-pencil"></i></button>

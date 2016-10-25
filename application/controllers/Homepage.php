@@ -8,14 +8,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Homepage extends MY_Controller
 {
+	protected $data;
 
     public function __construct()
     {
         parent::__construct();
+        $this->data['css'] = 'homepage';
     }
 
     public function index()
     {
-        $this->load->view('homepage/index');
+    	$this->data['content'] = 'home';
+        $this->load->view('homepage/index', $this->data);
     }
 }

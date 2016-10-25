@@ -1,0 +1,57 @@
+.navbar{
+	margin-bottom: 0;
+}
+
+#highlight{
+	display: flex;
+	align-items: center;
+	height:350px;
+	background: grey url(../img/highlight.jpg);
+	background-size: cover;
+	background-position: center center;
+}
+
+#highlight #desc{
+	margin: 10px;
+	padding-left: 50px;
+	color: #FFF;
+}
+
+#highlight #desc h2{
+	font-weight: bolder;
+}
+#highlight #desc p{
+	font-size: 13pt;
+}
+
+#highlight .card{
+	width: 50%;
+	/*height: 350px;*/
+	float: right;
+	padding:15px;
+	margin: 5px;
+	margin-right: 20px;
+	border-radius: 0;
+	background-color: rgba(255,255,255,1);
+	border-right: 10px #c2c4c6 solid;
+	border-left: 10px #c2c4c6 solid;
+}
+
+#highlight .card .title{
+	font-weight: bold;
+}
+
+#highlight .card .content{
+	margin-top: 25px;
+}
+
+#kategori{
+	padding: 25px;
+}
+
+#kategori .card{
+	display: flex;
+	align-items: center;
+	height: 50px;
+	font-size: 14pt;
+}

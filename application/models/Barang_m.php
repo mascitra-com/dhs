@@ -11,7 +11,7 @@ class barang_m extends MY_Model
 
     public function get_all_data($filter = null)
     {
-        $this->db->select("b.id as id, b.nama as nama, merk, tipe, spesifikasi, gambar, k.nama as kategori, hargaSatuan, hargaPokok, createdAt");
+        $this->db->select("b.id as id, b.nama as nama, kode_barang, merk, tipe, spesifikasi, gambar, k.nama as kategori, hargaPasar, hargashsb, createdAt");
         $this->db->from('barang b');
         $this->db->join('kategori k', 'b.id_kategori = k.id');
 

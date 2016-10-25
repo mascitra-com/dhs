@@ -39,12 +39,10 @@ class kategori_m extends MY_Model
         $this->db->like('kode_kategori', $kode_induk);
         $semua_sub = $this->db->get('kategori')->result_array();
         $sub_satu_tingkat_dibawah = array();
+        $len_induk = strlen($kode_induk);
         foreach ($semua_sub as $data) {
-            if (strlen($data['kode_kategori']) == 5) {
-                array_push($sub_satu_tingkat_dibawah, (int)substr($data['kode_kategori'], 3, 4));
-            }
-            if (strlen($data['kode_kategori']) == 8) {
-                array_push($sub_satu_tingkat_dibawah, (int)substr($data['kode_kategori'], 6, 7));
+            if (strlen($data['kode_kategori']) == ($len_induk + 2) && strlen($kode_induk) == $len_induk) {
+                array_push($sub_satu_tingkat_dibawah, (int)substr($data['kode_kategori'], $len_induk, $len_induk+1));
             }
         }
         if (count($sub_satu_tingkat_dibawah) == 0) {
@@ -52,8 +50,8 @@ class kategori_m extends MY_Model
         } else {
             $indeks_sub_terakhir = count($sub_satu_tingkat_dibawah) - 1;
             $kode_sub = $sub_satu_tingkat_dibawah[$indeks_sub_terakhir] + 1;
-            if ($kode_sub < 10){
-                return "0". $kode_sub;
+            if ($kode_sub < 10) {
+                return "0" . $kode_sub;
             }
             return $kode_sub;
         }

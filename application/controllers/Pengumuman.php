@@ -54,6 +54,20 @@ class Pengumuman extends MY_Controller
         }
     }
 
+    public function updateForm()
+    {
+        $data = $this->input->post();
+        $id   = $data['id'];
+        unset($data['id']);
+
+        if ($this->pengumuman_m->update($id, $data)) {
+            $this->session->flashdata('message', 'Berhasil di ubah');
+        }else{
+            $this->session->flashdata('message', 'Gagal di ubah');
+        }
+        redirect('pengumuman');
+    }
+
     public function delete()
     {
         $id = $this->input->post('id');

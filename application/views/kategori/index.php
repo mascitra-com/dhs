@@ -45,15 +45,14 @@
                         <select class="form-control" name="induk" id="induk" onchange="select()">
                             <option value="">Pilih kategori</option>
                             <?php foreach ($kategori as $list): ?>
-                                <option value="<?= $list->id ?>"><?= $list->kode_kategori ?>
-                                    . <?= $list->nama ?></option>
+                                <option value="<?= $list->id ?>"><?= $list->kode_kategori ?>. <?= $list->nama ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">ID Kategori</label>
+                        <label for="">Kode Kategori</label>
                         <input class="form-control" type="text" name="sub_kategori" id="sub_kategori"
-                               placeholder="ID Kategori" required readonly>
+                               placeholder="Kode Kategori" required readonly>
                     </div>
                     <div class="form-group">
                         <label for="">Nama Kategori</label>
@@ -85,9 +84,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="">ID Kategori</label>
+                    <label for="">Kode Kategori</label>
                     <input class="form-control" type="text" name="sub_kategoriUpdate" id="sub_kategoriUpdate"
-                           placeholder="ID Kategori" required readonly>
+                           placeholder="Kode Kategori" required readonly>
                 </div>
                 <div class="form-group">
                     <label for="">Nama Kategori</label>
@@ -109,6 +108,7 @@
             type: "GET",
             url: "<?=site_url('kategori/get_kode?id=')?>" + kode_kategori,
             success: function (data) {
+                console.log(data);
                 $("#sub_kategori").val(data);
             }
         });

@@ -4,7 +4,7 @@
 }
 
 .badge:hover{
-	background-color: yellow;
+	background-color: #f0ad4e;
 	color: black;
 	/*border: 1px grey solid;*/
 }

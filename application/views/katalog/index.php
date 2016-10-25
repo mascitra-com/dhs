@@ -80,22 +80,22 @@
 								</td>
 								<td>
 									<h5>
-										<a href="#"><span class="badge">Kategori</span></a> 
+										<a href="#"><span class="badge">Kategori</span></a>
 										<i class="fa fa-angle-double-right"></i> 
 										<a href="#"><span class="badge"><?=$brg->kategori?></span></a>
 									</h5>
-									<h5><a href="<?=site_url('katalog/detail/'.$brg->id)?>"><b class="text-muted">BRG<?=strtoupper($brg->kategori)?><?=$brg->id?></b></a></h5>
+									<h5><a href="<?=site_url('katalog/detail/'.$brg->id)?>"><b class="text-muted">Kode Barang - <?=strtoupper($brg->kode_barang)?>.<?=$brg->id?></b></a></h5>
 									<h4><a href="<?=site_url('katalog/detail/'.$brg->id)?>"><b><?=$brg->nama.' '.$brg->merk.' '.$brg->tipe?></b></a></h4>
 								</td>
 								<td width="30%">
-									<p><i class="fa fa-tag fa-fw"></i> Harga: Rp.<?=number_format($brg->hargaSatuan, '0' , '' , '.' )?>,-</p>
-									<p><i class="fa fa-tags fa-fw"></i><!--  Update Harga: n/a --></p>
+									<p><i class="fa fa-tag fa-fw"></i> Harga Pasar: Rp.<?=number_format($brg->hargaPasar, '0' , '' , '.' )?>,-</p>
+									<p><i class="fa fa-tags fa-fw"></i>Harga SHSB: Rp.<?=number_format($brg->hargashsb, '0' , '' , '.' )?>,-</p>
 									<p><i class="fa fa-paper-plane fa-fw"></i><!--  Penyedia: ABC --></p>
-									<p><i class="fa fa-calendar fa-fw"></i><!--  Berlaku sd: 31 Oktober 2017 --></p>
+									<p><i class="fa fa-calendar fa-fw"></i><?php echo mdate('%d-%m-%Y', strtotime(str_replace('-','/', $brg->createdAt))); ?></p>
 								</td>
 								<td width="15%" align="center">
-									<a href="<?=site_url('katalog/edit/'.$brg->id)?>" class="btn btn-info btn-fill btn-xs"><i class="fa fa-pencil"></i> ubah</a>
-									<button class="btn btn-danger btn-fill btn-xs" onclick="hapus(<?=$brg->id?>, '<?= $brg->gambar ?>')"><i class="fa fa-trash"></i> hapus</button>
+									<a href="<?=site_url('katalog/edit/'.$brg->id)?>" class="btn btn-info btn-fill btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
+									<button class="btn btn-danger btn-fill btn-xs" onclick="hapus(<?=$brg->id?>, '<?= $brg->gambar ?>')"><i class="fa fa-trash"></i> Hapus</button>
 								</td>
 							</tr>
 						<?php endforeach; ?>

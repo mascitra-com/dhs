@@ -13,15 +13,15 @@
                                 <h4><b><?= $list->judul ?></b></h4>
                                 <p><?= $list->isi ?></p>
                                 <p class="text text-warning"><?php echo date('d-m-Y', strtotime(str_replace('-', '/', $list->tgl_dikeluarkan))); ?></p>
-                                <b class="badge">Dikeluarkan Oleh: <?= $list->dikeluarkan_oleh ?></b>
+                                <b class="label label-warning">Dikeluarkan Oleh: <?= $list->dikeluarkan_oleh ?></b>
                             </td>
                             <td>
                                 <a href="<?= base_url('assets/regulasi/' . $list->file) ?>"
-                                   class="btn btn-xs btn-warning" download><i class="fa fa-file-pdf-o"></i></a>
-                                <a onclick="edit('<?= $list->id ?>')" class="btn btn-xs btn-info"><i
+                                   class="btn btn-xs btn-warning btn-fill" download><i class="fa fa-file-pdf-o"></i></a>
+                                <a onclick="edit('<?= $list->id ?>')" class="btn btn-xs btn-info btn-fill"><i
                                         class="fa fa-pencil"></i></a>
                                 <a href="<?= site_url('regulasi/destroy/' . $list->id) ?>"
-                                   class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                   class="btn btn-xs btn-danger btn-fill"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

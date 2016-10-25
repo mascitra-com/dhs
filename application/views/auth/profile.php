@@ -1,3 +1,4 @@
+<?php $segment = $this->uri->segment(1, 1); ?>
 <div class="row">
     <div class="col-md-8">
         <div class="card">
@@ -63,8 +64,10 @@
                             </div>
                         </div>
                     </div>
+                    <?php if($segment != 'profil'): ?>
                     <a class="btn btn-default btn-fill" href="<?=site_url('users')?>">Kembali</a>
-                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan Profil</button>
+                    <?php endif; ?>
+                    <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                     <div class="clearfix"></div>
                 </form>
             </div>
@@ -83,7 +86,7 @@
                         <img class="avatar border-gray" src="<?=base_url('assets/img/avatar.png')?>" alt="..."/>
 
                         <h4 class="title"><?=$user->first_name?> <?=$user->last_name?><br/>
-                            <a href="mailto:<?=$user->email?>?Subject=Hello%20<?=$user->first_name?>""><small><?=$user->email?></small></a>
+                            <a href="mailto:<?=$user->email?>?Subject=Kepada%20Yth.%20<?=$user->first_name?> <?=$user->last_name?> E-Katalog DHS Lumajang"><small><?=$user->email?></small></a>
                         </h4>
                     </div>
                 </div>
@@ -93,7 +96,6 @@
                 <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
                 <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
                 <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
             </div>
         </div>
     </div>
