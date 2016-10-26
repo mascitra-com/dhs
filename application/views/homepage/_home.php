@@ -1,16 +1,16 @@
 <div class='row' id="highlight">
-	<div class="col-md-5">
+	<div class="col-lg-5">
 		<div id="desc">
 			<h2>SELAMAT DATANG!</h2>
 			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-				Explicabo eveniet maiores, blanditiis facilis nisi dolor repellat tenetur 
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+				Explicabo eveniet maiores, blanditiis facilis nisi dolor repellat tenetur
 				consectetur omnis error eaque illo aut nemo repellendus?
 			</p>
-			<button class="btn btn-info btn-fill">selengkapnya</button>
+			<button class="btn btn-info btn-fill">Selengkapnya</button>
 		</div>
 	</div>
-	<div class="col-md-7">
+	<div class="col-lg-7">
 		<div class="card">
 			<div class="header">
 				<h2 class="title">QUICK SEARCH</h2>
@@ -32,15 +32,46 @@
 		</div>
 	</div>
 </div>
-<?php $icon = array('bars','bell','beer','bullhorn','calculator','car','bus','camera');?>
-<div class="row" id="kategori">
-	<?php for($i=0; $i<5;$i++): ?>
-		<?php for($j=0; $j<count($icon);$j++): ?>
-			<div class="col-md-2 col-sm-4">
-				<div class="card">
-					<div class="content"><i class="fa fa-<?=$icon[$j]?>"></i>&nbspKategori</div>
+
+<div class="row">
+	<?php 
+		$icon = array(array('car','bell','key','cubes','male'),array('hourglass','image','map-marker','inbox','heart'),array('plug','print','send','shield','paw'));
+		$label = explode(' ', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis natus at, pariatur deleniti, dolores adipisci.');
+
+	?>
+	<?php for($i=0;$i<3;$i++): ?> 
+	<div class="col-xs-1 col-md-4">
+		<!-- Dropdown menu -->
+		<div class="panel list-group">
+			<?php for($j=0;$j<5;$j++): ?> 
+			<!-- list & sublist -->
+			<button class="list-group-item" data-toggle="collapse" data-target="#sm<?=$i.''.$j?>"><?=strtoupper($label[rand(0,count($label)-1)])?><i class="fa fa-<?=$icon[$i][$j]?> pull-right"></i></button>
+			<div id="sm<?=$i.''.$j?>" class="sublinks collapse">
+				<a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> inbox</a>
+				<a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span> sent</a>
+			</div>
+			<!-- batas list & sublist -->
+			<?php endfor; ?>
+		</div>
+		<!-- Batas Dropdown menu -->
+	</div>
+<?php endfor; ?>
+</div>
+
+<div id="hot-list">
+	<div class="row">
+		<?php for ($i = 0; $i < 12; $i++) {?>
+		<div class="col-sm-6 col-md-4 col-lg-3">
+			<div class="thumbnail">
+				<img src="<?=base_url('assets/img/kategori.gif')?>" alt="...">
+				<div class="caption">
+					<h3>Kategori Ke-<?=$i + 1?></h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua.</p>
+						<p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+					</div>
 				</div>
 			</div>
-		<?php endfor; ?>
-	<?php endfor; ?>
-</div>
+			<?php }?>
+		</div>
+	</div>

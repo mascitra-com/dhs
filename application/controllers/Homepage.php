@@ -19,6 +19,7 @@ class Homepage extends MY_Controller
     public function index()
     {
     	$this->data['content'] = 'home';
+        $this->data['info'] = $this->pengumuman_m->get_info();
         $this->load->view('homepage/index', $this->data);
     }
 }

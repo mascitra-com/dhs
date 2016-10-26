@@ -6,7 +6,7 @@
                 <p>Mohon gunakan template yang sudah disediakan!</p>
             </div>
             <div class="content">
-                <a href="<?=base_url('assets/import.xls')?>" class="btn btn-primary">Download Template</a>
+                <a href="<?=base_url('assets/file/import.xls')?>" class="btn btn-primary">Download Template</a>
                 <br/> <br/>
                 <form action="<?php echo site_url('katalog/upload'); ?>" method="post" enctype="multipart/form-data">
                     <label class="control-label">Pilih File</label>

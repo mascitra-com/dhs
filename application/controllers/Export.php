@@ -22,14 +22,14 @@ class Export extends CI_Controller
      * Excel5 untuk export Excel
      * PDF untuk export PDF
      */
-    public function katalog($type)
+    public function katalog()
     {
         $this->db->select('barang.nama AS NamaBarang, barang.merk, barang.tipe, barang.spesifikasi, barang.hargaPokok, barang.hargaSatuan, kategori.nama AS KategoriBarang, users.first_name, users.last_name');
         $this->db->from('barang');
         $this->db->join('kategori', 'barang.id_kategori = kategori.id');
         $this->db->join('users', 'barang.createdBy = users.id');
         $query = $this->db->get();
-        $this->exportKatalog($query, $type);
+        $this->exportKatalog($query, 'excel5');
     }
 
     /**

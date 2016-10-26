@@ -219,7 +219,7 @@ input:focus {
   z-index: 1;
   color: #fff;
   font-weight: 200;
-  background-image: url(../img/sidebar-5.jpg);
+  background-image: url(../img/sidebar-4.jpg);
   background-size: cover;
   background-position: center center;
 }
@@ -1372,7 +1372,6 @@ body > .navbar-collapse[data-color="purple"]:after {
 }
 .navbar .navbar-brand {
   font-weight: 400;
-  margin: 5px 0px;
   padding: 15px 15px;
   font-size: 20px;
 }

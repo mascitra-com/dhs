@@ -21,9 +21,9 @@
 			<label for="">KATEGORI BARANG</label>
 			<select name="id_kategori" class="form-control">
 				<option value="0" selected>Pilih Kategori</option>
-				<?php foreach($kategori as $key): ?>
-					<option value="<?=$key->id?>" <?=($data->id_kategori == $key->id)?'selected':''?>><?=$key->nama?></option>
-				<?php endforeach ?>
+				<?php foreach ($kategori as $key): ?>
+					<option value="<?=$key->id?>" <?=($data->id_kategori == $key->id) ? 'selected' : ''?>><?=$key->nama?></option>
+				<?php endforeach?>
 			</select>
 		</div>
 		<div class="form-group">
@@ -35,22 +35,23 @@
 			<input type="number" min="0" name="hargaSatuan" class="form-control" value="<?=$data->hargaSatuan?>">
 		</div>
 		<div class="form-group">
-			<button class="btn btn-info" type="submit">Simpan</button>
-			<button class="btn btn-warning" type="reset">Bersihkan</button>
+			<button class="btn btn-info btn-fill" type="submit">Simpan</button>
+			<button class="btn btn-warning btn-fill" type="reset">Reset</button>
+			<button class="btn btn-default btn-fill" onclick="goBack()">Kembali</button>
 		</div>
 	</div>
 	<div class="col-md-5">
 		<div class="form-group">
 			<input type="file" name="gambar">
 		</div>
-		<img src="<?=base_url()?>assets/img-user/<?=cek_file($data->gambar)?>" alt="Gambar Barang" class="img-fit" id="img-preview" width="300px" height="200px">
+		<img src="<?=base_url()?>assets/img/img-barang/<?=cek_file($data->gambar)?>" alt="Gambar Barang" class="img-fit" id="img-preview" width="300px">
 	</div>
 	</form>
 </div>
 
 <?php
-function cek_file($filename){
-	if (! file_exists('./assets/img-user/'.$filename) || $filename == '') {
+function cek_file($filename) {
+	if (!file_exists('./assets/img-user/' . $filename) || $filename == '') {
 		$filename = 'default.png';
 	}
 	return $filename;

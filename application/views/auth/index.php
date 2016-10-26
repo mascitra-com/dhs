@@ -24,12 +24,12 @@
                                 <?php foreach ($user->groups as $group): ?>
                                     <?php echo anchor("users/edit_group/" . $group->id, htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8'), 'class="text text-info"'); ?>
                                     <br/>
-                                <?php endforeach ?>
+                                <?php endforeach?>
                             </td>
                             <td><?php echo ($user->active) ? anchor("users/deactivate/" . $user->id, lang('index_active_link'), 'class = "alert alert-success"') : anchor("users/activate/" . $user->id, lang('index_inactive_link'), 'class = "alert alert-danger"'); ?></td>
                             <td><?php echo anchor("users/edit/" . $user->id, 'Edit', 'class="btn btn-sm btn-default"'); ?></td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach;?>
                 </table>
 
                 <p><?php echo anchor('users/create_user', lang('index_create_user_link'), 'class="text text-info"') ?>

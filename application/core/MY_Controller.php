@@ -6,6 +6,11 @@ class MY_Controller extends CI_Controller
     protected $data;
     protected $template = 'template/index';
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Pengumuman_m', 'pengumuman_m');
+    }
     /**
      * @param $method
      * @param array $param
@@ -29,7 +34,7 @@ class MY_Controller extends CI_Controller
     protected function init()
     {
         //load pengumuman
-        $this->load->model('Pengumuman_m', 'pengumuman_m');
+
         $this->data['info'] = $this->pengumuman_m->get_info();
         $this->load->view($this->template, $this->data);
     }

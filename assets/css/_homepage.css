@@ -1,11 +1,21 @@
+body{
+	background-color: #efefef;
+}
+
 .navbar{
 	margin-bottom: 0;
+}
+
+.list-group-item:hover{
+	cursor: pointer;
+	background-color: #d4d4d6;
 }
 
 #highlight{
 	display: flex;
 	align-items: center;
 	height:350px;
+	margin-bottom: 30px;
 	background: grey url(../img/highlight.jpg);
 	background-size: cover;
 	background-position: center center;
@@ -43,15 +53,4 @@
 
 #highlight .card .content{
 	margin-top: 25px;
-}
-
-#kategori{
-	padding: 25px;
-}
-
-#kategori .card{
-	display: flex;
-	align-items: center;
-	height: 50px;
-	font-size: 14pt;
 }

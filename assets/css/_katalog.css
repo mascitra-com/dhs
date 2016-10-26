@@ -13,15 +13,15 @@
 	word-wrap: break-word;
 }
 .table-img{
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	object-fit: cover;
 	border: 1px solid gray;
 }
 
 .table-img:hover{
 	cursor: pointer;
-	border: 2px solid red;
+	border: 2px solid #f0ad4e;
 }
 
 .table tbody tr td h1,
