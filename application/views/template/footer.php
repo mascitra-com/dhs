@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer" style="margin-bottom: 1em">
     <div class="container-fluid">
         <nav class="pull-left">
             <ul>

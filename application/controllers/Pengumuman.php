@@ -13,6 +13,9 @@ class Pengumuman extends MY_Controller
         $this->load->model('Pengumuman_m', 'pengumuman_m');
     }
 
+    /**
+     *  Menampilkan Daftar Pengumuman
+     */
     public function index()
     {
     	$this->data['title'] 	  = 'Pengumuman';
@@ -21,6 +24,9 @@ class Pengumuman extends MY_Controller
     	$this->init();
     }
 
+    /**
+     *  Menambahkan pengumuman baru
+     */
     public function store()
     {
         $data = $this->input->post();
@@ -41,6 +47,9 @@ class Pengumuman extends MY_Controller
         }
     }
 
+    /**
+     *  Mengganti data di database sesuai id pengumuman
+     */
     public function update()
     {
         $data = $this->input->post();
@@ -54,6 +63,9 @@ class Pengumuman extends MY_Controller
         }
     }
 
+    /**
+     *  Tampilan Update pengumuman
+     */
     public function updateForm()
     {
         $data = $this->input->post();
@@ -68,6 +80,9 @@ class Pengumuman extends MY_Controller
         redirect('pengumuman');
     }
 
+    /**
+     *  Menghapus pengumuman
+     */
     public function delete()
     {
         $id = $this->input->post('id');

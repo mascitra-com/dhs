@@ -1,9 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Kategori
+ */
 class Kategori extends MY_Controller
 {
 
+    /**
+     * Kategori constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -13,6 +19,9 @@ class Kategori extends MY_Controller
         $this->data['css'] = 'kategori';
     }
 
+    /**
+     *  Menampilkan daftar Kategori
+     */
     public function index()
     {
         $this->data["kategori"] = $this->kategori_m->get_many_by(array("status" => 1));
@@ -21,6 +30,9 @@ class Kategori extends MY_Controller
         $this->init();
     }
 
+    /**
+     *  Menyimpan data baru ke database
+     */
     public function store()
     {
         $data = $this->input->post();
@@ -36,6 +48,9 @@ class Kategori extends MY_Controller
         redirect('kategori');
     }
 
+    /**
+     *  Menampilkan halaman edit kategori
+     */
     public function edit()
     {
         $id = $this->input->get('id');
@@ -49,14 +64,17 @@ class Kategori extends MY_Controller
         }
         $data->kategori = array('<option value="">Pilih kategori</option>');
         $kategori = $this->kategori_m->get_all();
-        foreach ($kategori as $list){
-            if ($list->id != $id){
+        foreach ($kategori as $list) {
+            if ($list->id != $id) {
                 array_push($data->kategori, "<option value='$list->id'>$list->kode_kategori. $list->nama</option>");
             }
         }
         echo json_encode($data);
     }
 
+    /**
+     *  Mengubah data di database sesuai inputan user
+     */
     public function update()
     {
         $id = $this->input->post('idUpdate');
@@ -69,12 +87,19 @@ class Kategori extends MY_Controller
         redirect('kategori');
     }
 
+    /**
+     * Mengubah status kategori menjadi tidak aktif
+     * @param $id
+     */
     public function destroy($id)
     {
         $this->kategori_m->update($id, array('status' => 0));
         redirect('kategori');
     }
 
+    /**
+     *  Mendapatakan kode kategori baru untuk data kategori yang akan di inputkan
+     */
     public function get_kode()
     {
         $id = $this->input->get('id');

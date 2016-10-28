@@ -1,4 +1,12 @@
 <div class="row">
+	<form action="">
+		<div class="col-md-8 card">
+			
+		</div>
+		<div class="col-md-4 card"></div>
+	</form>
+</div>
+<!-- <div class="row">
 	<form action="<?=site_url('katalog/update')?>" method="post">
 	<div class="col-md-7">
 		<div class="form-group">
@@ -47,7 +55,7 @@
 		<img src="<?=base_url()?>assets/img/img-barang/<?=cek_file($data->gambar)?>" alt="Gambar Barang" class="img-fit" id="img-preview" width="300px">
 	</div>
 	</form>
-</div>
+</div> -->
 
 <?php
 function cek_file($filename) {

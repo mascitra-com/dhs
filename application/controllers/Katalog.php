@@ -8,15 +8,17 @@ class Katalog extends MY_Controller
     {
         parent::__construct();
         $this->checkLoggedIn();
-        $this->load->model('barang_m');
+        $this->load->model(array('barang_m', 'kategori_m'));
         $this->load->library(array('upload', 'pagination'));
         $this->load->helper("file");
         require_once APPPATH . 'libraries/PHPExcel.php';
         include_once APPPATH . 'libraries/PHPExcel/Writer/PDF.php';
-        // Load model, library, helper disini
     }
 
 
+    /**
+     *  Menampilkan daftar Barang
+     */
     public function index()
     {
         $filter = $this->input->get();
@@ -77,6 +79,11 @@ class Katalog extends MY_Controller
         }
     }
 
+    /**
+     * Mengunggah foto yang di inputkan saat entri data barang
+     * @param $name
+     * @return bool
+     */
     public function do_upload($name)
     {
         $config['upload_path'] = '././assets/img-user';
@@ -95,6 +102,10 @@ class Katalog extends MY_Controller
         }
     }
 
+    /**
+     * Menampilkan detail barang sesuai id barang
+     * @param int $id barang
+     */
     public function detail($id = 0)
     {
         // Prepare view
@@ -284,6 +295,11 @@ class Katalog extends MY_Controller
         redirect('katalog/import');
     }
 
+    /**
+     * Mengambil id kategori berdasarkan nama
+     * @param $nama_kategori
+     * @return mixed
+     */
     public function checkIdKategori($nama_kategori)
     {
         $this->db->select('id');
@@ -291,5 +307,27 @@ class Katalog extends MY_Controller
         $this->db->where('nama', $nama_kategori);
         $result = $this->db->get()->result_array();
         return $result[0]['id'];
+    }
+
+    public function getKategoriWithChild()
+    {
+        $result = $this->kategori_m->get_all();
+        $induk = array();
+        foreach ($result as $list) {
+            if (strlen($list->kode_kategori) == 2) {
+                array_push($induk, $list);
+            }
+        }
+        $limit = count($induk);
+        $indukDanSub = array();
+        for ($i = 0; $i < $limit; $i++) {
+            $indukDanSub[$i] = $induk[$i]->nama;
+            $result = $this->kategori_m->get_many_by(array('kode_induk_kategori' => $induk[$i]->kode_kategori));
+            $limitSub = count($result);
+            for($j = 0; $j < $limitSub; $j++){
+                $indukDanSub[$i][$j] = $result[$j]->nama;
+            }
+        }
+        dump($indukDanSub);
     }
 }

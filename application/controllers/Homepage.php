@@ -6,20 +6,50 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Homepage
+ * Berisi Halaman Depan
+ */
 class Homepage extends MY_Controller
 {
-	protected $data;
 
+    /**
+     * Homepage constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->data['css'] = 'homepage';
+        $this->load->model(array('kategori_m', 'barang_m'));
     }
 
+    /**
+     *  Info : Menampilkan Pengumuman
+     *  Kategori : Menampilkan Daftar Kategori
+     */
     public function index()
     {
-    	$this->data['content'] = 'home';
+        $this->data['content'] = 'home';
         $this->data['info'] = $this->pengumuman_m->get_info();
+        $result = $this->kategori_m->get_all();
+        $hotlist = array();
+        foreach ($result as $list){
+            if (strlen($list->kode_kategori) == 2){
+                array_push($hotlist, $list);
+            }
+        }
+        $this->data['kategori'] = $hotlist;
         $this->load->view('homepage/index', $this->data);
+    }
+
+    /**
+     *  Menampilkan Daftar Barang sesuai kategori yang di pilih
+     */
+    public function daftar()
+    {
+        $id_kategori = $this->input->get('kategori');
+        $result = $this->barang_m->get_many_by(array('id_kategori' => $id_kategori));
+
+        // TODO Selesaikan Tampilan
     }
 }

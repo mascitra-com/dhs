@@ -16,6 +16,9 @@ class Regulasi extends MY_Controller
         $this->load->library(array('upload'));
     }
 
+    /**
+     *  Tampilan daftar Regulasi
+     */
     public function index()
     {
         $this->data['title'] = 'Regulasi';
@@ -26,6 +29,9 @@ class Regulasi extends MY_Controller
         $this->init();
     }
 
+    /**
+     *  Menyimpan data baru
+     */
     public function store()
     {
         $data = $this->input->post();
@@ -52,6 +58,11 @@ class Regulasi extends MY_Controller
         redirect('regulasi');
     }
 
+    /**
+     * Upload file regulasi ke storage
+     * @param $name
+     * @return bool
+     */
     public function do_upload($name)
     {
         $config['upload_path'] = '././assets/regulasi';
@@ -67,6 +78,9 @@ class Regulasi extends MY_Controller
         }
     }
 
+    /**
+     *  Tampilan edit regulasi
+     */
     public function edit()
     {
         $id = $this->input->get('id');
@@ -75,6 +89,9 @@ class Regulasi extends MY_Controller
         echo json_encode($data);
     }
 
+    /**
+     *  Update data regulasi
+     */
     public function update()
     {
         $id = $this->input->post('id');
@@ -101,6 +118,10 @@ class Regulasi extends MY_Controller
         redirect('regulasi');
     }
 
+    /**
+     * Menonaktifkan status regulasi
+     * @param $id
+     */
     public function destroy($id)
     {
         $data['status'] = 0;

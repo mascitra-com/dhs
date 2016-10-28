@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>DHS</title>
-	<?php $this->load->view('homepage/css');?>
-	<link href="<?=base_url('assets/plugin/template/css/homepage.styles.css')?>" rel="stylesheet"/>
+	<title>SIAGA | Satuan Harga Barang Kab. Lumajang</title>
+    <link rel="icon" type="image/png" href="<?=base_url('assets/img/favicon.ico')?>">
+    <?php $this->load->view('homepage/css');?>
 </head>
 <body>
 <?php $this->load->view('homepage/navbar');?>

@@ -1,6 +1,7 @@
 <!-- CSS -->
 <!-- Bootstrap core CSS     -->
 <link href="<?=base_url('assets/plugin/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet" />
+<link href="<?=base_url('assets/css/navbar-color.css')?>" rel="stylesheet"/>
 <!-- Animation library for notifications   -->
 <link href="<?=base_url('assets/plugin/template/css/animate.min.css')?>" rel="stylesheet"/>
 <!-- jQuery UI -->
