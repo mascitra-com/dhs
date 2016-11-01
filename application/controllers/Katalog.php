@@ -43,6 +43,15 @@ class Katalog extends MY_Controller
         $this->init();
     }
 
+    public function form()
+    {
+        $this->data['content'] = 'katalog/edit';
+        $this->data['css']     = 'katalog';
+        $this->data['js']      = 'katalog';
+        $this->init();
+
+    }
+
     /**
      *  Tambahkan data ke database
      */
@@ -61,20 +70,21 @@ class Katalog extends MY_Controller
                 $data['createdBy'] = $this->ion_auth->get_user_id();
                 $data['gambar'] = $this->upload->data('file_name');
 
-                if ($this->barang_m->insert($data) == FALSE) {
+                if ($this->barang_m->insert($data) == TRUE) {
+                    echo "sukses";
+                }else{
                     delete_files($this->upload->data('full_path'));
-                    // echo "Salah input";
-                    show_404();
+                    echo "Input data gagal";
                 }
             } else {
-                show_404();
+                echo "Upload gambar gagal";
             }
         } else {
             $data['createdAt'] = date('Y-m-d h:i:s');
             $data['createdBy'] = $this->ion_auth->get_user_id();
 
             if ($this->barang_m->insert($data) == FALSE) {
-                show_404();
+                echo "Input data gagal";
             }
         }
     }
@@ -86,7 +96,7 @@ class Katalog extends MY_Controller
      */
     public function do_upload($name)
     {
-        $config['upload_path'] = '././assets/img-user';
+        $config['upload_path'] = './assets/img/img-barang';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = 1000;
         $config['max_width'] = 1024;

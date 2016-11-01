@@ -41,12 +41,6 @@ $("#bt-filter").click(function(){
 	window.location = link;
 });
 
-// Preview IMAGE
-$("input[name='gambar']").change(function ()
-{
-	readURL(this);
-});
-
 // Order
 $("#sl-urut").change(function(){
 	window.location = replace_link(/order=([0-9]|[10])/i, 'order='+$(this).val());
@@ -79,6 +73,70 @@ function replace_link(data, dengan)
 	}
 
 	return lnk;
+}
+
+//////////// FORM KATALOG
+
+// Simpan data
+$("#form-katalog").on('submit', function(e){
+    e.preventDefault();
+    if(validasi()){
+    	//proses simpan data
+    	freeze();
+        var formdata = new FormData(this);
+    	$.ajax({
+    		url: $(this).attr('action'),
+            type: "POST",
+            data: formdata,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success:function(result){
+            	alert((result=='sukses')?'data berhasil diinputkan':result);
+            	unfreeze();
+            	if(result=='sukses'){
+            		// reset
+            	}
+            },
+             error: function (xhr, ajaxOption, thrownError) {
+             	alert('terjadi kesalahan: '+thrownError);
+             	unfreeze();
+            }
+    	});
+    }
+});
+
+// Preview IMAGE
+$("input[name='gambar']").change(function ()
+{
+	readURL(this);
+});
+
+// validasi
+function validasi()
+{	
+	var par = true;
+	$("form input[required]").each(function(){
+		if ($(this).val()==''){
+			$(this).css('border-color','red');
+			par = false;
+		}else{
+			$(this).css('border-color','grey');
+		}
+	});
+	return par;
+}
+
+function freeze()
+{
+	$(":submit").empty().html("<i class='fa fa-refresh fa-spin fa-1x fa-fw'></i>Menyimpan data...").prop('disabled', true);
+    $(":reset").prop('disabled', true);
+}
+
+function unfreeze()
+{
+	$(":submit").empty().html("Simpan").prop('disabled', false);
+    $(":reset").prop('disabled', false);
 }
 
 // function preview image
