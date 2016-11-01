@@ -20,6 +20,7 @@ class Homepage extends MY_Controller
     {
         parent::__construct();
         $this->data['css'] = 'homepage';
+        $this->data['info'] = $this->pengumuman_m->get_info();
         $this->load->model(array('kategori_m', 'barang_m'));
     }
 
@@ -30,7 +31,6 @@ class Homepage extends MY_Controller
     public function index()
     {
         $this->data['content'] = 'home';
-        $this->data['info'] = $this->pengumuman_m->get_info();
         $this->data['daftar'] = $this->kategori_m->getKategoriWithChild();
         $this->data['kategori'] = $this->kategori_m->limit(4)->get_many_by(array('kode_induk_kategori' => NULL));
         $this->load->view('homepage/index', $this->data);
@@ -45,5 +45,14 @@ class Homepage extends MY_Controller
         $result = $this->barang_m->get_many_by(array('id_kategori' => $id_kategori));
 
         // TODO Selesaikan Tampilan
+    }
+
+    /**
+     *  Menampilkan Daftar Barang sesuai kategori yang di pilih
+     */
+    public function kontak()
+    {
+        $this->data['content'] = 'kontak';
+        $this->load->view('homepage/index', $this->data);
     }
 }

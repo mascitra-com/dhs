@@ -79,31 +79,48 @@ function replace_link(data, dengan)
 
 // Simpan data
 $("#form-katalog").on('submit', function(e){
-    e.preventDefault();
-    if(validasi()){
+	e.preventDefault();
+	if(validasi()){
     	//proses simpan data
     	freeze();
-        var formdata = new FormData(this);
+    	var formdata = new FormData(this);
     	$.ajax({
     		url: $(this).attr('action'),
-            type: "POST",
-            data: formdata,
-            contentType: false,
-            cache: false,
-            processData: false,
-            success:function(result){
-            	alert((result=='sukses')?'data berhasil diinputkan':result);
-            	unfreeze();
-            	if(result=='sukses'){
+    		type: "POST",
+    		data: formdata,
+    		contentType: false,
+    		cache: false,
+    		processData: false,
+    		success:function(result){
+    			alert((result=='sukses')?'data berhasil diinputkan':result);
+    			unfreeze();
+    			if(result=='sukses'){
             		// reset
             	}
             },
-             error: function (xhr, ajaxOption, thrownError) {
-             	alert('terjadi kesalahan: '+thrownError);
-             	unfreeze();
+            error: function (xhr, ajaxOption, thrownError) {
+            	alert('terjadi kesalahan: '+thrownError);
+            	unfreeze();
             }
-    	});
+        });
     }
+});
+
+var jum = 0;
+var hp 	= 0;
+var bk 	= 0;
+var rs 	= 0;
+var ppn = 0;
+
+$("input[name='hargaPasar'], input[name='biayaKirim'], input[name='resistensi']").keyup(function(){
+	hp 	= parseInt($("input[name='hargaPasar']").val());
+	bk 	= parseInt($("input[name='biayaKirim']").val());
+	rs 	= parseInt($("input[name='resistensi']").val());
+	ppn = Math.round((hp+bk+rs)*0.10);
+	jum = hp+bk+rs+ppn;
+$("input[name='ppn']").val(ppn);
+$("input[name='hargashsb']").val(jum);
+
 });
 
 // Preview IMAGE
@@ -130,13 +147,13 @@ function validasi()
 function freeze()
 {
 	$(":submit").empty().html("<i class='fa fa-refresh fa-spin fa-1x fa-fw'></i>Menyimpan data...").prop('disabled', true);
-    $(":reset").prop('disabled', true);
+	$(":reset").prop('disabled', true);
 }
 
 function unfreeze()
 {
 	$(":submit").empty().html("Simpan").prop('disabled', false);
-    $(":reset").prop('disabled', false);
+	$(":reset").prop('disabled', false);
 }
 
 // function preview image

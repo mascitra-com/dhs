@@ -44,11 +44,12 @@ class Katalog extends MY_Controller
         $this->init();
     }
 
-    public function form()
+    public function add()
     {
-        $this->data['content'] = 'katalog/edit';
-        $this->data['css']     = 'katalog';
-        $this->data['js']      = 'katalog';
+        $this->data['content']  = 'katalog/form';
+        $this->data['css']      = 'katalog';
+        $this->data['js']       = 'katalog';
+        $this->data['kategori'] = $this->kategori_m->get_all();
         $this->init();
 
     }
@@ -146,7 +147,7 @@ class Katalog extends MY_Controller
             $this->load->model('kategori_m');
             // Prepare view
             $this->data['title'] = 'Edit Barang';
-            $this->data['content'] = 'katalog/edit';
+            $this->data['content'] = 'katalog/form';
             $this->data['css'] = 'katalog';
             $this->data['js'] = 'katalog';
             // Prepare data
@@ -185,17 +186,14 @@ class Katalog extends MY_Controller
                 if ($this->barang_m->update($id, $data) == FALSE) {
                     delete_files($this->upload->data('full_path'));
                     // echo "Salah input";
-                    $this->session->set_flashdata('Terjadi kesalahan input');
-                    redirect(site_url('katalog/edit/' . $id));
+                    echo 'Terjadi kesalahan input';
                 } else {
-                    $this->session->set_flashdata('data berhasil disimpan');
-                    redirect(site_url('katalog'));
+                    echo "sukses";
                 }
             } else {
                 // echo $this->upload->display_errors();
                 // show_404();
-                $this->session->set_flashdata('Terjadi kesalahan upload');
-                redirect(site_url('katalog/edit/' . $id));
+                echo 'Terjadi kesalahan upload';
             }
         } else {
             $data['createdAt'] = date('Y-m-d h:i:s');
@@ -204,11 +202,9 @@ class Katalog extends MY_Controller
             if ($this->barang_m->update($id, $data) == FALSE) {
                 // echo "Salah input2";
                 // show_404();
-                $this->session->set_flashdata('Terjadi kesalahan input');
-                redirect(site_url('katalog/edit/' . $id));
+                echo 'Terjadi kesalahan input';
             } else {
-                $this->session->set_flashdata('data berhasil disimpan');
-                redirect(site_url('katalog'));
+                echo 'data berhasil disimpan';
             }
         }
     }

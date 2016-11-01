@@ -54,5 +54,6 @@ $route['auth'] = 'users';
 $route['auth/(:any)'] = 'users/$1';
 $route['profil/(:any)'] = 'users/$1';
 $route['profil'] = 'users/edit';
+$route['kontak'] = 'homepage/kontak';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

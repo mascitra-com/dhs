@@ -71,11 +71,13 @@ class kategori_m extends MY_Model
         for ($i = 0; $i < $limit; $i++) {
             $j = 0;
             $indukDanSub[$i][$j++] = $induk[$i]->id;
+            $indukDanSub[$i][$j++] = $induk[$i]->kode_kategori;
             $indukDanSub[$i][$j] = $induk[$i]->nama;
             $result = $this->kategori_m->get_many_by(array('kode_induk_kategori' => $induk[$i]->kode_kategori, 'status' => '1'));
             foreach ($result as $list){
                 $j++;
                 $indukDanSub[$i][$j++] = $list->id;
+                $indukDanSub[$i][$j++] = $list->kode_kategori;
                 $indukDanSub[$i][$j] = $list->nama;
             }
         }

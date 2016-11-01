@@ -62,8 +62,8 @@ class barang_m extends MY_Model
         $order = array(
             array('createdAt', 'DESC'),
             array('createdAt', 'ASC'),
-            array('hargaSatuan', 'DESC'),
-            array('hargaSatuan', 'ASC'),
+            array('hargashsb', 'DESC'),
+            array('hargashsb', 'ASC'),
             array('nama', 'ASC'),
             array('nama', 'DESC'),
             array('merk', 'ASC'),
