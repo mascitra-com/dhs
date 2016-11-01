@@ -11,7 +11,7 @@ class barang_m extends MY_Model
 
     public function get_all_data($filter = null)
     {
-        $this->db->select("b.id as id, b.nama as nama, kode_barang, merk, tipe, spesifikasi, gambar, k.nama as kategori, hargaPasar, hargashsb, createdAt");
+        $this->db->select("b.id as id, b.id_kategori as id_kategori, b.nama as nama, merk, tipe, spesifikasi, gambar, k.nama as kategori, hargaPasar, hargashsb, createdAt");
         $this->db->from('barang b');
         $this->db->join('kategori k', 'b.id_kategori = k.id');
 
@@ -34,23 +34,13 @@ class barang_m extends MY_Model
                 $where .= " AND id_kategori like '%" . $filter['kategori'] . "%'";
             }
             // Harga Pokok
-            if (isset($filter['hargaPokok'][0]) && ($filter['hargaPokok'][0] != '' || $filter['hargaPokok'][1] != '')) {
-                if ($filter['hargaPokok'][0] != '' && $filter['hargaPokok'][1] != '') {
-                    $where .= " AND hargaPokok BETWEEN " . $filter['hargaPokok'][0] . " AND " . $filter['hargaPokok'][1];
-                } elseif ($filter['hargaPokok'][0] != '' && $filter['hargaPokok'][1] == '') {
-                    $where .= " AND hargaPokok >= " . $filter['hargaPokok'][0];
-                } elseif ($filter['hargaPokok'][0] == '' && $filter['hargaPokok'][1] != '') {
-                    $where .= " AND hargaPokok <= " . $filter['hargaPokok'][1];
-                }
-            }
-            // Harga Satuan
-            if (isset($filter['hargaSatuan'][0]) && ($filter['hargaSatuan'][0] != '' || $filter['hargaSatuan'][1] != '')) {
-                if ($filter['hargaSatuan'][0] != '' && $filter['hargaSatuan'][1] != '') {
-                    $where .= " AND hargaSatuan BETWEEN " . $filter['hargaSatuan'][0] . " AND " . $filter['hargaSatuan'][1];
-                } elseif ($filter['hargaSatuan'][0] != '' && $filter['hargaSatuan'][1] == '') {
-                    $where .= " AND hargaSatuan >= " . $filter['hargaSatuan'][0];
-                } elseif ($filter['hargaSatuan'][0] == '' && $filter['hargaSatuan'][1] != '') {
-                    $where .= " AND hargaSatuan <= " . $filter['hargaSatuan'][1];
+            if (isset($filter['hargashsb'][0]) && ($filter['hargashsb'][0] != '' || $filter['hargashsb'][1] != '')) {
+                if ($filter['hargashsb'][0] != '' && $filter['hargashsb'][1] != '') {
+                    $where .= " AND hargashsb BETWEEN " . $filter['hargashsb'][0] . " AND " . $filter['hargashsb'][1];
+                } elseif ($filter['hargashsb'][0] != '' && $filter['hargashsb'][1] == '') {
+                    $where .= " AND hargashsb >= " . $filter['hargashsb'][0];
+                } elseif ($filter['hargashsb'][0] == '' && $filter['hargashsb'][1] != '') {
+                    $where .= " AND hargashsb <= " . $filter['hargashsb'][1];
                 }
             }
 
