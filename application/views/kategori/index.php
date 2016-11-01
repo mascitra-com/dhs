@@ -45,9 +45,13 @@
                         <select class="form-control" name="induk" id="induk" onchange="select()">
                             <option value="">Pilih kategori</option>
                             <?php foreach ($kategori as $list): ?>
-                                <option value="<?= $list->id ?>"><?= $list->kode_kategori ?>. <?= $list->nama ?></option>
+                                <option value="<?= $list->id ?>"><?= $list->kode_kategori ?>
+                                    . <?= $list->nama ?></option>
                             <?php endforeach; ?>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="checkInduk"> <label>Kategori Induk</label>
                     </div>
                     <div class="form-group">
                         <label for="">Kode Kategori</label>
@@ -78,10 +82,6 @@
             <form action="<?= site_url('kategori/update') ?>" method="POST" style="margin: 1em">
                 <div class="form-group">
                     <input name="idUpdate" id="idUpdate" hidden>
-                    <label for="">Sub dari:</label>
-                    <select class="form-control" name="indukUpdate" id="indukUpdate" onchange="selectUpdate()">
-                        <option value="">Pilih kategori</option>
-                    </select>
                 </div>
                 <div class="form-group">
                     <label for="">Kode Kategori</label>
@@ -94,7 +94,7 @@
                            placeholder="Nama Kategori" required>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-info">Simpan</button>
                 </div>
             </form>
@@ -113,16 +113,7 @@
             }
         });
     }
-    function selectUpdate() {
-        var kode_kategori = $('#indukUpdate').find(":selected").val();
-        $.ajax({
-            type: "GET",
-            url: "<?=site_url('kategori/get_kode?id=')?>" + kode_kategori,
-            success: function (data) {
-                $("#sub_kategoriUpdate").val(data);
-            }
-        });
-    }
+
     function edit(id) {
         $.ajax({
             type: "GET",
@@ -139,6 +130,7 @@
         });
         $("#editModal").modal();
     }
+
     function refresh() {
         window.location.assign("<?=site_url('kategori')?>");
     }

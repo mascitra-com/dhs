@@ -29,6 +29,7 @@ class Katalog extends MY_Controller
 
         $this->data['title'] = 'Katalog Barang';
         $this->data['content'] = 'katalog/index';
+        $this->data['list'] = $this->kategori_m->getKategoriWithChild();
         $this->data['css'] = 'katalog';
         $this->data['js'] = 'katalog';
 
@@ -300,34 +301,12 @@ class Katalog extends MY_Controller
      * @param $nama_kategori
      * @return mixed
      */
-    public function checkIdKategori($nama_kategori)
+    private function checkIdKategori($nama_kategori)
     {
         $this->db->select('id');
         $this->db->from('kategori');
         $this->db->where('nama', $nama_kategori);
         $result = $this->db->get()->result_array();
         return $result[0]['id'];
-    }
-
-    public function getKategoriWithChild()
-    {
-        $result = $this->kategori_m->get_all();
-        $induk = array();
-        foreach ($result as $list) {
-            if (strlen($list->kode_kategori) == 2) {
-                array_push($induk, $list);
-            }
-        }
-        $limit = count($induk);
-        $indukDanSub = array();
-        for ($i = 0; $i < $limit; $i++) {
-            $indukDanSub[$i] = $induk[$i]->nama;
-            $result = $this->kategori_m->get_many_by(array('kode_induk_kategori' => $induk[$i]->kode_kategori));
-            $limitSub = count($result);
-            for($j = 0; $j < $limitSub; $j++){
-                $indukDanSub[$i][$j] = $result[$j]->nama;
-            }
-        }
-        dump($indukDanSub);
     }
 }

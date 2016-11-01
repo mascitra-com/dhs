@@ -27,6 +27,7 @@ class Kategori extends MY_Controller
         $this->data["kategori"] = $this->kategori_m->get_many_by(array("status" => 1));
         $this->data['title'] = 'Kategori Barang';
         $this->data['content'] = 'kategori/index';
+        $this->data['js'] = 'kategori';
         $this->init();
     }
 
@@ -79,7 +80,6 @@ class Kategori extends MY_Controller
     {
         $id = $this->input->post('idUpdate');
         $data = $this->input->post();
-        $update['kode_kategori'] = $data['sub_kategoriUpdate'];
         $update['nama'] = $data['nama_kategoriUpdate'];
         if ($data['indukUpdate'] != "")
             $update['kode_induk_kategori'] = $this->kategori_m->get_by(array('id' => $data['indukUpdate']))->kode_kategori;
@@ -110,5 +110,15 @@ class Kategori extends MY_Controller
         } else {
             echo "";
         }
+    }
+
+    public function get_kode_induk()
+    {
+        $kode_induk_tertinggi = $this->kategori_m->order_by('id', 'DESC')->limit(1)->get_by(array('kode_induk_kategori' => NULL))->kode_kategori;
+        $kode_baru = (int) $kode_induk_tertinggi + 1;
+        if ($kode_baru < 10) {
+            $kode_baru = '0' . $kode_baru;
+        }
+        echo $kode_baru;
     }
 }

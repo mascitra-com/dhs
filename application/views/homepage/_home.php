@@ -38,31 +38,44 @@
 
 <div class="row">
     <?php
-    $icon = array(array('car', 'bell', 'key', 'cubes', 'male'), array('hourglass', 'image', 'map-marker', 'inbox', 'heart'), array('plug', 'print', 'send', 'shield', 'paw'));
-    $label = explode(' ', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis natus at, pariatur deleniti, dolores adipisci.');
-
+    $row = ceil(count($daftar) / 3);
+    $countList = count($daftar);
+    $listNumber = 0;
     ?>
     <?php for ($i = 0; $i < 3; $i++): ?>
-        <div class="col-xs-1 col-md-4">
+        <?php if ($listNumber == $countList) goto end; ?>
+        <div class="col-xs-6 col-md-4">
             <!-- Dropdown menu -->
             <div class="panel list-group">
-                <?php for ($j = 0; $j < 5; $j++): ?>
-                    <!-- list & sublist -->
-                    <button class="list-group-item" data-toggle="collapse"
-                            data-target="#sm<?= $i . '' . $j ?>"><?= strtoupper($label[rand(0, count($label) - 1)]) ?><i
-                            class="fa fa-<?= $icon[$i][$j] ?> pull-right"></i></button>
-                    <div id="sm<?= $i . '' . $j ?>" class="sublinks collapse">
-                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span>
-                            inbox</a>
-                        <a class="list-group-item small"><span class="glyphicon glyphicon-chevron-right"></span>
-                            sent</a>
-                    </div>
-                    <!-- batas list & sublist -->
+                <?php for ($j = 0; $j < 2; $j++): ?>
+                    <?php if ($listNumber < $countList) { ?>
+                        <?php $row = count($daftar[$listNumber]); ?>
+
+                        <!-- list & sublist -->
+                        <?php if ($row > 1) { ?>
+                            <button class="list-group-item" data-toggle="collapse"
+                                    data-target="#sm<?= $i . '' . $j ?>"><?= $daftar[$listNumber][0] ?>
+                            </button>
+                        <?php } else { ?>
+                            <a class="list-group-item" href="#"><?= $daftar[$listNumber][0] ?>
+                            </a>
+                        <?php } ?>
+                        <div id="sm<?= $i . '' . $j ?>" class="sublinks collapse">
+                            <?php for ($k = 1; $k < $row; $k++): ?>
+                                <a class="list-group-item small" href="#<?= $daftar[$listNumber][$k++] ?>">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                    <?= $daftar[$listNumber][$k]; ?></a>
+                            <?php endfor; ?>
+                        </div>
+                        <!-- batas list & sublist -->
+                        <?php $listNumber++; ?>
+                    <?php } ?>
                 <?php endfor; ?>
             </div>
             <!-- Batas Dropdown menu -->
         </div>
-    <?php endfor; ?>
+    <?php endfor;
+    end: ?>
 </div>
 
 <div class="container-fluid" id="hot-list">

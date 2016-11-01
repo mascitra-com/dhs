@@ -56,4 +56,29 @@ class kategori_m extends MY_Model
             return $kode_sub;
         }
     }
+
+    public function getKategoriWithChild()
+    {
+        $result = $this->kategori_m->get_many_by(array('status' => '1'));
+        $induk = array();
+        foreach ($result as $list) {
+            if (strlen($list->kode_kategori) == 2) {
+                array_push($induk, $list);
+            }
+        }
+        $limit = count($induk);
+        $indukDanSub = array();
+        for ($i = 0; $i < $limit; $i++) {
+            $j = 0;
+            $indukDanSub[$i][$j++] = $induk[$i]->id;
+            $indukDanSub[$i][$j] = $induk[$i]->nama;
+            $result = $this->kategori_m->get_many_by(array('kode_induk_kategori' => $induk[$i]->kode_kategori, 'status' => '1'));
+            foreach ($result as $list){
+                $j++;
+                $indukDanSub[$i][$j++] = $list->id;
+                $indukDanSub[$i][$j] = $list->nama;
+            }
+        }
+        return $indukDanSub;
+    }
 }

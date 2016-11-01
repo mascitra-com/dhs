@@ -31,14 +31,8 @@ class Homepage extends MY_Controller
     {
         $this->data['content'] = 'home';
         $this->data['info'] = $this->pengumuman_m->get_info();
-        $result = $this->kategori_m->get_all();
-        $hotlist = array();
-        foreach ($result as $list){
-            if (strlen($list->kode_kategori) == 2){
-                array_push($hotlist, $list);
-            }
-        }
-        $this->data['kategori'] = $hotlist;
+        $this->data['daftar'] = $this->kategori_m->getKategoriWithChild();
+        $this->data['kategori'] = $this->kategori_m->limit(4)->get_many_by(array('kode_induk_kategori' => NULL));
         $this->load->view('homepage/index', $this->data);
     }
 
