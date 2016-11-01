@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="<?=site_url()?>">Home</a></li>
                 <li><a href="#">Katalog</a></li>
-                <li><a href="#">Regulasi</a></li>
+                <li><a href="<?=site_url('homepage/regulasi')?>">Regulasi</a></li>
                 <li><a href="#">Download</a></li>
                 <li><a href="#">Petunjuk</a></li>
                 <li><a href="<?=site_url('kontak')?>">Hubungi Kami</a></li>

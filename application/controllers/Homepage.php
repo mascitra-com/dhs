@@ -55,4 +55,24 @@ class Homepage extends MY_Controller
         $this->data['content'] = 'kontak';
         $this->load->view('homepage/index', $this->data);
     }
+
+    /**
+     *  Menampilkan halaman regulasi
+     */
+    public function regulasi()
+    {
+        $this->load->model('regulasi_m');
+
+        $this->data['content'] = 'regulasi';
+        $this->data['data']    = $this->regulasi_m->get_all();
+        $this->load->view('homepage/index', $this->data);
+    }
+
+    public function download_regulasi($file)
+    {
+        $this->load->helper('download');
+        force_download('././assets/regulasi/'.$file, NULL);
+    }
+
+
 }
