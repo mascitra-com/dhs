@@ -91,7 +91,7 @@ class kategori_m extends MY_Model
      * @param $induk
      * @return array
      */
-    private function totalBarangSesuaiIdKategori($i, $induk):array
+    private function totalBarangSesuaiIdKategori($i, $induk)
     {
         $this->db->select('count(b.id) as jml');
         $this->db->from('kategori k');
@@ -105,7 +105,7 @@ class kategori_m extends MY_Model
      * @param $list
      * @return array
      */
-    private function totalBrgSesuaiIdKategori($list):array
+    private function totalBrgSesuaiIdKategori($list)
     {
         $this->db->select('count(b.id) as jml');
         $this->db->from('kategori k');

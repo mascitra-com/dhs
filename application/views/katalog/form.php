@@ -1,14 +1,15 @@
 <div class="row">
 	<form id="form-katalog" method="post" action="<?=site_url((isset($data)) ? 'katalog/update' : 'katalog/store')?>">
 		<input type="hidden" name="id" value="<?=(isset($data)) ? $data->id : ''?>">
-		<div class="col-md-8">
+		<input type="hidden" name="createdAt" value="<?=(isset($data)) ? $data->createdAt : ''?>">
+		<div class="col-md-12">
 			<div class="card">
 				<div class="content">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="">Kategori</label>
-								<input type="text" class="form-control" name="kode_kategori" placeholder="kategori" value="<?=(isset($data)) ? $data->kode_kategori : ''?>" required>
+								<input type="text" class="form-control" name="kode_kategori" placeholder="kategori" value="<?=(isset($data)) ? $data->kode_kategori.'-'.$data->kategori : ''?>" required>
 							</div>
 						</div>
 					</div>
@@ -81,25 +82,29 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="">Spesifikasi</label>
-								<textarea name="spesifikasi" id="" class="form-control" placeholder="Spesifikasi"><?=(isset($data)) ? $data->spesifikasi : ''?></textarea>
+								<label for="">Keterangan Harga</label>
+								<input type="text" class="form-control" name="keterangan" placeholder="keterangan harga" value="<?=(isset($data)) ? $data->keterangan : ''?>" required>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="card">
-				<div class="content">
-					<div class="form-group">
-						<label for="">Gambar</label>
-						<input type="file" name="gambar" placeholder="Upload Gambar">
-						<img id="img-preview" src="<?=base_url('assets/img/img-barang/' . cek_file((isset($data)) ? $data->gambar : ''))?>" alt="gambar" style="width:300px;height:300px">
-					</div>
-					<div class="form-group">
-						<button class="btn btn-fill btn-primary" type="submit">Simpan</button>
-						<button class="btn btn-fill btn-warning" type="reset">Reset</button>
+					<div class="row">
+						<div class="col-md-7">
+							<div class="form-group">
+								<label for="">Spesifikasi</label>
+								<textarea name="spesifikasi" class="form-control" id="spesifikasi"><?=(isset($data)) ? $data->spesifikasi:''?></textarea>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-fill btn-primary" type="submit">Simpan</button>
+								<button class="btn btn-fill btn-warning" type="reset">Reset</button>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label for="">Gambar</label>
+								<input type="file" name="gambar" placeholder="Upload Gambar">
+								<img id="img-preview" src="<?=base_url('assets/img/img-barang/' . cek_file((isset($data)) ? $data->gambar : ''))?>" alt="gambar" style="width:180px;height:180px">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -145,7 +150,6 @@
 			</div>
 			<div class="content">
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas quaerat veritatis similique, excepturi, molestias optio dolorem necessitatibus rerum quas atque ipsum neque blanditiis modi quo aliquid quae. Reprehenderit, unde. Ullam, natus non, voluptatum vitae saepe dolorum asperiores quibusdam velit voluptatem quidem rem, consequuntur illo aut, quod possimus suscipit laboriosam distinctio tempore animi nesciunt numquam. Neque recusandae voluptatem voluptate iusto dolor!</p>
-				<?=$autocomplete['nama']?>
 			</div>
 		</div>
 	</div>

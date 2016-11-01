@@ -15,11 +15,18 @@
 
 <!--  Load custom JS -->
 <?php 
-$load = array('kategori');
-if (isset($js) && $js != ''): 
-	if (in_array($js, $load)): ?>
+$loadDT 	= array('kategori');
+$loadTMCE 	= array('katalog');
+
+if (isset($js) && $js != ''):
+
+	if (in_array($js, $loadDT)): ?>
 	    <script src="<?= base_url('assets/plugin/datatables/js/jquery.dataTables.min.js') ?>"></script>
+	<?php endif;
+		if (in_array($js, $loadTMCE)): ?>
+	    <script src="<?= base_url('assets/plugin/tinymce/tinymce.min.js') ?>"></script>
 	<?php endif;?>
+
     <script type="text/javascript" src="<?= base_url('assets/js/_'.$js.'.js') ?>"></script>
 <?php endif; ?>
 

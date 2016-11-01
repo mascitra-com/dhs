@@ -26,15 +26,15 @@
                             </tr>
                             <tr>
                                 <td>Kategori</td>
-                                <td><?=$detail->id_kategori?></td>
+                                <td><?=$detail->kode_kategori.'-'.$detail->kategori?></td>
                             </tr>
                             <tr>
-                                <td>Harga Pokok</td>
-                                <td><?=$detail->hargaPokok?></td>
+                                <td>Harga</td>
+                                <td><?=$detail->hargashsb?></td>
                             </tr>
                             <tr>
-                                <td>Harga Satuan</td>
-                                <td><?=$detail->hargaSatuan?></td>
+                                <td>Penyedia</td>
+                                <td><?=$detail->keterangan?></td>
                             </tr>
                             <tr>
                                 <td>Spesifikasi</td>
@@ -42,7 +42,8 @@
                             </tr>
                         </table>
                     </div>
-                    <a class="btn btn-default btn-fill" style="margin-left: 2em; margin-bottom: 1em" onclick="goBack()">Kembali</a>
+                    <a class="btn btn-primary btn-fill" style="margin-left: 2em; margin-bottom: 1em" href="<?=site_url('katalog/edit/'.$detail->id)?>">Edit</a>
+                    <a class="btn btn-default btn-fill" style="margin-bottom: 1em" onclick="goBack()">Kembali</a>
                 </div>
             </div>
         </div>

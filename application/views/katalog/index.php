@@ -153,13 +153,13 @@ Tipe Z-A
                                 </h4>
                             </td>
                             <td width="25%">
-                                <p><i class="fa fa-tag fa-fw"></i> Harga Pasar:
+                                <p><i class="fa fa-tag fa-fw"></i> Harga Pasar :
                                     Rp.<?= number_format($brg->hargaPasar, '0', '', '.') ?>,-</p>
                                     <p><i class="fa fa-tags fa-fw"></i> Harga SHSB :
                                         Rp.<?= number_format($brg->hargashsb, '0', '', '.') ?>,-</p>
-                                        <p><i class="fa fa-paper-plane fa-fw"></i> Penyedia :<!--   ABC --></p>
+                                        <p><i class="fa fa-paper-plane fa-fw"></i> Penyedia : <?=substr($brg->keterangan,0,14)?></p>
                                         <p><i class="fa fa-calendar fa-fw"></i> Harga Pada
-                                            Tanggal: <?php echo mdate('%d-%m-%Y', strtotime(str_replace('-', '/', $brg->createdAt))); ?>
+                                            Tanggal : <?php echo mdate('%d-%m-%Y', strtotime(str_replace('-', '/', $brg->createdAt))); ?>
                                         </p>
                                     </td>
                                     <td width="15%" align="center">

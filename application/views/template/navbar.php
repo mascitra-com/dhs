@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="<?=site_url()?>">
                 <img alt="SIAGA" src="<?= base_url('assets/img/icon-sm.png') ?>">
             </a>
         </div>

@@ -56,18 +56,18 @@ class Katalog extends MY_Controller {
 	 *  Tambahkan data ke database
 	 */
 	public function store() {
-		$data = $this->input->post();
-		$data['kode_kategori'] = explode('-', $data['kode_kategori'])[0];
-		$uploadSukses = false;
+		$data 					= $this->input->post();
+		$data['kode_kategori'] 	= explode('-', $data['kode_kategori'])[0];
+		$uploadSukses 			= false;
+		$data['createdAt'] 		= date('Y-m-d h:i:s');
+		$data['createdBy'] 		= $this->ion_auth->get_user_id();
 
 		if (!empty($_FILES['gambar']['name'])) {
 
-			$data['gambar'] = 'img-' . date('dmYhis');
+			$data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
 
 			if ($this->do_upload($data['gambar'])) {
 
-				$data['createdAt'] = date('Y-m-d h:i:s');
-				$data['createdBy'] = $this->ion_auth->get_user_id();
 				$data['gambar'] = $this->upload->data('file_name');
 
 				if ($this->barang_m->insert($data) == TRUE) {
@@ -80,8 +80,6 @@ class Katalog extends MY_Controller {
 				echo "Upload gambar gagal";
 			}
 		} else {
-			$data['createdAt'] = date('Y-m-d h:i:s');
-			$data['createdBy'] = $this->ion_auth->get_user_id();
 
 			if ($this->barang_m->insert($data) == FALSE) {
 				echo "Input data gagal";
@@ -101,6 +99,7 @@ class Katalog extends MY_Controller {
 		$config['max_width'] = 1024;
 		$config['max_height'] = 1024;
 		$config['file_name'] = $name;
+		$config['overwrite'] = TRUE;
 
 		$this->upload->initialize($config);
 
@@ -122,11 +121,11 @@ class Katalog extends MY_Controller {
 		$this->data['css'] = 'katalog';
 		$this->data['js'] = 'katalog';
 		// Prepare data
-		$this->data['detail'] = $this->barang_m->get($id);
+		$this->data['detail'] = $this->barang_m->get_data_by($id);
 		$increment = (int) $this->data['detail']->popularitas;
 		$update['popularitas'] = $increment + 1;
 		$this->barang_m->update($id, $update);
-		$filter['kategori'] = $this->data['detail']->id_kategori;
+		$filter['kategori'] = $this->data['detail']->kode_kategori;
 		$this->data['terkait'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
 		$this->data['top'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
 		// Do init
@@ -148,7 +147,7 @@ class Katalog extends MY_Controller {
 			// Prepare data
 			$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
 			$this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
-			$this->data['data'] = $this->barang_m->get($id);
+			$this->data['data'] = $this->barang_m->get_data_by($id);
 			// Do init()
 			$this->init();
 		} else {
@@ -162,21 +161,21 @@ class Katalog extends MY_Controller {
 	 */
 	public function update() {
 		// Prepare data & var
-		$data = $this->input->post();
-		$id = $data['id'];
-		$data['kode_kategori'] = explode('-', $data['kode_kategori'])[0];
-		$uploadSukses = false;
+		$data 					= $this->input->post();
+		$id 					= $data['id'];
+		$data['kode_kategori'] 	= explode('-', $data['kode_kategori'])[0];
+		$uploadSukses 			= false;
+		$data['updateAt'] 		= date('Y-m-d h:i:s');
+		$data['updateBy'] 		= $this->ion_auth->get_user_id();
 		// Unset unusefull data
 		unset($data['id']);
 
 		if (!empty($_FILES['gambar']['name'])) {
 
-			$data['gambar'] = 'img-' . date('dmYhis');
+			$data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
 
 			if ($this->do_upload($data['gambar'])) {
-
-				$data['updatedAt'] = date('Y-m-d h:i:s');
-				$data['createdBy'] = $this->ion_auth->get_user_id();
+				
 				$data['gambar'] = $this->upload->data('file_name');
 
 				if ($this->barang_m->update($id, $data) == FALSE) {
@@ -192,8 +191,6 @@ class Katalog extends MY_Controller {
 				echo 'Terjadi kesalahan upload';
 			}
 		} else {
-			$data['createdAt'] = date('Y-m-d h:i:s');
-			$data['createdBy'] = $this->ion_auth->get_user_id();
 
 			if ($this->barang_m->update($id, $data) == FALSE) {
 				// echo "Salah input2";
@@ -281,7 +278,7 @@ class Katalog extends MY_Controller {
 					"spesifikasi" => $rowData[0][3],
 					"hargaPokok" => $rowData[0][4],
 					"hargaSatuan" => $rowData[0][5],
-					"id_kategori" => $idKategori,
+					"kode_kategori" => $idKategori,
 					"createdBy" => $this->ion_auth->get_user_id(),
 				);
 

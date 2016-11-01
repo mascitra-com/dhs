@@ -6,6 +6,12 @@ $(document).ready(function(){
 	$("input[name='merk']").autocomplete({source:ac_merk});
 	$("input[name='tipe']").autocomplete({source:ac_tipe});
 	$("input[name='kode_kategori']").autocomplete({source:ac_kategori});
+
+	tinymce.init({
+        selector: '#spesifikasi',
+        menubar: false
+    });
+
 });
 
 //hapus data
@@ -82,6 +88,7 @@ $("#form-katalog").on('submit', function(e){
     	//proses simpan data
     	freeze();
     	var formdata = new FormData(this);
+    	formdata.set('spesifikasi', tinymce.activeEditor.getContent());
     	$.ajax({
     		url: $(this).attr('action'),
     		type: "POST",
