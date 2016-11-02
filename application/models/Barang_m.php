@@ -11,9 +11,9 @@ class barang_m extends MY_Model
 
     public function get_all_data($filter = null)
     {
-        $this->db->select("b.id as id, b.id_kategori as id_kategori, b.nama as nama, merk, tipe, spesifikasi, gambar, k.nama as kategori, hargaPasar, hargashsb, createdAt");
+        $this->db->select("b.id as id, b.kode_kategori as kode_kategori, b.nama as nama, merk, tipe, spesifikasi, gambar, k.nama as kategori, hargaPasar, hargashsb, createdAt");
         $this->db->from('barang b');
-        $this->db->join('kategori k', 'b.id_kategori = k.id');
+        $this->db->join('kategori k', 'b.kode_kategori = k.id');
 
         if ($filter != null) {
             $where = "1";
@@ -31,7 +31,7 @@ class barang_m extends MY_Model
             }
             // Kategori
             if (isset($filter['kategori']) && $filter['kategori'] != '') {
-                $where .= " AND id_kategori like '%" . $filter['kategori'] . "%'";
+                $where .= " AND kode_kategori like '%" . $filter['kategori'] . "%'";
             }
             // Harga Pokok
             if (isset($filter['hargashsb'][0]) && ($filter['hargashsb'][0] != '' || $filter['hargashsb'][1] != '')) {

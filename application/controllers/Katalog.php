@@ -51,7 +51,7 @@ class Katalog extends MY_Controller
         $this->data['js']       = 'katalog';
         //prepare data
         $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
-        $this->data['kategori']     = $this->kategori_m->get_all();
+        $this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
         $this->init();
 
     }
@@ -153,9 +153,9 @@ class Katalog extends MY_Controller
             $this->data['css'] = 'katalog';
             $this->data['js'] = 'katalog';
             // Prepare data
-            $this->data['kategori'] = $this->kategori_m->get_all();
-            $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
-            $this->data['data'] = $this->barang_m->get($id);
+            $this->data['autocomplete']             = $this->barang_m->get_autocomplete();
+            $this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
+            $this->data['data']                     = $this->barang_m->get($id);
             // Do init()
             $this->init();
         } else {
@@ -170,8 +170,9 @@ class Katalog extends MY_Controller
     public function update()
     {
         // Prepare data & var
-        $data = $this->input->post();
-        $id = $data['id'];
+        $data         = $this->input->post();
+        $id           = $data['id'];
+        $data['kode_kategori'] = explode('-', $data['kode_kategori'])[0];
         $uploadSukses = false;
         // Unset unusefull data
         unset($data['id']);

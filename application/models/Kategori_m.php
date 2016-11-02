@@ -95,8 +95,8 @@ class kategori_m extends MY_Model
     {
         $this->db->select('count(b.id) as jml');
         $this->db->from('kategori k');
-        $this->db->join('barang b', 'k.id = b.id_kategori');
-        $this->db->where('b.id_kategori', $induk[$i]->id);
+        $this->db->join('barang b', 'k.kode_kategori = b.kode_kategori');
+        $this->db->where('b.kode_kategori', $induk[$i]->id);
         $jmlBrg = $this->db->get()->result();
         return $jmlBrg;
     }
@@ -109,8 +109,8 @@ class kategori_m extends MY_Model
     {
         $this->db->select('count(b.id) as jml');
         $this->db->from('kategori k');
-        $this->db->join('barang b', 'k.id = b.id_kategori');
-        $this->db->where('b.id_kategori', $list->id);
+        $this->db->join('barang b', 'k.kode_kategori = b.kode_kategori');
+        $this->db->where('b.kode_kategori', $list->id);
         $jmlBrg = $this->db->get()->result();
         return $jmlBrg;
     }
@@ -118,19 +118,14 @@ class kategori_m extends MY_Model
     public function get_autocomplete()
     {
         $data = $this->db->select('kode_kategori, nama')->get('kategori')->result_array();
-
-        $result = array();
-        foreach ($data as $key => $value) {
-            if (count($value) > 0) {
-                $result = "[";
-                for ($i = 0; $i < count($value) - 1; $i++) {
-                    $result .= "\"" . $value[$i][$key] . "\",";
-                }
-
-                $result .= "\"" . $value[count($value) - 1][$key] . "\"]";
-            }
-            $data[$key] = $result;
+        $result = '[';
+        
+        for($i=0;$i<count($data)-1;$i++){
+            $result.='"'.$data[$i]['kode_kategori'].'-'.$data[$i]['nama'].'",';
         }
-        return $data;
+        
+        $result.='"'.$data[count($data)-1]['kode_kategori'].'-'.$data[count($data)-1]['nama'].'"]';
+
+        return $result;
     }
 }
