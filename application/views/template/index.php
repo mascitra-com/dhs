@@ -20,6 +20,12 @@
             margin-top: 6em;
         }
     </style>
+    <script>
+        var ac_nama = [];
+        var ac_merk = [];
+        var ac_tipe = [];
+        var ac_kategori = [];
+    </script>   
 
 </head>
 <body>

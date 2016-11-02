@@ -116,8 +116,8 @@ $("input[name='hargaPasar'], input[name='biayaKirim'], input[name='resistensi']"
 	rs 	= parseInt($("input[name='resistensi']").val());
 	ppn = Math.round((hp+bk+rs)*0.10);
 	jum = hp+bk+rs+ppn;
-$("input[name='ppn']").val(ppn);
-$("input[name='hargashsb']").val(jum);
+	$("input[name='ppn']").val(ppn);
+	$("input[name='hargashsb']").val(jum);
 
 });
 

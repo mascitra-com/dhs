@@ -145,16 +145,16 @@
 			</div>
 			<div class="content">
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas quaerat veritatis similique, excepturi, molestias optio dolorem necessitatibus rerum quas atque ipsum neque blanditiis modi quo aliquid quae. Reprehenderit, unde. Ullam, natus non, voluptatum vitae saepe dolorum asperiores quibusdam velit voluptatem quidem rem, consequuntur illo aut, quod possimus suscipit laboriosam distinctio tempore animi nesciunt numquam. Neque recusandae voluptatem voluptate iusto dolor!</p>
-				<?=$autocomplete['kategori']?>
+				<?=$autocomplete['nama']?>
 			</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-	var ac_nama 	= <?=$autocomplete['nama']?>;
-	var ac_merk 	= <?=$autocomplete['merk']?>;
-	var ac_tipe 	= <?=$autocomplete['tipe']?>;
-	var ac_kategori = <?=$autocomplete['kategori']?>;
+	ac_nama 	= <?=$autocomplete['nama']?>;
+	ac_merk 	= <?=$autocomplete['merk']?>;
+	ac_tipe 	= <?=$autocomplete['tipe']?>;
+	ac_kategori = <?=$autocomplete['kategori']?>;
 </script>
 
 <?php

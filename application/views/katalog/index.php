@@ -142,11 +142,11 @@ Tipe Z-A
                             <h5>
                                 <a href="<?=site_url('katalog')?>"><span class="badge">Kategori</span></a>
                                 <i class="fa fa-angle-double-right"></i>
-                                <a href="<?=site_url('katalog?kategori='.$brg->id_kategori);?>"><span class="badge"><?= $brg->kategori ?></span></a>
+                                <a href="<?=site_url('katalog?kategori='.$brg->kode_kategori);?>"><span class="badge"><?= $brg->kategori ?></span></a>
                             </h5>
                             <h5>
                                 <a href="<?= site_url('katalog/detail/' . $brg->id) ?>"><b
-                                    class="text-muted"><?= $brg->id_kategori . '.' . $brg->id ?></b></a>
+                                    class="text-muted"><?= $brg->kode_kategori . '.' . $brg->id ?></b></a>
                                 </h5>
                                 <h4>
                                     <a href="<?= site_url('katalog/detail/' . $brg->id) ?>"><b><?= $brg->nama . ' ' . $brg->merk . ' ' . $brg->tipe ?></b></a>
