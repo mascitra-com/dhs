@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>SIAGA | Satuan Harga Barang Kab. Lumajang</title>
+	<title>SISAGA | Sistem Informasi Standar Harga Barang Pemerintah Kab. Lumajang</title>
     <link rel="icon" type="image/png" href="<?=base_url('assets/img/favicon.png')?>">
     <?php $this->load->view('homepage/css');?>
 </head>

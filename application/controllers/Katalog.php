@@ -35,7 +35,7 @@ class Katalog extends MY_Controller
 
         $this->data['kategori'] = $this->kategori_m->get_all();
         $this->data['barang'] = $this->barang_m->get_all_data($filter);
-        $this->data['autocomplete'] = $this->barang_m->get_autocomplete_data();
+        $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
 
         if (!empty($filter)) {
             $this->data['filter'] = $filter;
@@ -49,7 +49,9 @@ class Katalog extends MY_Controller
         $this->data['content']  = 'katalog/form';
         $this->data['css']      = 'katalog';
         $this->data['js']       = 'katalog';
-        $this->data['kategori'] = $this->kategori_m->get_all();
+        //prepare data
+        $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
+        $this->data['kategori']     = $this->kategori_m->get_all();
         $this->init();
 
     }
@@ -152,6 +154,7 @@ class Katalog extends MY_Controller
             $this->data['js'] = 'katalog';
             // Prepare data
             $this->data['kategori'] = $this->kategori_m->get_all();
+            $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
             $this->data['data'] = $this->barang_m->get($id);
             // Do init()
             $this->init();

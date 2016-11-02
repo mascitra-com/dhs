@@ -13,7 +13,7 @@
                         <!-- list & sublist -->
                         <?php if ($j > 3) { ?>
                         <button class="list-group-item" data-toggle="collapse" data-target="#sm<?= $i ?>">
-                            <?= $data[1] ?>. <?= $data[2] ?>
+                            <?= $data[1] ?> (<?= $data[2] ?>)
                             <span class="caret"></span>
                         </button>
 
@@ -22,7 +22,7 @@
                                 <?php for ($k = 3; $k < $j; $k++): ?>
                                     <a class="list-group-item small"
                                     href="<?= site_url('katalog?kategori=') . $data[$k++] ?>"><?= $data[$k++] ?>
-                                    . <?= $data[$k] ?></a>
+                                     (<?= $data[$k] ?>)</a>
                                 <?php endfor; ?>
                             <?php endif; ?>
                         </div>
@@ -140,9 +140,9 @@ Tipe Z-A
                         </td>
                         <td>
                             <h5>
-                                <a href="#"><span class="badge">Kategori</span></a>
+                                <a href="<?=site_url('katalog')?>"><span class="badge">Kategori</span></a>
                                 <i class="fa fa-angle-double-right"></i>
-                                <a href="#"><span class="badge"><?= $brg->kategori ?></span></a>
+                                <a href="<?=site_url('katalog?kategori='.$brg->id_kategori);?>"><span class="badge"><?= $brg->kategori ?></span></a>
                             </h5>
                             <h5>
                                 <a href="<?= site_url('katalog/detail/' . $brg->id) ?>"><b

@@ -2,12 +2,9 @@
 var link = window.location.href;
 
 $(document).ready(function(){
-	$('.dropdown-submenu a').next('ul').hide();
-	$('.dropdown-submenu a').on("click", function(e){
-		$(this).next('ul').toggle();
-		e.stopPropagation();
-		e.preventDefault();
-	});
+	$("input[name='nama']").autocomplete({source:ac_nama});
+	$("input[name='merk']").autocomplete({source:ac_merk});
+	$("input[name='tipe']").autocomplete({source:ac_tipe});
 });
 
 //hapus data

@@ -149,6 +149,11 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var ac_nama = <?=$autocomplete['nama']?>;
+	var ac_merk = <?=$autocomplete['merk']?>;
+	var ac_tipe = <?=$autocomplete['tipe']?>;
+</script>
 
 <?php
 function cek_file($filename) {

@@ -54,17 +54,17 @@
                         <!-- list & sublist -->
                         <?php if ($row > 3) { ?>
                             <button class="list-group-item" data-toggle="collapse"
-                                    data-target="#sm<?= $i . '' . $j ?>"><?= $daftar[$listNumber][1] ?>. <?= $daftar[$listNumber][2] ?><i class="fa fa-caret-down pull-right"></i>
+                                    data-target="#sm<?= $i . '' . $j ?>"><?= $daftar[$listNumber][1] ?> (<?= $daftar[$listNumber][2] ?>)<i class="fa fa-caret-down pull-right"></i>
                             </button>
                         <?php } else { ?>
-                            <a class="list-group-item" href="#"><?= $daftar[$listNumber][1] ?>. <?= $daftar[$listNumber][2] ?>
+                            <a class="list-group-item" href="#"><?= $daftar[$listNumber][1] ?> (<?= $daftar[$listNumber][2] ?>)
                             </a>
                         <?php } ?>
                         <div id="sm<?= $i . '' . $j ?>" class="sublinks collapse">
                             <?php for ($k = 3; $k < $row; $k++): ?>
                                 <a class="list-group-item small" href="#<?= $daftar[$listNumber][$k++] ?>">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                    <?= $daftar[$listNumber][$k++]; ?>. <?= $daftar[$listNumber][$k]; ?></a>
+                                    <span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;
+                                    <?= $daftar[$listNumber][$k]; ?> (<?= $daftar[$listNumber][++$k]; ?>)</a>
                             <?php endfor; ?>
                         </div>
                         <!-- batas list & sublist -->

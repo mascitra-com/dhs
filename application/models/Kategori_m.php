@@ -71,16 +71,66 @@ class kategori_m extends MY_Model
         for ($i = 0; $i < $limit; $i++) {
             $j = 0;
             $indukDanSub[$i][$j++] = $induk[$i]->id;
-            $indukDanSub[$i][$j++] = $induk[$i]->kode_kategori;
-            $indukDanSub[$i][$j] = $induk[$i]->nama;
+            $jmlBrg = $this->totalBarangSesuaiIdKategori($i, $induk);
+            $indukDanSub[$i][$j++] = $induk[$i]->nama;
+            $indukDanSub[$i][$j] = $jmlBrg[0]->jml;
             $result = $this->kategori_m->get_many_by(array('kode_induk_kategori' => $induk[$i]->kode_kategori, 'status' => '1'));
             foreach ($result as $list){
                 $j++;
                 $indukDanSub[$i][$j++] = $list->id;
-                $indukDanSub[$i][$j++] = $list->kode_kategori;
-                $indukDanSub[$i][$j] = $list->nama;
+                $indukDanSub[$i][$j++] = $list->nama;
+                $jmlBrg = $this->totalBrgSesuaiIdKategori($list);
+                $indukDanSub[$i][$j] = $jmlBrg[0]->jml;
             }
         }
         return $indukDanSub;
+    }
+
+    /**
+     * @param $i
+     * @param $induk
+     * @return array
+     */
+    private function totalBarangSesuaiIdKategori($i, $induk):array
+    {
+        $this->db->select('count(b.id) as jml');
+        $this->db->from('kategori k');
+        $this->db->join('barang b', 'k.id = b.id_kategori');
+        $this->db->where('b.id_kategori', $induk[$i]->id);
+        $jmlBrg = $this->db->get()->result();
+        return $jmlBrg;
+    }
+
+    /**
+     * @param $list
+     * @return array
+     */
+    private function totalBrgSesuaiIdKategori($list):array
+    {
+        $this->db->select('count(b.id) as jml');
+        $this->db->from('kategori k');
+        $this->db->join('barang b', 'k.id = b.id_kategori');
+        $this->db->where('b.id_kategori', $list->id);
+        $jmlBrg = $this->db->get()->result();
+        return $jmlBrg;
+    }
+
+    public function get_autocomplete()
+    {
+        $data = $this->db->select('kode_kategori, nama')->get('kategori')->result_array();
+
+        $result = array();
+        foreach ($data as $key => $value) {
+            if (count($value) > 0) {
+                $result = "[";
+                for ($i = 0; $i < count($value) - 1; $i++) {
+                    $result .= "\"" . $value[$i][$key] . "\",";
+                }
+
+                $result .= "\"" . $value[count($value) - 1][$key] . "\"]";
+            }
+            $data[$key] = $result;
+        }
+        return $data;
     }
 }

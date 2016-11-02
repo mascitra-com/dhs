@@ -81,7 +81,7 @@ class barang_m extends MY_Model
         return $this->db->get()->result();
     }
 
-    public function get_autocomplete_data()
+    public function get_autocomplete()
     {
         $data = array();
         $data['nama'] = $this->db->select('nama')->distinct()->get('barang')->result_array();
