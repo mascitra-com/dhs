@@ -82,3 +82,7 @@
 img{
 	object-fit: cover;
 }
+
+#homepage {
+	margin-top: 2em;
+}

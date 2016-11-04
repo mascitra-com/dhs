@@ -9,7 +9,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="">Kategori</label>
-								<input type="text" class="form-control" name="kode_kategori" placeholder="kategori" value="<?=(isset($data)) ? $data->kode_kategori.'-'.$data->kategori : ''?>" required>
+								<input type="text" class="form-control" name="kode_kategori" placeholder="kategori" value="<?=(isset($data)) ? $data->kode_kategori . '-' . $data->kategori : ''?>" required>
 							</div>
 						</div>
 					</div>
@@ -91,7 +91,7 @@
 						<div class="col-md-7">
 							<div class="form-group">
 								<label for="">Spesifikasi</label>
-								<textarea name="spesifikasi" class="form-control" id="spesifikasi"><?=(isset($data)) ? $data->spesifikasi:''?></textarea>
+								<textarea name="spesifikasi" class="form-control" id="spesifikasi"><?=(isset($data)) ? $data->spesifikasi : ''?></textarea>
 							</div>
 							<div class="form-group">
 								<button class="btn btn-fill btn-primary" type="submit">Simpan</button>
@@ -127,10 +127,9 @@
 							<label class="control-label">Pilih File</label>
 							<div class="input-group">
 								<label class="input-group-btn">
-									<span class="btn btn-primary">
-										Browse&hellip; <input id="file" name="file" type="file" class="file-loading"
-										accept="application/vnd.ms-excel" style="display: none">
-									</span>
+									<input id="file" name="import" type="file"
+										accept="application/vnd.ms-excel">
+
 								</label>
 								<input type="text" class="form-control" readonly>
 							</div>

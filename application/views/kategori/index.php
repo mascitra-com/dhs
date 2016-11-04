@@ -17,16 +17,16 @@
                     <tbody>
                     <?php foreach ($kategori as $list): ?>
                         <tr>
-                            <td><?= $list->kode_kategori ?></td>
-                            <td><?= $list->nama ?></td>
+                            <td><?=$list->kode_kategori?></td>
+                            <td><?=$list->nama?></td>
                             <td>
-                                <a onclick="edit('<?= $list->id ?>')" class="btn btn-fill btn-xs btn-primary"><i
+                                <a onclick="edit('<?=$list->id?>')" class="btn btn-fill btn-xs btn-primary"><i
                                         class="fa fa-pencil"></i></a>
-                                <a href="<?= site_url('kategori/destroy/' . $list->id) ?>"
+                                <a href="<?=site_url('kategori/destroy/' . $list->id)?>"
                                    class="btn btn-fill btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach;?>
                     </tbody>
                 </table>
             </div>
@@ -39,15 +39,15 @@
                 <span class="category">Input Kategori baru</span>
             </div>
             <div class="content">
-                <form action="<?= site_url('kategori/store') ?>" method="POST">
+                <form action="<?=site_url('kategori/store')?>" method="POST">
                     <div class="form-group">
                         <label for="">Sub dari:</label>
                         <select class="form-control" name="induk" id="induk" onchange="select()">
                             <option value="">Pilih kategori</option>
                             <?php foreach ($kategori as $list): ?>
-                                <option value="<?= $list->id ?>"><?= $list->kode_kategori ?>
-                                    . <?= $list->nama ?></option>
-                            <?php endforeach; ?>
+                                <option value="<?=$list->id?>"><?=$list->kode_kategori?>
+                                    . <?=$list->nama?></option>
+                            <?php endforeach;?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -79,7 +79,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Edit Kategori</h4>
             </div>
-            <form action="<?= site_url('kategori/update') ?>" method="POST" style="margin: 1em">
+            <form action="<?=site_url('kategori/update')?>" method="POST" style="margin: 1em">
                 <div class="form-group">
                     <input name="idUpdate" id="idUpdate" hidden>
                 </div>
@@ -129,6 +129,16 @@
             }
         });
         $("#editModal").modal();
+    }
+
+    function kategoriInduk() {
+        $.ajax({
+            type: "GET",
+            url: "<?=site_url('kategori/get_kode_induk')?>",
+            success: function (data) {
+                $("#sub_kategori").val(data);
+            }
+        });
     }
 
     function refresh() {

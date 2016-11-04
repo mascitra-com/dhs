@@ -8,7 +8,7 @@ $(document).ready(function() {
         if ($(this).is(":checked")) {
             $("#induk").val("");
             $("#induk").prop("disabled", true);
-            indukKategori();
+            kategoriInduk();
         } else {
             $("#induk").prop("disabled", false);
             $("#sub_kategori").val("");

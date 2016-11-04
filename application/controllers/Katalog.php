@@ -5,7 +5,6 @@ class Katalog extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->checkLoggedIn();
 		$this->load->model(array('barang_m', 'kategori_m'));
 		$this->load->library(array('upload', 'pagination'));
 		$this->load->helper("file");
@@ -56,11 +55,11 @@ class Katalog extends MY_Controller {
 	 *  Tambahkan data ke database
 	 */
 	public function store() {
-		$data 					= $this->input->post();
-		$data['kode_kategori'] 	= explode('-', $data['kode_kategori'])[0];
-		$uploadSukses 			= false;
-		$data['createdAt'] 		= date('Y-m-d h:i:s');
-		$data['createdBy'] 		= $this->ion_auth->get_user_id();
+		$data = $this->input->post();
+		$data['kode_kategori'] = explode('-', $data['kode_kategori'])[0];
+		$uploadSukses = false;
+		$data['createdAt'] = date('Y-m-d h:i:s');
+		$data['createdBy'] = $this->ion_auth->get_user_id();
 
 		if (!empty($_FILES['gambar']['name'])) {
 
@@ -161,12 +160,12 @@ class Katalog extends MY_Controller {
 	 */
 	public function update() {
 		// Prepare data & var
-		$data 					= $this->input->post();
-		$id 					= $data['id'];
-		$data['kode_kategori'] 	= explode('-', $data['kode_kategori'])[0];
-		$uploadSukses 			= false;
-		$data['updateAt'] 		= date('Y-m-d h:i:s');
-		$data['updateBy'] 		= $this->ion_auth->get_user_id();
+		$data = $this->input->post();
+		$id = $data['id'];
+		$data['kode_kategori'] = explode('-', $data['kode_kategori'])[0];
+		$uploadSukses = false;
+		$data['updateAt'] = date('Y-m-d h:i:s');
+		$data['updateBy'] = $this->ion_auth->get_user_id();
 		// Unset unusefull data
 		unset($data['id']);
 
@@ -175,7 +174,7 @@ class Katalog extends MY_Controller {
 			$data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
 
 			if ($this->do_upload($data['gambar'])) {
-				
+
 				$data['gambar'] = $this->upload->data('file_name');
 
 				if ($this->barang_m->update($id, $data) == FALSE) {
@@ -233,21 +232,23 @@ class Katalog extends MY_Controller {
 	 *  Import Data Excel ke Database
 	 */
 	public function upload() {
-		$fileName = time() . '-' . $_FILES['file']['name'];
+		$excel = $this->input->post();
+		$this->load->library('upload');
+		$fileName = $_FILES['import']['name'];
 
-		$config['upload_path'] = base_url('/assets/'); //buat folder dengan nama assets di root folder
+		$config['upload_path'] = './assets'; //buat folder dengan nama assets di root folder
 		$config['file_name'] = $fileName;
 		$config['allowed_types'] = 'xls|xlsx|csv';
 		$config['max_size'] = 10000;
+		$config['overwrite'] = TRUE;
 
-		$this->load->library('upload');
 		$this->upload->initialize($config);
 
-		if (!$this->upload->do_upload('file')) {
+		if (!$this->upload->do_upload('import')) {
 			$this->upload->display_errors();
 		}
 		$filepath = $this->upload->data('full_path');
-		$inputFileName = base_url('/assets/') . $fileName;
+		$inputFileName = './assets/' . $fileName;
 
 		try {
 			$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
@@ -259,38 +260,46 @@ class Katalog extends MY_Controller {
 
 		$sheet = $objPHPExcel->getSheet(0);
 		$highestRow = $sheet->getHighestRow();
+		$startRow = 2;
+		$rowData = array();
 		if ($highestRow > 1) {
 			$highestColumn = $sheet->getHighestColumn();
 			$insert = FALSE;
-			for ($row = 2; $row <= $highestRow; $row++) {
+			for ($row = 0; $row < $highestRow - 1; $row++) {
 				//  Read a row of data into an array
-				$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
-					NULL,
-					TRUE,
-					FALSE);
-
-				//Sesuaikan sama nama kolom tabel di database
-				$idKategori = $this->checkIdKategori($rowData[0][6]);
+				$tmp = $sheet->rangeToArray('A' . $startRow . ':' . 'M' . $startRow++, NULL, TRUE, FALSE)[0];
 				$data = array(
-					"nama" => $rowData[0][0],
-					"merk" => $rowData[0][1],
-					"tipe" => $rowData[0][2],
-					"spesifikasi" => $rowData[0][3],
-					"hargaPokok" => $rowData[0][4],
-					"hargaSatuan" => $rowData[0][5],
-					"kode_kategori" => $idKategori,
+					"nama" => $tmp[0],
+					"merk" => $tmp[1],
+					"tipe" => $tmp[2],
+					"ukuran" => $tmp[3],
+					"satuan" => $tmp[4],
+					"hargaPasar" => $tmp[5],
+					"biayaKirim" => $tmp[6],
+					"resistensi" => $tmp[7],
+					"ppn" => $tmp[8],
+					"hargashsb" => $tmp[9],
+					"keterangan" => $tmp[10],
+					"spesifikasi" => $tmp[11],
+					"kode_kategori" => $tmp[12],
 					"createdBy" => $this->ion_auth->get_user_id(),
 				);
 
-				//sesuaikan nama dengan nama tabel
-				$this->db->insert("barang", $data);
+				array_push($rowData, $data);
 			}
-			$this->session->set_flashdata('message', array('Berhasil di Upload', 'success'));
+			if ($this->barang_m->insert_many($rowData)) {
+				$this->session->set_flashdata('message', array('Berhasil di Upload', 'success'));
+			} else {
+				$this->session->set_flashdata('message', array('Gagal', 'success'));
+			}
+
+			redirect(site_url('katalog/add'));
+
 		} else {
 			$this->session->set_flashdata('message', array('Gagal di Upload', 'danger'));
 		}
-		unlink($filepath);
-		redirect('katalog/import');
+
+		// redirect('katalog/add');
 	}
 
 	/**

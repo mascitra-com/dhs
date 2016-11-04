@@ -21,7 +21,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!-----start-main---->
 <div class="login-form">
-    <h1>Sign In</h1>
+    <h1>Login</h1>
     <form action="<?=site_url('users/login')?>" method="post">
         <li>
             <input type="text" name="identity" class="text" value="User Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User Name';}" ><a href="#" class=" icon user"></a>

@@ -22,7 +22,7 @@
                                 <?php for ($k = 3; $k < $j; $k++): ?>
                                     <a class="list-group-item small"
                                     href="<?= site_url('katalog?kategori=') . $data[$k++] ?>"><?= $data[$k++] ?>
-                                     (<?= $data[$k] ?>)</a>
+                                    (<?= $data[$k] ?>)</a>
                                 <?php endfor; ?>
                             <?php endif; ?>
                         </div>
@@ -95,38 +95,19 @@ Tipe Z-A
 </div>
 <div class="card">
     <div class="header">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="ip-nama"
-                    value="<?= (isset($filter['nama'])) ? $filter['nama'] : '' ?>" placeholder="Nama">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="ip-merk"
-                    value="<?= (isset($filter['merk'])) ? $filter['merk'] : '' ?>" placeholder="Merk">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="ip-tipe"
-                    value="<?= (isset($filter['tipe'])) ? $filter['tipe'] : '' ?>" placeholder="Tipe">
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="harga min">
-                        <input type="text" class="form-control" placeholder="harga max">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1">
-                <div class="form-group">
-                    <button class="btn btn-info btn-fill" id="bt-filter"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
+        <div class="input-group">
+          <input type="text" class="form-control" id="ip-nama" value="<?= (isset($filter['nama'])) ? $filter['nama'] : '' ?>" placeholder="Nama">
+          <span class="input-group-btn" style="width:0px;"></span>
+          <input type="text" class="form-control" id="ip-merk" value="<?= (isset($filter['merk'])) ? $filter['merk'] : '' ?>" placeholder="Merk" style="margin-left:-2px">
+          <span class="input-group-btn" style="width:0px;"></span>
+          <input type="text" class="form-control" id="ip-tipe" value="<?= (isset($filter['tipe'])) ? $filter['tipe'] : '' ?>" placeholder="Tipe" style="margin-left:-2px">
+          <span class="input-group-btn" style="width:0px;"></span>
+          <input type="text" class="form-control" id="ip-hargamin" value="<?= (isset($filter['hargamin'])) ? $filter['hargamin'] : '' ?>" placeholder="hargashsb min" style="margin-left:-2px">
+          <span class="input-group-btn" style="width:0px;"></span>
+          <input type="text" class="form-control" id="ip-hargamax" value="<?= (isset($filter['hargamax'])) ? $filter['hargamax'] : '' ?>" placeholder="hargashsb max" style="margin-left:-2px">
+          <span class="input-group-btn">
+            <button class="btn btn-info btn-fill" id="bt-filter"><i class="fa fa-search"></i></button>
+          </span>
         </div>
     </div>
     <div class="content table-responsive table-full-width">
@@ -164,15 +145,15 @@ Tipe Z-A
                                     </td>
                                     <td width="15%" align="center">
                                         <a href="<?= site_url('katalog/edit/' . $brg->id) ?>"
-                                         class="btn btn-info btn-fill btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
-                                         <button class="btn btn-danger btn-fill btn-xs"
-                                         onclick="hapus(<?= $brg->id ?>, '<?= $brg->gambar ?>')"><i
-                                         class="fa fa-trash"></i> Hapus
-                                     </button>
-                                 </td>
-                             </tr>
-                         <?php endforeach; ?>
-                         <tr>
+                                           class="btn btn-info btn-fill btn-xs"><i class="fa fa-pencil"></i> Ubah</a>
+                                           <button class="btn btn-danger btn-fill btn-xs"
+                                           onclick="hapus(<?= $brg->id ?>, '<?= $brg->gambar ?>')"><i
+                                           class="fa fa-trash"></i> Hapus
+                                       </button>
+                                   </td>
+                               </tr>
+                           <?php endforeach; ?>
+                           <tr>
                             <td colspan="2" align="left">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination">

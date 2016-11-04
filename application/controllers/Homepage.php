@@ -10,69 +10,82 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Class Homepage
  * Berisi Halaman Depan
  */
-class Homepage extends MY_Controller
-{
+class Homepage extends MY_Controller {
 
-    /**
-     * Homepage constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->data['css'] = 'homepage';
-        $this->data['info'] = $this->pengumuman_m->get_info();
-        $this->load->model(array('kategori_m', 'barang_m'));
-    }
+	/**
+	 * Homepage constructor.
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->data['css'] = 'homepage';
+		$this->data['info'] = $this->pengumuman_m->get_info();
+		$this->load->model(array('kategori_m', 'barang_m'));
+	}
 
-    /**
-     *  Info : Menampilkan Pengumuman
-     *  Kategori : Menampilkan Daftar Kategori
-     */
-    public function index()
-    {
-        $this->data['content'] = 'home';
-        $this->data['daftar'] = $this->kategori_m->getKategoriWithChild();
-        $this->data['kategori'] = $this->kategori_m->limit(4)->get_many_by(array('kode_induk_kategori' => NULL));
-        $this->load->view('homepage/index', $this->data);
-    }
+	/**
+	 *  Info : Menampilkan Pengumuman
+	 *  Kategori : Menampilkan Daftar Kategori
+	 */
+	public function index() {
+		$this->data['content'] = 'home';
+		$this->data['daftar'] = $this->kategori_m->getKategoriWithChild();
+		$this->data['kategori'] = $this->kategori_m->limit(4)->get_many_by(array('kode_induk_kategori' => NULL));
+		$this->load->view('homepage/index', $this->data);
+	}
 
-    /**
-     *  Menampilkan Daftar Barang sesuai kategori yang di pilih
-     */
-    public function daftar()
-    {
-        $id_kategori = $this->input->get('kategori');
-        $result = $this->barang_m->get_many_by(array('id_kategori' => $id_kategori));
+	/**
+	 *  Menampilkan Daftar Barang sesuai kategori yang di pilih
+	 */
+	public function daftar() {
+		$filter = $this->input->get();
+		$this->data['barang'] = $this->barang_m->get_all_data($filter);
+		$this->data['list'] = $this->kategori_m->getKategoriWithChild();
+		$this->data['css'] = 'katalog';
+		$this->data['js'] = 'katalog';
+		$this->data['content'] = 'katalog';
+		$this->load->view('homepage/index', $this->data);
+	}
 
-        // TODO Selesaikan Tampilan
-    }
+	public function detail($id = 0) {
+		// Prepare view
+		$this->data['title'] = 'Detail Barang';
+		$this->data['content'] = 'detail';
+		$this->data['css'] = 'katalog';
+		$this->data['js'] = 'katalog';
+		// Prepare data
+		$this->data['detail'] = $this->barang_m->get_data_by($id);
+		$increment = (int) $this->data['detail']->popularitas;
+		$update['popularitas'] = $increment + 1;
+		$this->barang_m->update($id, $update);
+		$filter['kategori'] = $this->data['detail']->kode_kategori;
+		$this->data['terkait'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
+		$this->data['top'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
+		// Do init
+		$this->load->view('homepage/index', $this->data);
+	}
 
-    /**
-     *  Menampilkan Daftar Barang sesuai kategori yang di pilih
-     */
-    public function kontak()
-    {
-        $this->data['content'] = 'kontak';
-        $this->load->view('homepage/index', $this->data);
-    }
+	/**
+	 *  Menampilkan halaman Hubungi Kami
+	 */
+	public function kontak() {
+		$this->data['content'] = 'kontak';
+		$this->load->view('homepage/index', $this->data);
+	}
 
-    /**
-     *  Menampilkan halaman regulasi
-     */
-    public function regulasi()
-    {
-        $this->load->model('regulasi_m');
+	/**
+	 *  Menampilkan halaman regulasi
+	 */
+	public function regulasi() {
+		$this->load->model('regulasi_m');
 
-        $this->data['content'] = 'regulasi';
-        $this->data['data']    = $this->regulasi_m->get_all();
-        $this->load->view('homepage/index', $this->data);
-    }
+		$this->data['content'] = 'regulasi';
+		$this->data['data'] = $this->regulasi_m->get_all();
+		$this->load->view('homepage/index', $this->data);
+	}
 
-    public function download_regulasi($file)
-    {
-        $this->load->helper('download');
-        force_download('././assets/regulasi/'.$file, NULL);
-    }
-
+	public function download_regulasi($file) {
+		$this->load->helper('download');
+		force_download('././assets/regulasi/' . $file, NULL);
+	}
 
 }

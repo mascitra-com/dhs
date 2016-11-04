@@ -35,12 +35,16 @@ $("#bt-filter").click(function(){
 	var nama = $("#ip-nama").val();
 	var merk = $("#ip-merk").val();
 	var tipe = $("#ip-tipe").val();
+	var hargamin = $("#ip-hargamin").val();
+	var hargamax = $("#ip-hargamax").val();
 
 	link = link.substr(0, link.lastIndexOf('?'));
 	
 	if(nama!=''){link = replace_link(/nama=[a-z0-9]/i, 'nama='+nama);}
 	if(merk!=''){link = replace_link(/merk=[a-z0-9]/i, 'merk='+merk);}
 	if(tipe!=''){link = replace_link(/tipe=[a-z0-9]/i, 'tipe='+tipe);}
+	if(hargamin!=''){link = replace_link(/hargamin=[a-z0-9]/i, 'hargamin='+hargamin);}
+	if(hargamax!=''){link = replace_link(/hargamax=[a-z0-9]/i, 'hargamax='+hargamax);}
 
 	window.location = link;
 });

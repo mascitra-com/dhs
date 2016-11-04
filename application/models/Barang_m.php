@@ -31,14 +31,13 @@ class barang_m extends MY_Model {
 				$where .= " AND b.kode_kategori like '%" . $filter['kategori'] . "%'";
 			}
 			// Harga Pokok
-			if (isset($filter['hargashsb'][0]) && ($filter['hargashsb'][0] != '' || $filter['hargashsb'][1] != '')) {
-				if ($filter['hargashsb'][0] != '' && $filter['hargashsb'][1] != '') {
-					$where .= " AND hargashsb BETWEEN " . $filter['hargashsb'][0] . " AND " . $filter['hargashsb'][1];
-				} elseif ($filter['hargashsb'][0] != '' && $filter['hargashsb'][1] == '') {
-					$where .= " AND hargashsb >= " . $filter['hargashsb'][0];
-				} elseif ($filter['hargashsb'][0] == '' && $filter['hargashsb'][1] != '') {
-					$where .= " AND hargashsb <= " . $filter['hargashsb'][1];
-				}
+			
+			if ((isset($filter['hargamin']) && isset($filter['hargamax'])) && ($filter['hargamin'] != '' && $filter['hargamax'] != '')) {
+				$where .= " AND hargashsb BETWEEN " . $filter['hargamin'] . " AND " . $filter['hargamax'];
+			} elseif ((isset($filter['hargamin']) && $filter['hargamin'] != '') && (!isset($filter['hargamax']) || $filter['hargamax'] == '')) {
+				$where .= " AND hargashsb >= " . $filter['hargamin'];
+			} elseif ((isset($filter['hargamax']) && $filter['hargamax'] != '') && (!isset($filter['hargamin']) || $filter['hargamin'] == '')) {
+				$where .= " AND hargashsb <= " . $filter['hargamax'];
 			}
 
 			if ($where != "1") {

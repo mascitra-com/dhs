@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="<?=site_url()?>">
-                <img alt="SIAGA" src="<?= base_url('assets/img/icon-sm.png') ?>">
+                <img alt="SIAGA" src="<?=base_url('assets/img/icon-sm.png')?>">
             </a>
         </div>
         <div class="collapse navbar-collapse">
@@ -57,9 +57,9 @@
                     <ul class="dropdown-menu">
                         <li><a href="<?=site_url('profil/change_password')?>">Ganti Password</a></li>
                         <li><a href="<?=site_url('profil/edit')?>">Edit Akun</a></li>
-                        <li><a href="<?=site_url('profil/logout')?>">Logout</a></li>
+                        <li><a href="<?=site_url('logout')?>">Logout</a></li>
                     </ul>
-                </li>                
+                </li>
             </ul>
         </div>
     </div>
