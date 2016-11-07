@@ -16,31 +16,32 @@ class Katalog extends MY_Controller {
 	 *  Menampilkan daftar Barang
 	 */
 	public function index() {
-		$filter = $this->input->get();
-
-		$this->load->model('kategori_m');
-		if (!isset($filter['offset'])) {
-			$filter['offset'] = 5;
-		}
-
+        // Prepare View
 		$this->data['title'] = 'Katalog Barang';
 		$this->data['content'] = 'katalog/index';
 		$this->data['list'] = $this->kategori_m->getKategoriWithChild();
 		$this->data['css'] = 'katalog';
 		$this->data['js'] = 'katalog';
-
-		$this->data['kategori'] = $this->kategori_m->get_all();
-		$this->data['barang'] = $this->barang_m->get_all_data($filter);
-		$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
-
+        // Get filter
+        $filter = $this->input->get();
+        if (!isset($filter['offset'])) {
+            $filter['offset'] = 5;
+        }
+        // Apply filter
 		if (!empty($filter)) {
 			$this->data['filter'] = $filter;
 		}
-
+        // Prepare Data
+        $this->data['kategori'] = $this->kategori_m->get_all();
+        $this->data['barang'] = $this->barang_m->get_all_data($filter);
+        $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
+        // Do init
 		$this->init();
 	}
 
 	public function add() {
+        // Prepare View
+		$this->data['title'] = 'Tambah Barang';
 		$this->data['content'] = 'katalog/form';
 		$this->data['css'] = 'katalog';
 		$this->data['js'] = 'katalog';
@@ -57,18 +58,13 @@ class Katalog extends MY_Controller {
 	public function store() {
 		$data = $this->input->post();
 		$data['kode_kategori'] = explode('-', $data['kode_kategori'])[0];
-		$uploadSukses = false;
 		$data['createdAt'] = date('Y-m-d h:i:s');
 		$data['createdBy'] = $this->ion_auth->get_user_id();
 
 		if (!empty($_FILES['gambar']['name'])) {
-
 			$data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
-
 			if ($this->do_upload($data['gambar'])) {
-
 				$data['gambar'] = $this->upload->data('file_name');
-
 				if ($this->barang_m->insert($data) == TRUE) {
 					echo "sukses";
 				} else {
@@ -79,7 +75,6 @@ class Katalog extends MY_Controller {
 				echo "Upload gambar gagal";
 			}
 		} else {
-
 			if ($this->barang_m->insert($data) == FALSE) {
 				echo "Input data gagal";
 			}
@@ -221,14 +216,6 @@ class Katalog extends MY_Controller {
 	}
 
 	/**
-	 *  Import Data dari Excel ke Database
-	 */
-	public function import() {
-		$this->data['content'] = 'katalog/import';
-		$this->init();
-	}
-
-	/**
 	 *  Import Data Excel ke Database
 	 */
 	public function upload() {
@@ -247,7 +234,6 @@ class Katalog extends MY_Controller {
 		if (!$this->upload->do_upload('import')) {
 			$this->upload->display_errors();
 		}
-		$filepath = $this->upload->data('full_path');
 		$inputFileName = './assets/' . $fileName;
 
 		try {
@@ -284,22 +270,17 @@ class Katalog extends MY_Controller {
 					"kode_kategori" => $tmp[12],
 					"createdBy" => $this->ion_auth->get_user_id(),
 				);
-
 				array_push($rowData, $data);
 			}
 			if ($this->barang_m->insert_many($rowData)) {
-				$this->session->set_flashdata('message', array('Berhasil di Upload', 'success'));
+                $this->message('Berhasil! Data berhasil di upload', 'success');
 			} else {
-				$this->session->set_flashdata('message', array('Gagal', 'success'));
+                $this->message('Gagal! Data gagal di upload', 'danger');
 			}
-
-			redirect(site_url('katalog/add'));
-
-		} else {
-			$this->session->set_flashdata('message', array('Gagal di Upload', 'danger'));
-		}
-
-		// redirect('katalog/add');
+        } else {
+            $this->message('Gagal! Data gagal di upload', 'danger');
+        }
+        redirect(site_url('katalog/add'));
 	}
 
 	/**

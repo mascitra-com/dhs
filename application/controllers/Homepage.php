@@ -38,11 +38,15 @@ class Homepage extends MY_Controller {
 	 */
 	public function daftar() {
 		$filter = $this->input->get();
-		$this->data['barang'] = $this->barang_m->get_all_data($filter);
-		$this->data['list'] = $this->kategori_m->getKategoriWithChild();
-		$this->data['css'] = 'katalog';
-		$this->data['js'] = 'katalog';
-		$this->data['content'] = 'katalog';
+        // Prepare view
+        $this->data['title'] = 'Daftar Barang';
+        $this->data['content'] = 'katalog';
+        $this->data['css'] = 'katalog';
+        $this->data['js'] = 'katalog';
+        //Prepare Data
+        $this->data['barang'] = $this->barang_m->get_all_data($filter);
+        $this->data['list'] = $this->kategori_m->getKategoriWithChild();
+        // Load view
 		$this->load->view('homepage/index', $this->data);
 	}
 
@@ -60,7 +64,7 @@ class Homepage extends MY_Controller {
 		$filter['kategori'] = $this->data['detail']->kode_kategori;
 		$this->data['terkait'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
 		$this->data['top'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
-		// Do init
+		// Load view
 		$this->load->view('homepage/index', $this->data);
 	}
 
@@ -76,14 +80,20 @@ class Homepage extends MY_Controller {
 	 *  Menampilkan halaman regulasi
 	 */
 	public function regulasi() {
+        // Load model
 		$this->load->model('regulasi_m');
-
+        // Prepare View
+		$this->data['title'] = 'Regulasi';
 		$this->data['content'] = 'regulasi';
 		$this->data['data'] = $this->regulasi_m->get_all();
 		$this->load->view('homepage/index', $this->data);
 	}
 
-	public function download_regulasi($file) {
+    /**
+     * Download file regulasi
+     * @param $file
+     */
+    public function download_regulasi($file) {
 		$this->load->helper('download');
 		force_download('././assets/regulasi/' . $file, NULL);
 	}

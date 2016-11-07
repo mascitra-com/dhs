@@ -39,10 +39,10 @@ class Pengumuman extends MY_Controller
         }
 
         if ($this->pengumuman_m->insert($data)) {
-            $this->session->set_flashdata('pesan', 'Data berhasil diinputkan');
+            $this->message('Berhasil! Data berhasil ditambahkan', 'success');
             redirect(site_url('pengumuman'));
         }else{
-            $this->session->set_flashdata('pesan', 'Data gagal diinputkan');
+            $this->message('Gagal! Data gagal ditambahkan', 'danger');
             redirect(site_url('pengumuman'));
         }
     }
@@ -73,9 +73,9 @@ class Pengumuman extends MY_Controller
         unset($data['id']);
 
         if ($this->pengumuman_m->update($id, $data)) {
-            $this->session->flashdata('message', 'Berhasil di ubah');
+            $this->message('Berhasil! Data berhasil ditambahkan', 'success');
         }else{
-            $this->session->flashdata('message', 'Gagal di ubah');
+            $this->message('Gagal! Data gagal ditambahkan', 'danger');
         }
         redirect('pengumuman');
     }

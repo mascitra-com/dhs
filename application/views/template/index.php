@@ -29,22 +29,29 @@
 
 </head>
 <body>
+    <!-- ALert -->
+    <?php if($this->session->flashdata('message') != null): ?>
+        <div class="alert alert-<?=$this->session->flashdata('type')?>">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?=$this->session->flashdata('message')?>
+        </div>
+    <?php endif; ?>
+    
+    <?php $this->load->view('template/navbar');?>
+    <div class="container-fluid" id="main">
+        <?php if (isset($content)) {
+           $this->load->view($content);
+       }
+       ?>
+   </div>
 
-<?php $this->load->view('template/navbar');?>
-<div class="container-fluid" id="main">
-    <?php if (isset($content)) {
-	$this->load->view($content);
-}
-?>
-</div>
+   <!-- Load footer   -->
+   <?php $this->load->view('template/footer');?>
 
-<!-- Load footer   -->
-<?php $this->load->view('template/footer');?>
-
-<?php
-$datestring = '%Y %F %d';
-?>
-<div class="pengumuman">
+   <?php
+   $datestring = '%Y %F %d';
+   ?>
+   <div class="pengumuman">
     <?php foreach ($info as $data): ?>
         <span>[ <?=mdate($datestring, strtotime($data->createdAt))?> ]</span>
         <span <?=($data->penting != 0 || $data->penting != null) ? "class='penting'" : ""?>><?=$data->isi?></span>

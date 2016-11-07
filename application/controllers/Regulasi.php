@@ -45,14 +45,14 @@ class Regulasi extends MY_Controller
 
                 if ($this->regulasi_m->insert($data) == FALSE) {
                     delete_files($this->upload->data('full_path'));
-                    $this->session->set_flashdata('message', 'Gagal menyimpan data');
+                    $this->message('Berhasil! Data berhasil ditambahkan', 'success');
                 }
             } else {
-                $this->session->set_flashdata('message', 'Gagal menyimpan data');
+                $this->message('Gagal! Data gagal ditambahkan', 'danger');
             }
         } else {
             if ($this->regulasi_m->insert($data) == FALSE) {
-                $this->session->set_flashdata('message', 'Gagal menyimpan data');
+                $this->message('Gagal! Data gagal ditambahkan', 'danger');
             }
         }
         redirect('regulasi');
@@ -102,17 +102,20 @@ class Regulasi extends MY_Controller
 
             if ($this->do_upload($data['file'])) {
                 $data['file'] = $this->upload->data('file_name');
-
                 if ($this->regulasi_m->update($id, $data) == FALSE) {
                     delete_files($this->upload->data('full_path'));
-                    $this->session->set_flashdata('message', 'Gagal menyimpan data');
+                    $this->message('Gagal! Data gagal di update', 'danger');
+                } else {
+                    $this->message('Berhasil! Data berhasil di update', 'success');
                 }
             } else {
-                $this->session->set_flashdata('message', 'Gagal menyimpan data');
+                $this->message('Gagal! Data gagal di update', 'danger');
             }
         } else {
             if ($this->regulasi_m->update($id, $data) == FALSE) {
-                $this->session->set_flashdata('message', 'Gagal menyimpan data');
+                $this->message('Gagal! Data gagal di update', 'danger');
+            } else {
+                $this->message('Berhasil! Data berhasil di update', 'success');
             }
         }
         redirect('regulasi');
@@ -125,7 +128,11 @@ class Regulasi extends MY_Controller
     public function destroy($id)
     {
         $data['status'] = 0;
-        $this->regulasi_m->update($id, $data);
+        if($this->regulasi_m->update($id, $data)){
+            $this->message('Berhasil! Data berhasil di hapus', 'success');
+        } else {
+            $this->message('Gagal! Data gagal di hapus', 'danger');
+        }
         redirect('regulasi');
     }
 }

@@ -36,7 +36,6 @@ class Users extends Auth {
 		if ($this->ion_auth->logged_in() == TRUE) {
 			redirect('katalog');
 		}
-
 		// Validasi form
 		$this->form_validation->set_rules($this->user_model->validation);
 		if ($this->form_validation->run() == TRUE) {
@@ -48,7 +47,6 @@ class Users extends Auth {
 				$this->data['message'] = 'E-mail dan Password yang Anda masukkan salah!';
 			}
 		}
-
 		// Tampilkan Login Form
 		$this->data['title'] = 'Login';
 		$this->data['content'] = 'auth/login';
@@ -80,15 +78,13 @@ class Users extends Auth {
 		}
 		$data = $this->input->post();
 		if ($this->user_model->update($id_user, $data) == TRUE) {
-			$this->session->set_flashdata('operation', 'success');
-			$this->session->set_flashdata('message', 'Data Berhasil diganti');
+            $this->message('Berhasil! Data berhasil di ganti', 'success');
 			redirect('users/edit');
-		}
+		} else {
+            $this->message('Gagal! Data gagal di ganti', 'danger');
+        }
 		$this->data['title'] = 'Profil Akun';
 		$this->data['content'] = 'auth/profile';
-
-		$this->data['operation'] = $this->session->set_flashdata('operation', 'success');
-		$this->data['message'] = $this->session->set_flashdata('message', 'Data Berhasil diganti');
 		$this->data['user'] = $this->user_model->get($id_user);
 		$this->init();
 	}
@@ -99,6 +95,7 @@ class Users extends Auth {
 	public function logout() {
 		$this->ion_auth->logout();
 		$this->session->sess_destroy();
+        $this->message('Anda berhasil logout', 'success');
 		redirect('login');
 	}
 }
