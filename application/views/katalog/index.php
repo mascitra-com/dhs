@@ -116,8 +116,7 @@ Tipe Z-A
                 <?php foreach ($barang as $brg): ?>
                     <tr id="brg<?= $brg->id ?>">
                         <td width="20%">
-                            <img class="table-img"
-                            src="<?= base_url() ?>assets/img/img-barang/<?= cek_file($brg->gambar) ?>" alt="">
+                            <a href="<?= site_url('katalog/detail/' . $brg->id) ?>"><img class="table-img" src="<?= base_url() ?>assets/img/img-barang/<?= cek_file($brg->gambar) ?>" alt=""></a>
                         </td>
                         <td>
                             <h5>
@@ -190,6 +189,11 @@ Tipe Z-A
                 </div>
             </div>
         </div>
+        <script>
+            ac_nama = <?=$autocomplete['nama']?>;
+            ac_merk = <?=$autocomplete['merk']?>;
+            ac_tipe = <?=$autocomplete['tipe']?>;
+        </script>
 
         <?php
         function cek_file($filename)

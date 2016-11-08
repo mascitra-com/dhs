@@ -2,9 +2,9 @@
 var link = window.location.href;
 
 $(document).ready(function(){
-	$("input[name='nama']").autocomplete({source:ac_nama});
-	$("input[name='merk']").autocomplete({source:ac_merk});
-	$("input[name='tipe']").autocomplete({source:ac_tipe});
+	$("input[name='nama'], #ip-nama").autocomplete({source:ac_nama});
+	$("input[name='merk'], #ip-merk").autocomplete({source:ac_merk});
+	$("input[name='tipe'], #ip-tipe").autocomplete({source:ac_tipe});
 	// $("input[name='kode_kategori']").autocomplete({source:ac_kategori});
 
 	tinymce.init({
@@ -37,14 +37,29 @@ $("#bt-filter").click(function(){
 	var tipe = $("#ip-tipe").val();
 	var hargamin = $("#ip-hargamin").val();
 	var hargamax = $("#ip-hargamax").val();
-
-	link = link.substr(0, link.lastIndexOf('?'));
 	
-	if(nama!=''){link = replace_link(/nama=[a-z0-9]/i, 'nama='+nama);}
-	if(merk!=''){link = replace_link(/merk=[a-z0-9]/i, 'merk='+merk);}
-	if(tipe!=''){link = replace_link(/tipe=[a-z0-9]/i, 'tipe='+tipe);}
-	if(hargamin!=''){link = replace_link(/hargamin=[a-z0-9]/i, 'hargamin='+hargamin);}
-	if(hargamax!=''){link = replace_link(/hargamax=[a-z0-9]/i, 'hargamax='+hargamax);}
+	link = link.substr(0, link.indexOf('katalog')+7);
+	
+	if(nama!=''){
+		link = replace_link(/nama=[A-Za-z0-9]/i, 'nama='+nama);
+	}
+
+
+	if(merk!=''){
+		link = replace_link(/merk=[A-Za-z0-9]/i, 'merk='+merk);
+	}
+
+	if(tipe!=''){
+		link = replace_link(/tipe=[A-Za-z0-9]/i, 'tipe='+tipe);
+	}
+
+	if(hargamin!=''){
+		link = replace_link(/hargamin=[0-9]/i, 'hargamin='+hargamin);
+	}
+
+	if(hargamax!=''){
+		link = replace_link(/hargamax=[0-9]/i, 'hargamax='+hargamax);
+	}
 
 	window.location = link;
 });
@@ -73,7 +88,7 @@ function replace_link(data, dengan)
 	if (data.test(lnk)){
 		lnk = lnk.replace(data, dengan);
 	}else{
-		if (/katalog[^a-z]/i.test(lnk)){
+		if (/katalog[^A-Za-z0-9]/i.test(lnk)){
 			lnk = lnk + '&'+dengan;
 		}else{
 			lnk = lnk + '?'+dengan;

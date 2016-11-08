@@ -117,6 +117,7 @@
                             <div class="form-group">
                                 <button class="btn btn-fill btn-primary" type="submit">Simpan</button>
                                 <button class="btn btn-fill btn-warning" type="reset">Reset</button>
+                                <a href="<?=site_url('katalog')?>" class="btn btn-fill btn-default">Kembali</a>
                             </div>
                         </div>
                         <div class="col-md-5">
