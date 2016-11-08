@@ -120,7 +120,7 @@ Tipe Z-A
                         </td>
                         <td>
                             <h5>
-                                <a href="<?=site_url('katalog')?>"><span class="badge">Kategori</span></a>
+                                <span class="badge">Kategori</span>
                                 <i class="fa fa-angle-double-right"></i>
                                 <a href="<?=site_url('katalog?kategori='.$brg->kode_kategori);?>"><span class="badge"><?= $brg->kategori ?></span></a>
                             </h5>

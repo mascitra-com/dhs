@@ -19,6 +19,8 @@
 
 <style type="text/css">
 	.wrapper{padding-bottom: 15px;}
+	.footer{padding-bottom: 0.5em}
+	#content{min-height: 90vh}
 	.pengumuman{
 		width: 100%;
 		height: 27px;
