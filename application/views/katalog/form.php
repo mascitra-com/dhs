@@ -12,9 +12,13 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Kategori</label>
-                                <input type="text" class="form-control" name="kode_kategori" placeholder="kategori"
-                                       value="<?= (isset($data)) ? $data->kode_kategori . '-' . $data->kategori : '' ?>"
-                                       required>
+                                <!-- <input type="text" name="kategori" class="form-control" placeholder="pilih kategori" > -->
+                                <input type="text" class="form-control" name="kode_kategori" placeholder="kategori" list="listkategori" value="<?= (isset($data)) ? $data->kode_kategori . '-' . $data->kategori : '' ?>" required>
+                                <datalist id="listkategori">
+                                    <?php foreach($kategori as $kat): ?>
+                                    <option value="<?=$kat->kode_kategori.'-'.$kat->nama?>"><?=$kat->kode_kategori.'-'.$kat->nama?></option>
+                                    <?php endforeach; ?>
+                                </datalist>
                             </div>
                         </div>
                     </div>

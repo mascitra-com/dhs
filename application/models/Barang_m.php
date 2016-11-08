@@ -28,7 +28,7 @@ class barang_m extends MY_Model {
 			}
 			// Kategori
 			if (isset($filter['kategori']) && $filter['kategori'] != '') {
-				$where .= " AND b.kode_kategori like '%" . $filter['kategori'] . "%'";
+				$where .= " AND b.kode_kategori = '" . $filter['kategori'] . "'";
 			}
 			// Harga Pokok
 			

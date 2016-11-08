@@ -47,7 +47,8 @@ class Katalog extends MY_Controller {
 		$this->data['js'] = 'katalog';
 		//prepare data
 		$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
-		$this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
+		// $this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
+		$this->data['kategori'] = $this->kategori_m->get_all();
 		$this->init();
 
 	}
@@ -140,7 +141,9 @@ class Katalog extends MY_Controller {
 			$this->data['js'] = 'katalog';
 			// Prepare data
 			$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
-			$this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
+			// $this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
+			$this->data['kategori'] = $this->kategori_m->get_all();
+
 			$this->data['data'] = $this->barang_m->get_data_by($id);
 			// Do init()
 			$this->init();

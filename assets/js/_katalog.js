@@ -5,12 +5,12 @@ $(document).ready(function(){
 	$("input[name='nama']").autocomplete({source:ac_nama});
 	$("input[name='merk']").autocomplete({source:ac_merk});
 	$("input[name='tipe']").autocomplete({source:ac_tipe});
-	$("input[name='kode_kategori']").autocomplete({source:ac_kategori});
+	// $("input[name='kode_kategori']").autocomplete({source:ac_kategori});
 
 	tinymce.init({
-        selector: '#spesifikasi',
-        menubar: false
-    });
+		selector: '#spesifikasi',
+		menubar: false
+	});
 
 });
 

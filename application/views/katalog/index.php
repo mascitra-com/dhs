@@ -157,7 +157,7 @@ Tipe Z-A
                             <td colspan="2" align="left">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination">
-                                        <li><a style="cursor: pointer;">Banyak Data</a></li>
+                                        <li><a style="cursor: pointer;">Tampilkan</a></li>
                                         <li><a style="cursor: pointer;" onclick="offset(5)">5</a></li>
                                         <li><a style="cursor: pointer;" onclick="offset(10)">10</a></li>
                                         <li><a style="cursor: pointer;" onclick="offset(20)">20</a></li>
