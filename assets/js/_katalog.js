@@ -140,11 +140,28 @@ $("input[name='hargaPasar'], input[name='biayaKirim'], input[name='resistensi']"
 	hp 	= parseInt($("input[name='hargaPasar']").val());
 	bk 	= parseInt($("input[name='biayaKirim']").val());
 	rs 	= parseInt($("input[name='resistensi']").val());
-	ppn = Math.round((hp+bk+rs)*0.10);
+	ppn = 0;
+	if($("#ppn").prop('checked')){
+		ppn = Math.round((hp+bk+rs)*0.10);
+	}
+
 	jum = hp+bk+rs+ppn;
 	$("input[name='ppn']").val(ppn);
 	$("input[name='hargashsb']").val(jum);
 
+});
+
+$("#ppn").change(function(){
+	ppn = 0;
+	if($("#ppn").prop('checked')){
+		hp 	= parseInt($("input[name='hargaPasar']").val());
+		bk 	= parseInt($("input[name='biayaKirim']").val());
+		rs 	= parseInt($("input[name='resistensi']").val());
+		ppn = Math.round((hp+bk+rs)*0.10);
+	}
+	jum = hp+bk+rs+ppn;
+	$("input[name='ppn']").val(ppn);
+	$("input[name='hargashsb']").val(jum);
 });
 
 // Preview IMAGE

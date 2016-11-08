@@ -26,7 +26,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="<?=site_url('katalog')?>"><i class="fa fa-bars fa-fw"></i> Daftar Barang</a></li>
                         <li><a href="<?=site_url('')?>"><i class="fa fa-upload fa-fw"></i> Import Data</a></li>
-                        <li><a href="#"><i class="fa fa-th fa-fw"></i> Batch</a></li>
+                        <!-- <li><a href="#"><i class="fa fa-th fa-fw"></i> Batch</a></li> -->
                     </ul>
                 </li>
                 <li>

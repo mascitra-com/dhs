@@ -65,36 +65,34 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">Harga Pasar</label>
-                                <input type="number" class="form-control" name="hargaPasar" placeholder="harga pasar"
-                                       value="<?= (isset($data)) ? $data->hargaPasar : '0' ?>" required>
+                                <input type="number" class="form-control" name="hargaPasar" placeholder="harga pasar" value="<?= (isset($data)) ? $data->hargaPasar : '0' ?>" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">Biaya Kirim</label>
-                                <input type="number" class="form-control" name="biayaKirim" placeholder="biaya kirim"
-                                       value="<?= (isset($data)) ? $data->biayaKirim : '0' ?>" required>
+                                <input type="number" class="form-control" name="biayaKirim" placeholder="biaya kirim" value="<?= (isset($data)) ? $data->biayaKirim : '0' ?>" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">Resistensi</label>
-                                <input type="number" class="form-control" name="resistensi" placeholder="resistensi"
-                                       value="<?= (isset($data)) ? $data->resistensi : '0' ?>" required>
+                                <input type="number" class="form-control" name="resistensi" placeholder="resistensi" value="<?= (isset($data)) ? $data->resistensi : '0' ?>" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">PPN 10%</label>
-                                <input type="number" class="form-control" name="ppn" placeholder="ppn"
-                                       value="<?= (isset($data)) ? $data->ppn : '0' ?>" required readonly>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><input type="checkbox" id="ppn" checked></span>
+                                    <input type="number" class="form-control" name="ppn" placeholder="ppn" value="<?= (isset($data)) ? $data->ppn : '0' ?>" required readonly>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Harga SHSB</label>
-                                <input type="number" class="form-control" name="hargashsb" placeholder="harga shsb"
-                                       value="<?= (isset($data)) ? $data->hargashsb : '0' ?>" required readonly>
+                                <input type="number" class="form-control" name="hargashsb" placeholder="harga shsb" value="<?= (isset($data)) ? $data->hargashsb : '0' ?>" required readonly>
                             </div>
                         </div>
                     </div>
@@ -102,8 +100,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Keterangan Harga</label>
-                                <input type="text" class="form-control" name="keterangan" placeholder="keterangan harga"
-                                       value="<?= (isset($data)) ? $data->keterangan : '' ?>" required>
+                                <input type="text" class="form-control" name="keterangan" placeholder="keterangan harga" value="<?= (isset($data)) ? $data->keterangan : '' ?>" required>
                             </div>
                         </div>
                     </div>
@@ -111,8 +108,7 @@
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="">Spesifikasi</label>
-                                <textarea name="spesifikasi" class="form-control"
-                                          id="spesifikasi"><?= (isset($data)) ? $data->spesifikasi : '' ?></textarea>
+                                <textarea name="spesifikasi" class="form-control" id="spesifikasi"><?= (isset($data)) ? $data->spesifikasi : '' ?></textarea>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-fill btn-primary" type="submit">Simpan</button>
@@ -124,9 +120,7 @@
                             <div class="form-group">
                                 <label for="">Gambar</label>
                                 <input type="file" name="gambar" placeholder="Upload Gambar" accept="image/*" style="margin-bottom: 1em">
-                                <img id="img-preview"
-                                     src="<?= base_url('assets/img/img-barang/' . cek_file((isset($data)) ? $data->gambar : '')) ?>"
-                                     alt="gambar" style="width:180px;height:180px">
+                                <img id="img-preview" src="<?= base_url('assets/img/img-barang/' . cek_file((isset($data)) ? $data->gambar : '')) ?>" alt="gambar" style="width:180px;height:180px">
                             </div>
                         </div>
                     </div>
@@ -151,8 +145,7 @@
                             <label class="control-label">Pilih File</label>
                             <div class="input-group">
                                 <label class="input-group">
-                                    <input id="file" name="import" type="file"
-                                           accept="application/vnd.ms-excel">
+                                    <input id="file" name="import" type="file" accept="application/vnd.ms-excel">
                                 </label>
                             </div>
                             <br/>
@@ -183,7 +176,6 @@
     ac_nama = <?=$autocomplete['nama']?>;
     ac_merk = <?=$autocomplete['merk']?>;
     ac_tipe = <?=$autocomplete['tipe']?>;
-    ac_kategori = <?=$autocomplete['kategori']?>;
 </script>
 
 <?php
