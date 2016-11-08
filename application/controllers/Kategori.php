@@ -42,7 +42,6 @@ class Kategori extends MY_Controller
         if ($data['induk'] != "") {
             $insert['kode_induk_kategori'] = $this->kategori_m->get_by(array('id' => $data['induk']))->kode_kategori;
         }
-
         if ($this->kategori_m->insert($insert)) {
             $this->message('Berhasil! Data berhasil di simpan', 'success');
         } else {
@@ -65,13 +64,7 @@ class Kategori extends MY_Controller
         } else {
             $data->id_induk = "";
         }
-        $data->kategori = array('<option value="">Pilih kategori</option>');
-        $kategori = $this->kategori_m->get_all();
-        foreach ($kategori as $list) {
-            if ($list->id != $id) {
-                array_push($data->kategori, "<option value='$list->id'>$list->kode_kategori. $list->nama</option>");
-            }
-        }
+        $this->printOptionOnCombobox($data, $id);
         echo json_encode($data);
     }
 
@@ -128,5 +121,20 @@ class Kategori extends MY_Controller
             $kode_baru = '0' . $kode_baru;
         }
         echo $kode_baru;
+    }
+
+    /**
+     * @param $data
+     * @param $id
+     */
+    private function printOptionOnCombobox($data, $id):void
+    {
+        $data->kategori = array('<option value="">Pilih kategori</option>');
+        $kategori = $this->kategori_m->get_all();
+        foreach ($kategori as $list) {
+            if ($list->id != $id) {
+                array_push($data->kategori, "<option value='$list->id'>$list->kode_kategori. $list->nama</option>");
+            }
+        }
     }
 }

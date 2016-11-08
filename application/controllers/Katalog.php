@@ -23,14 +23,7 @@ class Katalog extends MY_Controller {
 		$this->data['css'] = 'katalog';
 		$this->data['js'] = 'katalog';
         // Get filter
-        $filter = $this->input->get();
-        if (!isset($filter['offset'])) {
-            $filter['offset'] = 5;
-        }
-        // Apply filter
-		if (!empty($filter)) {
-			$this->data['filter'] = $filter;
-		}
+        $filter = $this->applyFilter();
         // Prepare Data
         $this->data['kategori'] = $this->kategori_m->get_all();
         $this->data['barang'] = $this->barang_m->get_all_data($filter);
@@ -62,18 +55,7 @@ class Katalog extends MY_Controller {
 		$data['createdBy'] = $this->ion_auth->get_user_id();
 
 		if (!empty($_FILES['gambar']['name'])) {
-			$data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
-			if ($this->do_upload($data['gambar'])) {
-				$data['gambar'] = $this->upload->data('file_name');
-				if ($this->barang_m->insert($data) == TRUE) {
-					echo "sukses";
-				} else {
-					delete_files($this->upload->data('full_path'));
-					echo "Input data gagal";
-				}
-			} else {
-				echo "Upload gambar gagal";
-			}
+            $this->uploadNewImage($data);
 		} else {
 			if ($this->barang_m->insert($data) == FALSE) {
 				echo "Input data gagal";
@@ -114,11 +96,12 @@ class Katalog extends MY_Controller {
 		$this->data['content'] = 'katalog/detail';
 		$this->data['css'] = 'katalog';
 		$this->data['js'] = 'katalog';
-		// Prepare data
-		$this->data['detail'] = $this->barang_m->get_data_by($id);
-		$increment = (int) $this->data['detail']->popularitas;
-		$update['popularitas'] = $increment + 1;
-		$this->barang_m->update($id, $update);
+        // Add popularity to barang base on $id
+        $this->data['detail'] = $this->barang_m->get_data_by($id);
+        $increment = (int) $this->data['detail']->popularitas;
+        $update['popularitas'] = $increment + 1;
+        $this->barang_m->update($id, $update);
+        // Prepare data
 		$filter['kategori'] = $this->data['detail']->kode_kategori;
 		$this->data['terkait'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
 		$this->data['top'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
@@ -163,29 +146,10 @@ class Katalog extends MY_Controller {
 		$data['updateBy'] = $this->ion_auth->get_user_id();
 		// Unset unusefull data
 		unset($data['id']);
-
-		if (!empty($_FILES['gambar']['name'])) {
-
-			$data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
-
-			if ($this->do_upload($data['gambar'])) {
-
-				$data['gambar'] = $this->upload->data('file_name');
-
-				if ($this->barang_m->update($id, $data) == FALSE) {
-					delete_files($this->upload->data('full_path'));
-					// echo "Salah input";
-					echo 'Terjadi kesalahan input';
-				} else {
-					echo "sukses";
-				}
-			} else {
-				// echo $this->upload->display_errors();
-				// show_404();
-				echo 'Terjadi kesalahan upload';
-			}
+        // If image exist
+        if (!empty($_FILES['gambar']['name'])) {
+            $this->updateImage($data, $id);
 		} else {
-
 			if ($this->barang_m->update($id, $data) == FALSE) {
 				// echo "Salah input2";
 				// show_404();
@@ -202,7 +166,6 @@ class Katalog extends MY_Controller {
 	public function hapus() {
 		$id = $this->input->post('id');
 		$gambar = $this->input->post('gambar');
-
 		if ($this->barang_m->delete($id)) {
 			// hapus file
 			if (!file_exists('./assets/img-user/' . $gambar) || $gambar == '' || unlink('./assets/img-user/' . $gambar)) {
@@ -219,7 +182,6 @@ class Katalog extends MY_Controller {
 	 *  Import Data Excel ke Database
 	 */
 	public function upload() {
-		$excel = $this->input->post();
 		$this->load->library('upload');
 		$fileName = $_FILES['import']['name'];
 
@@ -295,4 +257,64 @@ class Katalog extends MY_Controller {
 		$result = $this->db->get()->result_array();
 		return $result[0]['id'];
 	}
+
+    /**
+     * @return mixed
+     */
+    private function applyFilter()
+    {
+        $filter = $this->input->get();
+        if (!isset($filter['offset'])) {
+            $filter['offset'] = 5;
+        }
+        // Apply filter
+        if (!empty($filter)) {
+            $this->data['filter'] = $filter;
+            return $filter;
+        }
+        return $filter;
+    }
+
+    /**
+     * @param $data
+     */
+    private function uploadNewImage($data):void
+    {
+        $data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
+        if ($this->do_upload($data['gambar'])) {
+            $data['gambar'] = $this->upload->data('file_name');
+            if ($this->barang_m->insert($data) == TRUE) {
+                echo "sukses";
+            } else {
+                delete_files($this->upload->data('full_path'));
+                echo "Input data gagal";
+            }
+        } else {
+            echo "Upload gambar gagal";
+        }
+    }
+
+    /**
+     * @param $data
+     * @param $id
+     */
+    private function updateImage($data, $id):void
+    {
+        $data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
+        // Upload image
+        if ($this->do_upload($data['gambar'])) {
+            $data['gambar'] = $this->upload->data('file_name');
+            if ($this->barang_m->update($id, $data) == FALSE) {
+                delete_files($this->upload->data('full_path'));
+                // echo "Salah input";
+                echo 'Terjadi kesalahan input';
+            } else {
+                echo "sukses";
+            }
+        } else {
+            // echo $this->upload->display_errors();
+            // show_404();
+            echo 'Terjadi kesalahan upload';
+        }
+    }
 }

@@ -63,9 +63,7 @@ class Export extends CI_Controller
         }
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle(ucfirst('export'))->setDescription("none");
-
         $objPHPExcel->setActiveSheetIndex(0);
-
         // Menentukan nama kolom tabel
         $fields = $query->list_fields();
         $headTable = array('No', 'Kode Barang', 'Nama Barang', 'Merk', 'Tipe', 'Ukuran', 'Satuan', 'Harga Pasar', 'Biaya Kirim', 'Resistensi', 'PPn', 'Harga SHSB', 'Keterangan', 'Spesifikasi', 'Kategori');
@@ -93,7 +91,6 @@ class Export extends CI_Controller
         }
 
         $objPHPExcel->setActiveSheetIndex(0);
-
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, $type);
 
         // Sending headers to force the user to download the file
@@ -150,7 +147,6 @@ class Export extends CI_Controller
         }
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle(ucfirst('export'))->setDescription("none");
-
         $objPHPExcel->setActiveSheetIndex(0);
 
         // Menentukan nama kolom tabel
@@ -180,7 +176,6 @@ class Export extends CI_Controller
         }
 
         $objPHPExcel->setActiveSheetIndex(0);
-
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, $type);
 
         // Sending headers to force the user to download the file

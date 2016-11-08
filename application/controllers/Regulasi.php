@@ -35,21 +35,8 @@ class Regulasi extends MY_Controller
     public function store()
     {
         $data = $this->input->post();
-
         if (!empty($_FILES['file']['name'])) {
-
-            $data['file'] = 'file-' . date('dmYhis');
-
-            if ($this->do_upload($data['file'])) {
-                $data['file'] = $this->upload->data('file_name');
-
-                if ($this->regulasi_m->insert($data) == FALSE) {
-                    delete_files($this->upload->data('full_path'));
-                    $this->message('Berhasil! Data berhasil ditambahkan', 'success');
-                }
-            } else {
-                $this->message('Gagal! Data gagal ditambahkan', 'danger');
-            }
+            $this->uploadImage($data);
         } else {
             if ($this->regulasi_m->insert($data) == FALSE) {
                 $this->message('Gagal! Data gagal ditambahkan', 'danger');
@@ -68,9 +55,7 @@ class Regulasi extends MY_Controller
         $config['upload_path'] = '././assets/regulasi';
         $config['max_size'] = 10000;
         $config['file_name'] = $name;
-
         $this->upload->initialize($config);
-
         if (!$this->upload->do_upload('file')) {
             return false;
         } else {
@@ -97,20 +82,7 @@ class Regulasi extends MY_Controller
         $id = $this->input->post('id');
         $data = $this->input->post();
         if (!empty($_FILES['file']['name'])) {
-
-            $data['file'] = 'file-' . date('dmYhis');
-
-            if ($this->do_upload($data['file'])) {
-                $data['file'] = $this->upload->data('file_name');
-                if ($this->regulasi_m->update($id, $data) == FALSE) {
-                    delete_files($this->upload->data('full_path'));
-                    $this->message('Gagal! Data gagal di update', 'danger');
-                } else {
-                    $this->message('Berhasil! Data berhasil di update', 'success');
-                }
-            } else {
-                $this->message('Gagal! Data gagal di update', 'danger');
-            }
+            $this->updateImage($data, $id);
         } else {
             if ($this->regulasi_m->update($id, $data) == FALSE) {
                 $this->message('Gagal! Data gagal di update', 'danger');
@@ -134,5 +106,42 @@ class Regulasi extends MY_Controller
             $this->message('Gagal! Data gagal di hapus', 'danger');
         }
         redirect('regulasi');
+    }
+
+    /**
+     * @param $data
+     */
+    private function uploadImage($data):void
+    {
+        $data['file'] = 'file-' . date('dmYhis');
+        if ($this->do_upload($data['file'])) {
+            $data['file'] = $this->upload->data('file_name');
+            if ($this->regulasi_m->insert($data) == FALSE) {
+                delete_files($this->upload->data('full_path'));
+                $this->message('Berhasil! Data berhasil ditambahkan', 'success');
+            }
+        } else {
+            $this->message('Gagal! Data gagal ditambahkan', 'danger');
+        }
+    }
+
+    /**
+     * @param $data
+     * @param $id
+     */
+    private function updateImage($data, $id):void
+    {
+        $data['file'] = 'file-' . date('dmYhis');
+        if ($this->do_upload($data['file'])) {
+            $data['file'] = $this->upload->data('file_name');
+            if ($this->regulasi_m->update($id, $data) == FALSE) {
+                delete_files($this->upload->data('full_path'));
+                $this->message('Gagal! Data gagal di update', 'danger');
+            } else {
+                $this->message('Berhasil! Data berhasil di update', 'success');
+            }
+        } else {
+            $this->message('Gagal! Data gagal di update', 'danger');
+        }
     }
 }

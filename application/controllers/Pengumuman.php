@@ -6,7 +6,7 @@ class Pengumuman extends MY_Controller
 
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
         $this->data['css'] = 'pengumuman';
         $this->data['js'] = 'pengumuman';
 
@@ -18,10 +18,10 @@ class Pengumuman extends MY_Controller
      */
     public function index()
     {
-    	$this->data['title'] 	  = 'Pengumuman';
-    	$this->data['content']    = 'pengumuman/index';
+        $this->data['title'] = 'Pengumuman';
+        $this->data['content'] = 'pengumuman/index';
         $this->data['pengumuman'] = $this->pengumuman_m->get_all();
-    	$this->init();
+        $this->init();
     }
 
     /**
@@ -30,18 +30,16 @@ class Pengumuman extends MY_Controller
     public function store()
     {
         $data = $this->input->post();
-        if (isset($data['penting']) || $data['penting']=='on') {
+        if ($this->isImportant($data)) {
             $data['penting'] = 1;
         }
-
-        if (!isset($data['masa_aktif']) || empty($data['masa_aktif'])) {
-           $data['masa_aktif'] = null;
+        if ($this->noActiveDate($data)) {
+            $data['masa_aktif'] = null;
         }
-
         if ($this->pengumuman_m->insert($data)) {
             $this->message('Berhasil! Data berhasil ditambahkan', 'success');
             redirect(site_url('pengumuman'));
-        }else{
+        } else {
             $this->message('Gagal! Data gagal ditambahkan', 'danger');
             redirect(site_url('pengumuman'));
         }
@@ -53,12 +51,11 @@ class Pengumuman extends MY_Controller
     public function update()
     {
         $data = $this->input->post();
-        $id   = $data['id'];
+        $id = $data['id'];
         unset($data['id']);
-
         if ($this->pengumuman_m->update($id, $data)) {
             echo "sukses";
-        }else{
+        } else {
             echo "gagal";
         }
     }
@@ -69,12 +66,11 @@ class Pengumuman extends MY_Controller
     public function updateForm()
     {
         $data = $this->input->post();
-        $id   = $data['id'];
+        $id = $data['id'];
         unset($data['id']);
-
         if ($this->pengumuman_m->update($id, $data)) {
             $this->message('Berhasil! Data berhasil ditambahkan', 'success');
-        }else{
+        } else {
             $this->message('Gagal! Data gagal ditambahkan', 'danger');
         }
         redirect('pengumuman');
@@ -88,8 +84,26 @@ class Pengumuman extends MY_Controller
         $id = $this->input->post('id');
         if ($this->pengumuman_m->delete($id)) {
             echo "sukses";
-        }else{
+        } else {
             echo "gagal";
         }
+    }
+
+    /**
+     * @param $data
+     * @return bool
+     */
+    private function isImportant($data):bool
+    {
+        return isset($data['penting']) || $data['penting'] === 'on';
+    }
+
+    /**
+     * @param $data
+     * @return bool
+     */
+    private function noActiveDate($data):bool
+    {
+        return !isset($data['masa_aktif']) || empty($data['masa_aktif']);
     }
 }
