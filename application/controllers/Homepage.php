@@ -58,7 +58,9 @@ class Homepage extends MY_Controller {
 		$this->data['js'] = 'katalog';
 		// Prepare data
 		$this->data['detail'] = $this->barang_m->get_data_by($id);
-        $this->updatePopularity($id);
+		$increment = (int) $this->data['detail']->popularitas;
+		$update['popularitas'] = $increment + 1;
+		$this->barang_m->update($id, $update);
 		$filter['kategori'] = $this->data['detail']->kode_kategori;
 		$this->data['terkait'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
 		$this->data['top'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
@@ -95,16 +97,5 @@ class Homepage extends MY_Controller {
 		$this->load->helper('download');
 		force_download('././assets/regulasi/' . $file, NULL);
 	}
-
-    /**
-     * @param $id
-     * @param $update
-     */
-    private function updatePopularity($id)
-    {
-        $increment = (int)$this->data['detail']->popularitas;
-        $update['popularitas'] = $increment + 1;
-        $this->barang_m->update($id, $update);
-    }
 
 }

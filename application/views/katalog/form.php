@@ -141,7 +141,7 @@
                 <h4 class="title">Import Data Katalog</h4>
             </div>
             <div class="content">
-                <a href="<?= base_url('assets/file/import.xls') ?>" class="btn btn-primary">Download Template</a>
+                <a href="<?= base_url('assets/file/Import.xls') ?>" class="btn btn-primary">Download Template</a>
                 <a href="<?= site_url('export/kategori') ?>" class="btn btn-primary">Download Daftar Kategori</a>
                 <br/> <br/>
                 <form action="<?php echo site_url('katalog/upload'); ?>" method="post" enctype="multipart/form-data">
