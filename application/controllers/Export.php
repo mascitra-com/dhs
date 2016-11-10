@@ -22,13 +22,13 @@ class Export extends CI_Controller
      * Excel5 untuk export Excel
      * PDF untuk export PDF
      */
-    public function katalog()
+    public function katalog($type = 'excel5')
     {
         $this->db->select("concat(b.kode_kategori, '.', b.id) AS kodeBarang, b.nama AS NamaBarang, b.merk, b.tipe, b.ukuran, b.satuan, b.hargaPasar, b.biayaKirim, b.resistensi, b.ppn, b.hargashsb, b.keterangan, b.spesifikasi, k.nama AS KategoriBarang");
         $this->db->from('barang b');
         $this->db->join('kategori k', 'b.kode_kategori = k.kode_kategori');
         $query = $this->db->get();
-        $this->exportKatalog($query, 'excel5'); // Gunakan excel5 untuk Export Excel dan pdf untuk dalam bentuk PDF
+        $this->exportKatalog($query, $type); // Gunakan excel5 untuk Export Excel dan pdf untuk dalam bentuk PDF
     }
 
     /**
@@ -64,6 +64,10 @@ class Export extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle(ucfirst('export'))->setDescription("none");
         $objPHPExcel->setActiveSheetIndex(0);
+        $this->printReady($objPHPExcel);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
         // Menentukan nama kolom tabel
         $fields = $query->list_fields();
         $headTable = array('No', 'Kode Barang', 'Nama Barang', 'Merk', 'Tipe', 'Ukuran', 'Satuan', 'Harga Pasar', 'Biaya Kirim', 'Resistensi', 'PPn', 'Harga SHSB', 'Keterangan', 'Spesifikasi', 'Kategori');
@@ -71,6 +75,11 @@ class Export extends CI_Controller
         $styleArray = array(
             'font' => array(
                 'bold' => true,
+            ),
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                )
             ));
         for ($i = 0; $i < 15; $i++) {
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $headTable[$i]);
@@ -82,9 +91,11 @@ class Export extends CI_Controller
         $row = 2;
         foreach ($query->result() as $data) {
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $row, $row - 1);
+            $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow(0, $row)->applyFromArray($styleArray);
             $col = 1;
             foreach ($fields as $field) {
                 $objPHPExcel->getActiveSheet()->setCellValueExplicitByColumnAndRow($col, $row, strip_tags($data->$field));
+                $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($col, $row)->applyFromArray($styleArray);
                 $col++;
             }
             $row++;
@@ -148,7 +159,7 @@ class Export extends CI_Controller
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setTitle(ucfirst('export'))->setDescription("none");
         $objPHPExcel->setActiveSheetIndex(0);
-
+        $this->printReady($objPHPExcel);
         // Menentukan nama kolom tabel
         $fields = $query->list_fields();
         $headTable = array('No', 'Kode Kategori', 'Nama Kategori', 'Kategori Induk');
@@ -184,5 +195,13 @@ class Export extends CI_Controller
         header('Cache-Control: max-age=0');
 
         return $objWriter->save('php://output');
+    }
+
+    public function printReady($objPHPExcel)
+    {
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop(1);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight(0.75);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft(0.75);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom(1);
     }
 }

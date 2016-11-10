@@ -24,7 +24,7 @@ class Kategori extends MY_Controller
      */
     public function index()
     {
-        $this->data["kategori"] = $this->kategori_m->get_many_by(array("status" => 1));
+        $this->data["kategori"] = $this->kategori_m->get_all();
         $this->data['title'] = 'Kategori Barang';
         $this->data['content'] = 'kategori/index';
         $this->data['js'] = 'kategori';

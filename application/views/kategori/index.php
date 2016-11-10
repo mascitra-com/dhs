@@ -24,6 +24,9 @@
                                         class="fa fa-pencil"></i></a>
                                 <a href="<?=site_url('kategori/destroy/' . $list->id)?>"
                                    class="btn btn-fill btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+
+                                <a href="#"
+                                   class="btn btn-fill btn-xs btn-success"><i class="fa fa-check"></i>Aktif</a>
                             </td>
                         </tr>
                     <?php endforeach;?>
