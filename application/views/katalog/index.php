@@ -2,7 +2,7 @@
     <div class="col-md-3">
         <div class="card">
             <div class="header">
-                <h3 class="title">Kategori Barang</h3>
+                <h3 class="title">Katalog Barang</h3>
             </div>
             <div class="content">
                 <!-- Dropdown menu -->

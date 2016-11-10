@@ -40,6 +40,10 @@ class MY_Controller extends CI_Controller
         $this->load->view($this->template, $this->data);
     }
 
+    public function temp(){
+        dump($this->session->userdata('temp'));
+    }
+
     /**
      *  Melakukan pengecekan status login
      */
@@ -55,10 +59,30 @@ class MY_Controller extends CI_Controller
         }
     }
 
+    /**
+     * @param $path
+     */
+    protected function addTemp($file)
+    {
+        $data = $this->session->userdata('temp');
+        if (empty($data)) {
+            $data = array();
+        }
+        array_push($data, $file);
+        $this->session->set_userdata('temp', $data);
+    }
+
     protected function message($message, $type = 'default')
     {
         $this->session->set_flashdata(array(
             'type' => $type,
             'message' => $message));
+    }
+
+    protected function getPath(){
+        if(!is_dir('assets/file/temp-'.$this->ion_auth->get_user_id())){
+            @mkdir('assets/file/temp-'.$this->ion_auth->get_user_id());
+        }
+        return 'assets/file/temp-'.$this->ion_auth->get_user_id().'/';
     }
 }

@@ -54,7 +54,7 @@ class kategori_m extends MY_Model {
 	}
 
 	public function getKategoriWithChild() {
-		$result = $this->kategori_m->get_many_by(array('status' => '1'));
+		$result = $this->kategori_m->get_all();
 		$induk = array();
 		foreach ($result as $list) {
 			if (strlen($list->kode_kategori) == 2) {
@@ -79,7 +79,6 @@ class kategori_m extends MY_Model {
 			}
 		}
 		return $indukDanSub;
-		dump($indukDanSub);
 	}
 
 	/**

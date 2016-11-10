@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h4 class="title"><i class="fa fa-archive fa-fw"></i> Tambah Kategori</h4>
+                    <h4 class="title"><i class="fa fa-archive fa-fw"></i> Tambah Katalog</h4>
                 </div>
                 <div class="content">
                     <div class="row">

@@ -281,7 +281,7 @@ class Katalog extends MY_Controller {
     /**
      * @param $data
      */
-    private function uploadNewImage($data):void
+    private function uploadNewImage($data)
     {
         $data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
         if ($this->do_upload($data['gambar'])) {
@@ -301,7 +301,7 @@ class Katalog extends MY_Controller {
      * @param $data
      * @param $id
      */
-    private function updateImage($data, $id):void
+    private function updateImage($data, $id)
     {
         $data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
         // Upload image

@@ -91,9 +91,19 @@ class Kategori extends MY_Controller
     public function destroy($id)
     {
         if($this->kategori_m->update($id, array('status' => 0))){
-            $this->message('Berhasil! Data berhasil di hapus', 'success');
+            $this->message('Berhasil! Data berhasil di nonaktifkan', 'success');
         } else {
-            $this->message('Gagal! Data gagal di hapus', 'danger');
+            $this->message('Gagal! Data gagal di nonaktifkan', 'danger');
+        }
+        redirect('kategori');
+    }
+
+    public function activate($id)
+    {
+        if($this->kategori_m->update($id, array('status' => 1))){
+            $this->message('Berhasil! Data berhasil di aktifkan', 'success');
+        } else {
+            $this->message('Gagal! Data gagal di aktifkan', 'danger');
         }
         redirect('kategori');
     }
@@ -127,7 +137,7 @@ class Kategori extends MY_Controller
      * @param $data
      * @param $id
      */
-    private function printOptionOnCombobox($data, $id):void
+    private function printOptionOnCombobox($data, $id)
     {
         $data->kategori = array('<option value="">Pilih kategori</option>');
         $kategori = $this->kategori_m->get_all();

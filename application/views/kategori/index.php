@@ -11,7 +11,7 @@
                     <tr>
                         <th>Kode</th>
                         <th>Nama Kategori</th>
-                        <th width="20%">Aksi</th>
+                        <th width="25%">Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,9 +24,13 @@
                                         class="fa fa-pencil"></i></a>
                                 <a href="<?=site_url('kategori/destroy/' . $list->id)?>"
                                    class="btn btn-fill btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-
-                                <a href="#"
+                                <?php if($list->status == 1){ ?>
+                                <a href="<?=site_url('kategori/destroy/' . $list->id)?>"
                                    class="btn btn-fill btn-xs btn-success"><i class="fa fa-check"></i>Aktif</a>
+                                <?php } else { ?>
+                                    <a href="<?=site_url('kategori/activate/' . $list->id)?>"
+                                       class="btn btn-fill btn-xs btn-default"><i class="fa fa-circle-o"></i>Nonaktif</a>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php endforeach;?>
@@ -123,7 +127,6 @@
             dataType: "json",
             url: "<?=site_url('kategori/edit?id=')?>" + id,
             success: function (data) {
-                console.log(data);
                 $("#indukUpdate").html(data.kategori);
                 $("#idUpdate").val(data.id);
                 $("#indukUpdate").val(data.id_induk);

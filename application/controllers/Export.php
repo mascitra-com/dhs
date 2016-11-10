@@ -6,10 +6,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Export extends CI_Controller
+class Export extends MY_Controller
 {
     private $filename;
-    private $path = '././assets/file/';
 
     public function __construct()
     {
@@ -32,7 +31,8 @@ class Export extends CI_Controller
         $this->db->join('kategori k', 'b.kode_kategori = k.kode_kategori');
         $query = $this->db->get();
         $this->exportKatalog($query, $type); // Gunakan excel5 untuk Export Excel dan pdf untuk dalam bentuk PDF
-        force_download($this->path . $this->filename, NULL);
+        $this->addTemp($this->getPath() . $this->filename);
+        force_download($this->getPath() . $this->filename, NULL);
     }
 
     /**
@@ -108,8 +108,8 @@ class Export extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, $type);
 
-        $this->filename ="Katalog_" . date('d-M-y-h-ia') . $extention;
-        return $objWriter->save($this->path . $this->filename);
+        $this->filename ="Katalog_" . date('dmYhis') . $extention;
+        return $objWriter->save($this->getPath(). $this->filename);
     }
 
     /**
@@ -124,7 +124,8 @@ class Export extends CI_Controller
         $this->db->join('kategori ik', 'k.kode_induk_kategori = ik.kode_kategori');
         $query = $this->db->get();
         $this->exportKategori($query, 'excel5'); // Gunakan excel5 untuk Export Excel dan pdf untuk dalam bentuk PDF
-        force_download($this->path . $this->filename, NULL);
+        force_download($this->getPath() . $this->filename, NULL);
+        $this->addTemp($this->getPath(). $this->filename);
     }
 
     /**
@@ -190,8 +191,8 @@ class Export extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, $type);
 
-        $this->filename ="Kategori_" . date('d-M-y-h-ia') . $extention;
-        return $objWriter->save($this->path . $this->filename);
+        $this->filename ="Kategori_" . date('dmYhis') . $extention;
+        return $objWriter->save($this->getPath(). $this->filename);
     }
 
     public function printReady($objPHPExcel)
