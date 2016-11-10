@@ -8,10 +8,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Export extends CI_Controller
 {
+    private $filename;
+    private $path = '././assets/file/';
 
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('download');
         require_once APPPATH . 'libraries/PHPExcel.php';
         include_once APPPATH . 'libraries/PHPExcel/Writer/PDF.php';
         $this->load->model(array('barang_m', 'kategori_m'));
@@ -29,6 +32,7 @@ class Export extends CI_Controller
         $this->db->join('kategori k', 'b.kode_kategori = k.kode_kategori');
         $query = $this->db->get();
         $this->exportKatalog($query, $type); // Gunakan excel5 untuk Export Excel dan pdf untuk dalam bentuk PDF
+        force_download($this->path . $this->filename, NULL);
     }
 
     /**
@@ -104,12 +108,8 @@ class Export extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, $type);
 
-        // Sending headers to force the user to download the file
-        header("Content-type: text/html; charset=utf-8");
-        header('Content-Disposition: attachment;filename="Katalog_' . date('d-M-y h:ia') . $extention . '"');
-        header('Cache-Control: max-age=0');
-
-        return $objWriter->save('php://output');
+        $this->filename ="Katalog_" . date('d-M-y-h-ia') . $extention;
+        return $objWriter->save($this->path . $this->filename);
     }
 
     /**
@@ -124,6 +124,7 @@ class Export extends CI_Controller
         $this->db->join('kategori ik', 'k.kode_induk_kategori = ik.kode_kategori');
         $query = $this->db->get();
         $this->exportKategori($query, 'excel5'); // Gunakan excel5 untuk Export Excel dan pdf untuk dalam bentuk PDF
+        force_download($this->path . $this->filename, NULL);
     }
 
     /**
@@ -189,12 +190,8 @@ class Export extends CI_Controller
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, $type);
 
-        // Sending headers to force the user to download the file
-        header("Content-type: text/html; charset=utf-8");
-        header('Content-Disposition: attachment;filename="Kategori_' . date('d-M-y h:ia') . $extention . '"');
-        header('Cache-Control: max-age=0');
-
-        return $objWriter->save('php://output');
+        $this->filename ="Kategori_" . date('d-M-y-h-ia') . $extention;
+        return $objWriter->save($this->path . $this->filename);
     }
 
     public function printReady($objPHPExcel)

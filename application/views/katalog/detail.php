@@ -69,11 +69,11 @@ function cek_file($filename) {
                     <?php foreach ($terkait as $key): ?>
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <div class="thumbnail" id="barang<?=$key->id?>" style="background-color: #fafafa">
-                                <img src="<?=base_url()?>assets/img/img-barang/<?=cek_file($key->gambar)?>" alt="<?=$key->gambar?>">
+                                <a href="<?=site_url('katalog/detail/'.$key->id)?>"><img src="<?=base_url()?>assets/img/img-barang/<?=cek_file($key->gambar)?>" alt="<?=$key->gambar?>"></a>
                                 <div class="caption">
                                     <div class="row">
                                         <div class="col-md-10">
-                                            <h4 style="margin-top:20px; margin-bottom: 3px"><a href="<?=site_url('katalog/detail/' . $key->id)?>" target='_blank'><?=$key->nama?></a></h4>
+                                            <h4 style="margin-top:20px; margin-bottom: 3px"><a href="<?=site_url('katalog/detail/' . $key->id)?>" target='_blank'><?=potong($key->nama.' '.$key->merk.' '.$key->tipe)?></a></h4>
                                             <div style="margin-top: 10px"><h5 class="label label-default"><?=$key->kategori?></h5></div>
                                         </div>
                                     </div>
@@ -108,11 +108,11 @@ function cek_file($filename) {
                     <?php foreach ($top as $key): ?>
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <div class="thumbnail" id="barang<?=$key->id?>" style="background-color: #fafafa">
-                                <img src="<?=base_url()?>assets/img/img-barang/<?=cek_file($key->gambar)?>" alt="<?=$key->gambar?>">
+                                <a href="<?=site_url('katalog/detail/'.$key->id)?>"><img src="<?=base_url()?>assets/img/img-barang/<?=cek_file($key->gambar)?>" alt="<?=$key->gambar?>"></a>
                                 <div class="caption">
                                     <div class="row">
                                         <div class="col-md-10">
-                                            <h4 style="margin-top:20px; margin-bottom: 3px"><a href="<?=site_url('katalog/detail/' . $key->id)?>" target='_blank'><?=$key->nama?></a></h4>
+                                            <h4 style="margin-top:20px; margin-bottom: 3px"><a href="<?=site_url('katalog/detail/' . $key->id)?>" target='_blank'><?=potong($key->nama.' '.$key->merk.' '.$key->tipe)?></a></h4>
                                             <div style="margin-top: 10px"><h5 class="label label-default"><?=$key->kategori?></h5></div>
                                         </div>
                                     </div>
@@ -136,3 +136,11 @@ function cek_file($filename) {
         </div>
     </div>
 </div>
+
+<?php
+function potong($var)
+{
+    return (count($var)<=20)?substr($var,0,19).'...':$var;
+}
+
+?>

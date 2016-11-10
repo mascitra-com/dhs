@@ -123,27 +123,26 @@
                     <span class="input-group-btn">
             <button class="btn btn-info btn-fill" id="bt-filter"><i class="fa fa-search"></i></button>
           </span>
-                </div>
-            </div>
-            <div class="content table-responsive table-full-width">
-                <table class="table table-hover">
-                    <tbody>
-                    <?php foreach ($barang as $brg): ?>
-                        <tr id="brg<?= $brg->id ?>">
-                            <td width="20%">
-                                <img class="table-img"
-                                     src="<?= base_url() ?>assets/img/img-barang/<?= cek_file($brg->gambar) ?>" alt="">
-                            </td>
-                            <td>
-                                <h5>
-                                    <a href="<?= site_url('katalog') ?>"><span class="badge">Kategori</span></a>
-                                    <i class="fa fa-angle-double-right"></i>
-                                    <a href="<?= site_url('katalog?kategori=' . $brg->kode_kategori); ?>"><span
-                                            class="badge"><?= $brg->kategori ?></span></a>
-                                </h5>
-                                <h5>
-                                    <a href="<?= site_url('katalog/detail/' . $brg->id) ?>"><b
-                                            class="text-muted"><?= $brg->kode_kategori . '.' . $brg->id ?></b></a>
+        </div>
+    </div>
+    <div class="content table-responsive table-full-width">
+        <table class="table table-hover">
+            <tbody>
+                <?php foreach ($barang as $brg): ?>
+                    <tr id="brg<?= $brg->id ?>">
+                        <td width="20%">
+                            <img class="table-img"
+                            src="<?= base_url() ?>assets/img/img-barang/<?= cek_file($brg->gambar) ?>" alt="">
+                        </td>
+                        <td>
+                            <h5>
+                                <a href="<?=site_url('katalog')?>"><span class="badge">Kategori</span></a>
+                                <i class="fa fa-angle-double-right"></i>
+                                <a href="<?=site_url('katalog?kategori='.$brg->kode_kategori);?>"><span class="badge"><?= $brg->kategori ?></span></a>
+                            </h5>
+                            <h5>
+                                <a href="<?= site_url('katalog/detail/' . $brg->id) ?>"><b
+                                    class="text-muted"><?= $brg->kode_kategori . '.' . $brg->id ?></b></a>
                                 </h5>
                                 <h4>
                                     <a href="<?= site_url('katalog/detail/' . $brg->id) ?>"><b><?= $brg->nama . ' ' . $brg->merk . ' ' . $brg->tipe ?></b></a>
@@ -198,16 +197,21 @@
                                                 class="fa fa-arrow-left"></i></a></li>
                                     <li><a style="cursor: pointer;" onclick="pagination(<?= $pg + 1 ?>)"><i
                                                 class="fa fa-arrow-right"></i></a></li>
-                                </ul>
-                            </nav>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                            </ul>
+                                        </nav>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        <script>
+            ac_nama = <?=$autocomplete['nama']?>;
+            ac_merk = <?=$autocomplete['merk']?>;
+            ac_tipe = <?=$autocomplete['tipe']?>;
+        </script>
 
 <?php
 function cek_file($filename)
