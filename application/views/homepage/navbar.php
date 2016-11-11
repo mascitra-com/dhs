@@ -15,23 +15,23 @@
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="<?=site_url()?>">Home</a></li>
 
-                <?php if($this->ion_auth->logged_in()){ ?>
+                <?php if ($this->ion_auth->logged_in()) {?>
                      <li><a href="<?=site_url('katalog')?>">Katalog</a></li>
-                <?php }else{ ?>
+                <?php } else {?>
                      <li><a href="<?=site_url('homepage/katalog')?>">Katalog</a></li>
-                <?php } ?>
+                <?php }?>
 
-               
+
                 <li><a href="<?=site_url('homepage/regulasi')?>">Regulasi</a></li>
-                <li><a href="#">Download</a></li>
-                <li><a href="#">Petunjuk</a></li>
+                <li><a href="<?=site_url('homepage/download')?>">Download</a></li>
+                <li><a href="<?=site_url('homepage/petunjuk')?>">Petunjuk</a></li>
                 <li><a href="<?=site_url('homepage/kontak')?>">Hubungi Kami</a></li>
-                
-                <?php if($this->ion_auth->logged_in()){ ?>
+
+                <?php if ($this->ion_auth->logged_in()) {?>
                     <li><a href="<?=site_url('users/logout')?>">Logout</a></li>
-                <?php }else{ ?>
+                <?php } else {?>
                     <li><a href="<?=site_url('users/login')?>">Login</a></li>
-                <?php } ?>
+                <?php }?>
 
                 <li>&nbsp;</li>
             </ul>

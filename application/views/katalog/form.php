@@ -1,5 +1,5 @@
 <div class="row">
-    <form id="form-katalog" method="post" action="<?= site_url((isset($data)) ? 'katalog/update' : 'katalog/store') ?>">
+    <form id="form-katalog" method="post" action="<?= site_url((isset($data)) ? 'katalog/update' : 'katalog/store') ?>" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= (isset($data)) ? $data->id : '' ?>">
         <input type="hidden" name="createdAt" value="<?= (isset($data)) ? $data->createdAt : '' ?>">
         <div class="col-md-12">

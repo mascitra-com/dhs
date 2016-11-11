@@ -13,12 +13,12 @@
 			<div class="col-md-12 flex">
 				<div class="card">
 					<div class="header">
-						<h2 class="title"><b>SISAGA </b> MASUK</h2>
+						<h2 class="title">LOGIN<b class="text-warning">SISAGA</b></h2>
 					</div>
 					<div class="content">
 						<form action="<?=site_url('users/login')?>" method="post">
 							<div class="form-group">
-								<input type="text" class="form-control input-lg" name="identity" placeholder="user pengguna" required>
+								<input type="text" class="form-control input-lg" name="identity" placeholder="nama pengguna" required>
 							</div>
 							<div class="form-group">
 								<input type="password" class="form-control input-lg" name="password" placeholder="kata sandi" required>

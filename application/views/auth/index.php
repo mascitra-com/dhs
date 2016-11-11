@@ -33,7 +33,6 @@
                 </table>
 
                 <p><?php echo anchor('users/create_user', lang('index_create_user_link'), 'class="text text-info"') ?>
-                    | <?php echo anchor('users/create_group', lang('index_create_group_link'), 'class="text text-info"') ?></p>
             </div>
         </div>
     </div>

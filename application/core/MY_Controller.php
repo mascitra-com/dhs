@@ -50,7 +50,7 @@ class MY_Controller extends CI_Controller
     protected function checkLoggedIn()
     {
         $menu = $this->uri->segment(1, 1);
-        $adminFeatures = array('auth', 'dashboard', 'export', 'katalog', 'kategori', 'pengumuman', 'regulasi', 'users');
+        $adminFeatures = array('auth', 'dashboard', 'export', 'katalog', 'kategori', 'pengumuman', 'regulasi', 'users', 'berkas');
         if (in_array($menu, $adminFeatures)) {
             if ($this->ion_auth->logged_in() == FALSE) {
                 $this->session->set_flashdata('force', TRUE);

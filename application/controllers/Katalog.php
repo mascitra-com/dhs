@@ -8,6 +8,9 @@ class Katalog extends MY_Controller {
 		$this->load->model(array('barang_m', 'kategori_m'));
 		$this->load->library(array('upload', 'pagination'));
 		$this->load->helper("file");
+
+		$this->data['css'] = 'katalog';
+		$this->data['js'] = 'katalog';
 		require_once APPPATH . 'libraries/PHPExcel.php';
 		include_once APPPATH . 'libraries/PHPExcel/Writer/PDF.php';
 	}
@@ -16,28 +19,86 @@ class Katalog extends MY_Controller {
 	 *  Menampilkan daftar Barang
 	 */
 	public function index() {
-        // Prepare View
+		// Prepare View
 		$this->data['title'] = 'Katalog Barang';
 		$this->data['content'] = 'katalog/index';
-		$this->data['list'] = $this->kategori_m->getKategoriWithChild();
-		$this->data['css'] = 'katalog';
-		$this->data['js'] = 'katalog';
-        // Get filter
-        $filter = $this->applyFilter();
-        // Prepare Data
-        $this->data['kategori'] = $this->kategori_m->get_all();
-        $this->data['barang'] = $this->barang_m->get_all_data($filter);
-        $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
-        // Do init
+
+		// Get filter
+		$filter = $this->applyFilter();
+		$this->data['tree_menu'] = $this->get_level_0();
+		// Prepare Data
+		$this->data['kategori'] = $this->kategori_m->get_all();
+		$this->data['barang'] = $this->barang_m->get_all_data($filter);
+		$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
+		// Do init
 		$this->init();
 	}
 
+	public function get_level_0() {
+		$results = $this->kategori_m->get_all(); //capture the query data inside $results variable
+		$menu = $this->get_parent($results); //get_menu() function is bellow
+		return $menu;
+	}
+
+	public function get_parent($results, $parent_id = NULL) {
+		$menu = '';
+		for ($i = 0; $i < sizeof($results); $i++) {
+			if ($results[$i]->kode_induk_kategori == $parent_id) {
+				if ($this->parent_child($results, $results[$i]->kode_kategori)) {
+					$sub_menu = $this->get_parent($results, $results[$i]->kode_kategori);
+					$menu .= '<button class="list-group-item" data-toggle="collapse" data-target="#sm' . $i . '">
+                                    ' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '<span class="caret"></span>
+                        </button>' .
+						'<div id="sm' . $i . '" class="sublinks collapse">' .
+						$sub_menu .
+						'</div>';
+//                    $menu .=
+					//                        '<li>' .
+					//                        $results[$i]->kode_kategori . '. ' . $results[$i]->nama .
+					//                        $sub_menu .
+					//                        '</li>';
+				} else {
+					$menu .= ' <a class="list-group-item" href="' . site_url('katalog?kategori=') . $results[$i]->kode_kategori . '">
+            ' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '
+        </a>';
+//                    $menu .= '<li>' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '</li>';
+				}
+			}
+		}
+		return $menu;
+	}
+
+	public function parent_child($results, $id) {
+		for ($i = 0; $i < sizeof($results); $i++) {
+			if ($results[$i]->kode_induk_kategori == $id && strlen($results[$i]->kode_induk_kategori) <= 6) {
+				return true;
+			}
+		}
+		b:
+		return false;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	private function applyFilter() {
+		$filter = $this->input->get();
+		if (!isset($filter['offset'])) {
+			$filter['offset'] = 5;
+		}
+		// Apply filter
+		if (!empty($filter)) {
+			$this->data['filter'] = $filter;
+			return $filter;
+		}
+		return $filter;
+	}
+
 	public function add() {
-        // Prepare View
+		// Prepare View
 		$this->data['title'] = 'Tambah Barang';
 		$this->data['content'] = 'katalog/form';
-		$this->data['css'] = 'katalog';
-		$this->data['js'] = 'katalog';
+
 		//prepare data
 		$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
 		// $this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
@@ -56,11 +117,29 @@ class Katalog extends MY_Controller {
 		$data['createdBy'] = $this->ion_auth->get_user_id();
 
 		if (!empty($_FILES['gambar']['name'])) {
-            $this->uploadNewImage($data);
+			$this->uploadNewImage($data);
 		} else {
 			if ($this->barang_m->insert($data) == FALSE) {
 				echo "Input data gagal";
 			}
+		}
+	}
+
+	/**
+	 * @param $data
+	 */
+	private function uploadNewImage($data) {
+		$data['gambar'] = 'img-' . date('Ymdhis', time(oid));
+		if ($this->do_upload($data['gambar'])) {
+			$data['gambar'] = $this->upload->data('file_name');
+			if ($this->barang_m->insert($data) == TRUE) {
+				echo "sukses";
+			} else {
+				delete_files($this->upload->data('full_path'));
+				echo "Input data gagal";
+			}
+		} else {
+			echo "Upload gambar gagal";
 		}
 	}
 
@@ -95,14 +174,13 @@ class Katalog extends MY_Controller {
 		// Prepare view
 		$this->data['title'] = 'Detail Barang';
 		$this->data['content'] = 'katalog/detail';
-		$this->data['css'] = 'katalog';
-		$this->data['js'] = 'katalog';
-        // Add popularity to barang base on $id
-        $this->data['detail'] = $this->barang_m->get_data_by($id);
-        $increment = (int) $this->data['detail']->popularitas;
-        $update['popularitas'] = $increment + 1;
-        $this->barang_m->update($id, $update);
-        // Prepare data
+
+		// Add popularity to barang base on $id
+		$this->data['detail'] = $this->barang_m->get_data_by($id);
+		$increment = (int) $this->data['detail']->popularitas;
+		$update['popularitas'] = $increment + 1;
+		$this->barang_m->update($id, $update);
+		// Prepare data
 		$filter['kategori'] = $this->data['detail']->kode_kategori;
 		$this->data['terkait'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data($filter);
 		$this->data['top'] = $this->barang_m->limit(4)->order_by('popularitas', 'DESC')->get_all_data();
@@ -120,8 +198,7 @@ class Katalog extends MY_Controller {
 			// Prepare view
 			$this->data['title'] = 'Edit Barang';
 			$this->data['content'] = 'katalog/form';
-			$this->data['css'] = 'katalog';
-			$this->data['js'] = 'katalog';
+
 			// Prepare data
 			$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
 			// $this->data['autocomplete']['kategori'] = $this->kategori_m->get_autocomplete();
@@ -149,9 +226,9 @@ class Katalog extends MY_Controller {
 		$data['updateBy'] = $this->ion_auth->get_user_id();
 		// Unset unusefull data
 		unset($data['id']);
-        // If image exist
-        if (!empty($_FILES['gambar']['name'])) {
-            $this->updateImage($data, $id);
+		// If image exist
+		if (!empty($_FILES['gambar']['name'])) {
+			$this->updateImage($data, $id);
 		} else {
 			if ($this->barang_m->update($id, $data) == FALSE) {
 				// echo "Salah input2";
@@ -160,6 +237,29 @@ class Katalog extends MY_Controller {
 			} else {
 				echo 'data berhasil disimpan';
 			}
+		}
+	}
+
+	/**
+	 * @param $data
+	 * @param $id
+	 */
+	private function updateImage($data, $id) {
+		$data['gambar'] = 'img-' . date('Ymdhis', time());
+		// Upload image
+		if ($this->do_upload($data['gambar'])) {
+			$data['gambar'] = $this->upload->data('file_name');
+			if ($this->barang_m->update($id, $data) == FALSE) {
+				delete_files($this->upload->data('full_path'));
+				// echo "Salah input";
+				echo 'Terjadi kesalahan input';
+			} else {
+				echo "sukses";
+			}
+		} else {
+			// echo $this->upload->display_errors();
+			// show_404();
+			echo 'Terjadi kesalahan upload';
 		}
 	}
 
@@ -218,7 +318,7 @@ class Katalog extends MY_Controller {
 			$insert = FALSE;
 			for ($row = 0; $row < $highestRow - 1; $row++) {
 				//  Read a row of data into an array
-				$tmp = $sheet->rangeToArray('A' . $startRow . ':' . 'M' . $startRow++, NULL, TRUE, FALSE)[0];
+				$tmp = $sheet->rangeToArray('A' . $startRow . ':' . 'N' . $startRow++, NULL, TRUE, FALSE)[0];
 				$data = array(
 					"nama" => $tmp[0],
 					"merk" => $tmp[1],
@@ -233,19 +333,64 @@ class Katalog extends MY_Controller {
 					"keterangan" => $tmp[10],
 					"spesifikasi" => $tmp[11],
 					"kode_kategori" => $tmp[12],
+					"tahun_anggaran" => $tmp[13],
 					"createdBy" => $this->ion_auth->get_user_id(),
 				);
 				array_push($rowData, $data);
 			}
 			if ($this->barang_m->insert_many($rowData)) {
-                $this->message('Berhasil! Data berhasil di upload', 'success');
+				$this->message('Berhasil! Data berhasil di upload', 'success');
 			} else {
-                $this->message('Gagal! Data gagal di upload', 'danger');
+				$this->message('Gagal! Data gagal di upload', 'danger');
 			}
-        } else {
-            $this->message('Gagal! Data gagal di upload', 'danger');
-        }
-        redirect(site_url('katalog/add'));
+		} else {
+			$this->message('Gagal! Data gagal di upload', 'danger');
+		}
+		redirect(site_url('katalog/add'));
+	}
+
+	public function get_level_3($id) //may be index() or something else.Rename this funciton name as yours
+	{
+		//other codes getting data from model
+		$results = $this->kategori_m->get_all(); //capture the query data inside $results variable
+		$menu = $this->get_menu($results, $id); //get_menu() function is bellow
+		//$menu will contain your ul li structure
+		//send it to view or echo
+		echo $menu;
+	}
+
+	public function get_menu($results, $parent_id) {
+		$menu = '<ul>';
+
+		for ($i = 0; $i < sizeof($results); $i++) {
+			if ($results[$i]->kode_induk_kategori == $parent_id) {
+				if ($this->has_child($results, $results[$i]->kode_kategori)) {
+					$sub_menu = $this->get_menu($results, $results[$i]->kode_kategori);
+					$menu .=
+					'<li>' .
+					$results[$i]->kode_kategori . '. ' . $results[$i]->nama .
+						$sub_menu .
+						'</li>';
+				} else {
+					$menu .= '<li>' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '</li>';
+				}
+			}
+		}
+		$menu .= '</ul>';
+		return $menu;
+	}
+
+	public function has_child($results, $id) {
+		for ($i = 0; $i < sizeof($results); $i++) {
+			if ($results[$i]->kode_induk_kategori == $id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function get_total_barang($kode_kategori) {
+		return $this->barang_m->count_by(array('kode_kategori' => $kode_kategori));
 	}
 
 	/**
@@ -260,64 +405,4 @@ class Katalog extends MY_Controller {
 		$result = $this->db->get()->result_array();
 		return $result[0]['id'];
 	}
-
-    /**
-     * @return mixed
-     */
-    private function applyFilter()
-    {
-        $filter = $this->input->get();
-        if (!isset($filter['offset'])) {
-            $filter['offset'] = 5;
-        }
-        // Apply filter
-        if (!empty($filter)) {
-            $this->data['filter'] = $filter;
-            return $filter;
-        }
-        return $filter;
-    }
-
-    /**
-     * @param $data
-     */
-    private function uploadNewImage($data)
-    {
-        $data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
-        if ($this->do_upload($data['gambar'])) {
-            $data['gambar'] = $this->upload->data('file_name');
-            if ($this->barang_m->insert($data) == TRUE) {
-                echo "sukses";
-            } else {
-                delete_files($this->upload->data('full_path'));
-                echo "Input data gagal";
-            }
-        } else {
-            echo "Upload gambar gagal";
-        }
-    }
-
-    /**
-     * @param $data
-     * @param $id
-     */
-    private function updateImage($data, $id)
-    {
-        $data['gambar'] = 'img-' . date('Ymdhis', strtotime($data['createdAt']));
-        // Upload image
-        if ($this->do_upload($data['gambar'])) {
-            $data['gambar'] = $this->upload->data('file_name');
-            if ($this->barang_m->update($id, $data) == FALSE) {
-                delete_files($this->upload->data('full_path'));
-                // echo "Salah input";
-                echo 'Terjadi kesalahan input';
-            } else {
-                echo "sukses";
-            }
-        } else {
-            // echo $this->upload->display_errors();
-            // show_404();
-            echo 'Terjadi kesalahan upload';
-        }
-    }
 }

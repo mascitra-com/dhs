@@ -25,6 +25,7 @@
         var ac_merk = [];
         var ac_tipe = [];
         var ac_kategori = [];
+        var site_url = "<?=site_url()?>";
     </script>   
 
 </head>

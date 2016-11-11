@@ -13,8 +13,13 @@ class kategori_m extends MY_Model {
 		$this->_table = 'kategori';
 	}
 
-	public function fetch_data($limit, $start) {
+	public function fetch_data($limit, $start, $filter) {
+		if ($filter != null) {
+			$this->db->like($filter);
+		}
+
 		$this->db->limit($limit, $start);
+		$this->db->order_by('kode_kategori');
 		$query = $this->db->get("kategori");
 
 		if ($query->num_rows() > 0) {
@@ -54,12 +59,12 @@ class kategori_m extends MY_Model {
 	}
 
 	public function getKategoriWithChild() {
-		$result = $this->kategori_m->get_all();
+		$result = $this->db->query('SELECT *
+                        FROM kategori
+                        WHERE CHARACTER_LENGTH(kode_kategori) = 6')->result();
 		$induk = array();
 		foreach ($result as $list) {
-			if (strlen($list->kode_kategori) == 2) {
-				array_push($induk, $list);
-			}
+			array_push($induk, $list);
 		}
 		$limit = count($induk);
 		$indukDanSub = array();
@@ -119,5 +124,14 @@ class kategori_m extends MY_Model {
 		$result .= '"' . $data[count($data) - 1]['kode_kategori'] . '-' . $data[count($data) - 1]['nama'] . '"]';
 
 		return $result;
+	}
+
+	public function tree_menu() {
+		return $this->db->query("SELECT t1.nama AS lev1, t2.nama as lev2, t3.nama as lev3
+                        FROM kategori AS t1
+                        LEFT JOIN kategori AS t2 ON t2.kode_induk_kategori = t1.kode_kategori
+                        LEFT JOIN kategori AS t3 ON t3.kode_induk_kategori = t2.kode_kategori
+                        WHERE CHARACTER_LENGTH(t1.kode_kategori) = 2")->result();
+
 	}
 }

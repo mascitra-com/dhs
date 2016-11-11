@@ -15,8 +15,9 @@
 
 <!--  Load custom JS -->
 <?php 
-$loadDT 	= array('kategori');
+$loadDT 	= array();
 $loadTMCE 	= array('katalog');
+$loadChart 	= array('dashboard');
 
 if (isset($js) && $js != ''):
 
@@ -25,6 +26,9 @@ if (isset($js) && $js != ''):
 	<?php endif;
 		if (in_array($js, $loadTMCE)): ?>
 	    <script src="<?= base_url('assets/plugin/tinymce/tinymce.min.js') ?>"></script>
+	<?php endif;
+		if (in_array($js, $loadChart)): ?>
+	    <script src="<?= base_url('assets/plugin/chartjs/chart.js') ?>"></script>
 	<?php endif;?>
 
     <script type="text/javascript" src="<?= base_url('assets/js/_'.$js.'.js') ?>"></script>

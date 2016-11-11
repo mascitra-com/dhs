@@ -13,7 +13,7 @@
                         <!-- list & sublist -->
                         <?php if ($j > 3) { ?>
                             <button class="list-group-item" data-toggle="collapse" data-target="#sm<?= $i ?>">
-                                <?= $data[1] ?> (<?= $data[2] ?>)
+                                <?= $data[0] ?>. <?= $data[1] ?>
                                 <span class="caret"></span>
                             </button>
 
@@ -21,8 +21,8 @@
                                 <?php if (isset($data[3])): ?>
                                     <?php for ($k = 3; $k < $j; $k++): ?>
                                         <a class="list-group-item small"
-                                           href="<?= site_url('katalog?kategori=') . $data[$k++] ?>"><?= $data[$k++] ?>
-                                            (<?= $data[$k] ?>)</a>
+                                           href="<?= site_url('katalog?kategori=') . $data[$k] ?>"><?= $data[$k++] ?><?= $data[$k++] ?>
+                                            </a>
                                     <?php endfor; ?>
                                 <?php endif; ?>
                             </div>

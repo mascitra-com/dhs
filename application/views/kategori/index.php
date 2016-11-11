@@ -9,14 +9,55 @@
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
+                        <th>Status</th>
                         <th>Kode</th>
                         <th>Nama Kategori</th>
                         <th width="25%">Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <tr>
+                        <td>
+                            <select id="ip-status" name="status" class="form-control input-sm">
+                                <option value="" <?=(!isset($filter['status'])) ? 'selected' : ''?>>Semua</option>
+                                <option value="1" <?=(isset($filter['status']) && $filter['status'] == "1") ? 'selected' : ''?>>Aktif</option>
+                                <option value="0" <?=(isset($filter['status']) && $filter['status'] == "0") ? 'selected' : ''?>>Nonaktif</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control input-sm" id="ip-kode"
+                                   value="<?=(isset($filter['kode_kategori'])) ? $filter['kode_kategori'] : ''?>"
+                                   placeholder="Kode Kategori" list="kodekategori">
+                                   <datalist id="kodekategori">
+                                    <?php foreach ($allKategori as $kat): ?>
+                                    <option value="<?=$kat->kode_kategori?>"><?=$kat->kode_kategori?></option>
+                                    <?php endforeach;?>
+                                    </datalist>
+                        </td>
+                        <td><input type="text" class="form-control input-sm" id="ip-nama"
+                                   value="<?=(isset($filter['nama'])) ? $filter['nama'] : ''?>"
+                                   placeholder="Nama Kategori" list="namakategori">
+                                   <datalist id="namakategori">
+                                    <?php foreach ($allKategori as $kat): ?>
+                                    <option value="<?=$kat->nama?>"><?=$kat->nama?></option>
+                                    <?php endforeach;?>
+                                    </datalist>
+                        </td>
+                        <td>
+                            <button class="btn btn-info btn-fill btn-block" id="btn-filter" style="text-align: left"><i class="fa fa-search"></i> Cari
+                            </button>
+                        </td>
+                    </tr>
+                    <?php if (!empty($kategori)): ?>
                     <?php foreach ($kategori as $list): ?>
                         <tr>
+                            <td><?php if ($list->status == 1) {?>
+                                    <a href="<?=site_url('kategori/destroy/' . $list->id)?>"
+                                       class="btn btn-fill btn-xs btn-success"><i class="fa fa-check"></i>Aktif</a>
+                                <?php } else {?>
+                                    <a href="<?=site_url('kategori/activate/' . $list->id)?>"
+                                       class="btn btn-fill btn-xs btn-default"><i
+                                            class="fa fa-circle-o"></i>Nonaktif</a>
+                                <?php }?></td>
                             <td><?=$list->kode_kategori?></td>
                             <td><?=$list->nama?></td>
                             <td>
@@ -24,18 +65,17 @@
                                         class="fa fa-pencil"></i></a>
                                 <a href="<?=site_url('kategori/destroy/' . $list->id)?>"
                                    class="btn btn-fill btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                                <?php if($list->status == 1){ ?>
-                                <a href="<?=site_url('kategori/destroy/' . $list->id)?>"
-                                   class="btn btn-fill btn-xs btn-success"><i class="fa fa-check"></i>Aktif</a>
-                                <?php } else { ?>
-                                    <a href="<?=site_url('kategori/activate/' . $list->id)?>"
-                                       class="btn btn-fill btn-xs btn-default"><i class="fa fa-circle-o"></i>Nonaktif</a>
-                                <?php } ?>
                             </td>
                         </tr>
                     <?php endforeach;?>
+                    <?php endif;?>
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <?php echo $pagination; ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -49,21 +89,21 @@
                 <form action="<?=site_url('kategori/store')?>" method="POST">
                     <div class="form-group">
                         <label for="">Sub dari:</label>
-                        <select class="form-control" name="induk" id="induk" onchange="select()">
-                            <option value="">Pilih kategori</option>
-                            <?php foreach ($kategori as $list): ?>
-                                <option value="<?=$list->id?>"><?=$list->kode_kategori?>
-                                    . <?=$list->nama?></option>
-                            <?php endforeach;?>
-                        </select>
+                        <input type="text" class="form-control" id="induk" value="<?=(isset($filter['kategori'])) ? $filter['kategori'] : ''?>"
+                                   placeholder="Nama Kategori" list="formkategori">
+                                   <datalist id="formkategori">
+                                    <?php foreach ($allKategori as $kat): ?>
+                                    <option value="<?=$kat->kode_kategori?>"><?=$kat->nama?></option>
+                                    <?php endforeach;?>
+                                    </datalist>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="checkInduk"> <label>Kategori Induk</label>
+                        <input type="checkbox" id="checkInduk"> <label for="checkInduk">Kategori Induk</label>
                     </div>
                     <div class="form-group">
                         <label for="">Kode Kategori</label>
                         <input class="form-control" type="text" name="sub_kategori" id="sub_kategori"
-                               placeholder="Kode Kategori" required readonly>
+                               placeholder="Kode Kategori" required readonly="">
                     </div>
                     <div class="form-group">
                         <label for="">Nama Kategori</label>
@@ -109,18 +149,6 @@
     </div>
 </div>
 <script>
-    function select() {
-        var kode_kategori = $('#induk').find(":selected").val();
-        $.ajax({
-            type: "GET",
-            url: "<?=site_url('kategori/get_kode?id=')?>" + kode_kategori,
-            success: function (data) {
-                console.log(data);
-                $("#sub_kategori").val(data);
-            }
-        });
-    }
-
     function edit(id) {
         $.ajax({
             type: "GET",
