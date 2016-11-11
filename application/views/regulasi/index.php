@@ -7,24 +7,21 @@
             <div class="content table-responsive table-full-width">
                 <table class="table table-striped">
                     <tbody>
-                    <?php foreach ($regulasi as $list): ?>
-                        <tr>
-                            <td>
-                                <h4><b><?=$list->judul?></b></h4>
-                                <p><?=$list->isi?></p>
-                                <b class="label label-danger">Dikeluarkan Oleh : <?=$list->dikeluarkan_oleh?></b>
-                                <p class="label label-warning">Dikeluarkan Pada : <?php echo date('d F Y', strtotime(str_replace('-', '/', $list->tgl_dikeluarkan))); ?></p>
-                            </td>
-                            <td>
-                                <a href="<?=base_url('assets/regulasi/' . $list->file)?>"
-                                   class="btn btn-xs btn-warning btn-fill" download><i class="fa fa-file-pdf-o"></i></a>
-                                <a onclick="edit('<?=$list->id?>')" class="btn btn-xs btn-info btn-fill"><i
-                                        class="fa fa-pencil"></i></a>
-                                <a href="<?=site_url('regulasi/destroy/' . $list->id)?>"
-                                   class="btn btn-xs btn-danger btn-fill"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    <?php endforeach;?>
+                        <?php foreach ($regulasi as $list): ?>
+                            <tr>
+                                <td>
+                                    <h4><b><?=$list->judul?></b></h4>
+                                    <p><?=$list->isi?></p>
+                                    <b class="label label-danger">Dikeluarkan Oleh : <?=$list->dikeluarkan_oleh?></b>
+                                    <p class="label label-warning">Dikeluarkan Pada : <?php echo date('d F Y', strtotime(str_replace('-', '/', $list->tgl_dikeluarkan))); ?></p>
+                                </td>
+                                <td>
+                                    <a href="<?=base_url('assets/regulasi/' . $list->file)?>" class="btn btn-xs btn-warning btn-fill" download><i class="fa fa-file-pdf-o"></i></a>
+                                    <a onclick="edit('<?=$list->id?>')" class="btn btn-xs btn-info btn-fill"><i class="fa fa-pencil"></i></a>
+                                    <a href="<?=site_url('regulasi/destroy/' . $list->id)?>" class="btn btn-xs btn-danger btn-fill"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
                     </tbody>
                 </table>
             </div>
@@ -53,16 +50,21 @@
                     </div>
                     <div class="form-group">
                         <label>Dikeluarkan oleh</label>
-                        <input type="text" name="dikeluarkan_oleh" class="form-control" placeholder="Dikeluarkan Oleh"
-                               required>
+                        <input type="text" name="dikeluarkan_oleh" class="form-control" placeholder="Dikeluarkan Oleh" required>
                     </div>
                     <div class="form-group">
                         <label>File</label>
-                        <input type="file" name="file" class="form-control" value="" required>
+                        <input type="file" name="file" value="" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-block btn-fill btn-success">Simpan</button>
-                        <button class="btn btn-block btn-fill btn-warning" type="reset">Batal</button>
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                                <button type="submit" class="btn btn-block btn-fill btn-success">Simpan</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-block btn-fill btn-warning" type="reset">Batal</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -81,31 +83,37 @@
                 <div class="form-group">
                     <label>Judul Regulasi</label>
                     <input type="text" name="judul" id="judulUpdate" class="form-control" placeholder="Judul regulasi"
-                           required>
+                    required>
                 </div>
                 <div class="form-group">
                     <label>Isi Regulasi</label>
                     <textarea name="isi" id="isiUpdate" class="form-control" placeholder="Isi regulasi"
-                              required></textarea>
+                    required></textarea>
                 </div>
                 <div class="form-group">
                     <label>Dikeluarkan pada</label>
                     <input type="date" name="tgl_dikeluarkan" id="tgl_dikeluarkanUpdate" class="form-control"
-                           placeholder="Masa Aktif">
+                    placeholder="Masa Aktif">
                 </div>
                 <div class="form-group">
                     <label>Dikeluarkan oleh</label>
                     <input type="text" name="dikeluarkan_oleh" id="dikeluarkan_olehUpdate" class="form-control"
-                           placeholder="Dikeluarkan oleh" required>
+                    placeholder="Dikeluarkan oleh" required>
                 </div>
                 <div class="form-group">
                     <label>File</label><br/>
                     <p id="fileUpdate"></p>
-                    <input type="file" name="file" class="form-control" value="Browse" required>
+                    <input type="file" name="file" value="Browse" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block btn-fill btn-success">Simpan</button>
-                    <button class="btn btn-block btn-fill btn-warning" data-dismiss="modal">Batal</button>
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-block btn-fill btn-success">Simpan</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-block btn-fill btn-warning" type="reset">Batal</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

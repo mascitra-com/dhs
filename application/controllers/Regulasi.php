@@ -111,7 +111,7 @@ class Regulasi extends MY_Controller
     /**
      * @param $data
      */
-    private function uploadImage($data):void
+    private function uploadImage($data)
     {
         $data['file'] = 'file-' . date('dmYhis');
         if ($this->do_upload($data['file'])) {
@@ -129,7 +129,7 @@ class Regulasi extends MY_Controller
      * @param $data
      * @param $id
      */
-    private function updateImage($data, $id):void
+    private function updateImage($data, $id)
     {
         $data['file'] = 'file-' . date('dmYhis');
         if ($this->do_upload($data['file'])) {

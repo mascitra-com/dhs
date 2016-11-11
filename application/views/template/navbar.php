@@ -34,9 +34,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?=site_url('regulasi')?>">
-                        <i class="fa fa-user fa-fw"></i> Regulasi
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-archive fa-fw"></i> Berkas
+                        <b class="caret"></b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?=site_url('regulasi')?>"><i class="fa fa-clipboard fa-fw"></i> Regulasi</a></li>
+                        <li><a href="<?=site_url('regulasi')?>"><i class="fa fa-clipboard fa-fw"></i> Berkas Unduh</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="<?=site_url('users')?>">
