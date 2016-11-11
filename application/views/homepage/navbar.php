@@ -18,7 +18,7 @@
                 <?php if($this->ion_auth->logged_in()){ ?>
                      <li><a href="<?=site_url('katalog')?>">Katalog</a></li>
                 <?php }else{ ?>
-                     <li><a href="<?=site_url('homepage/daftar')?>">Katalog</a></li>
+                     <li><a href="<?=site_url('homepage/katalog')?>">Katalog</a></li>
                 <?php } ?>
 
                

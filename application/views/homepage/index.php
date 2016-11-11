@@ -12,7 +12,7 @@
 		<?php if (isset($content)): $this->load->view('homepage/_' . $content);endif;?>
 	</div>
 
-	<?php $this->load->view('homepage/_footer');?>
+	<?php $this->load->view('homepage/footer');?>
 
 	<?php $datestring = '%Y %F %d'; ?>
 	<div class="pengumuman">

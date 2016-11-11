@@ -10,6 +10,7 @@
         </div>
     </div>
     <div class="col-lg-7">
+        <form action="<?=site_url('homepage/daftar')?>" method="get">
         <div class="card">
             <div class="header">
                 <h2 class="title">QUICK SEARCH</h2>
@@ -17,7 +18,7 @@
             </div>
             <div class="content">
                 <div class="form-group">
-                    <select class="form-control" name="">
+                    <select class="form-control" name="kategori">
                         <option value="">Semua Kategori</option>
                         <?php foreach ($kategori as $list): ?>
                             <option value="<?=$list->id?>"><?=$list->nama?></option>
@@ -25,13 +26,14 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="KATA KUNCI">
+                    <input type="text" name="nama" class="form-control" placeholder="KATA KUNCI">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-warning btn-fill btn-block">CARI</button>
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </div>
 

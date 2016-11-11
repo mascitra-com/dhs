@@ -36,17 +36,19 @@ class Homepage extends MY_Controller {
 	/**
 	 *  Menampilkan Daftar Barang sesuai kategori yang di pilih
 	 */
-	public function daftar() {
-		$filter = $this->input->get();
-        // Prepare view
-        $this->data['title'] = 'Daftar Barang';
-        $this->data['content'] = 'katalog';
-        $this->data['css'] = 'katalog';
-        $this->data['js'] = 'katalog';
-        //Prepare Data
+	public function katalog() {
+		$this->data['title'] 	= 'Katalog Barang';
+		$this->data['content'] 	= 'katalog';
+		$this->data['list'] 	= $this->kategori_m->getKategoriWithChild();
+		$this->data['css'] 		= 'katalog';
+		$this->data['js'] 		= 'katalog';
+        // Get filter
+        $filter = $this->applyFilter();
+        // Prepare Data
+        $this->data['kategori'] = $this->kategori_m->get_all();
         $this->data['barang'] = $this->barang_m->get_all_data($filter);
-        $this->data['list'] = $this->kategori_m->getKategoriWithChild();
-        // Load view
+        $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
+        // Do init
 		$this->load->view('homepage/index', $this->data);
 	}
 
@@ -97,5 +99,22 @@ class Homepage extends MY_Controller {
 		$this->load->helper('download');
 		force_download('././assets/regulasi/' . $file, NULL);
 	}
+
+	/**
+     * @return mixed
+     */
+    private function applyFilter()
+    {
+        $filter = $this->input->get();
+        if (!isset($filter['offset'])) {
+            $filter['offset'] = 5;
+        }
+        // Apply filter
+        if (!empty($filter)) {
+            $this->data['filter'] = $filter;
+            return $filter;
+        }
+        return $filter;
+    }
 
 }

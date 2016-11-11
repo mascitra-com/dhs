@@ -10,6 +10,11 @@
  <!-- jQuery Marquee -->
 <script src="<?=base_url('assets/plugin/jquery-marquee/jquery.marquee.min.js')?>"></script>
 
+<!--  Load custom JS -->
+<?php if (isset($js) && $js != ''): ?>
+    <script type="text/javascript" src="<?= base_url('assets/js/_'.$js.'.js') ?>"></script>
+<?php endif; ?>
+
 <script>
 $(document).ready(function(){
 	$(".pengumuman").marquee({direction:'left',duration:17000,duplicated:true});

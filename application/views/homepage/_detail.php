@@ -42,8 +42,7 @@
                             </tr>
                         </table>
                     </div>
-                    <a class="btn btn-primary btn-fill" style="margin-left: 2em; margin-bottom: 1em" href="<?=site_url('katalog/edit/' . $detail->id)?>">Edit</a>
-                    <a class="btn btn-default btn-fill" style="margin-bottom: 1em" onclick="goBack()">Kembali</a>
+                    <a class="btn btn-default btn-fill" style="margin-bottom: 1em" href="<?=site_url('homepage/katalog')?>">Kembali</a>
                 </div>
             </div>
         </div>
