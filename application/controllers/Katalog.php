@@ -47,21 +47,15 @@ class Katalog extends MY_Controller {
 				if ($this->parent_child($results, $results[$i]->kode_kategori)) {
 					$sub_menu = $this->get_parent($results, $results[$i]->kode_kategori);
 					$menu .= '<button class="list-group-item" data-toggle="collapse" data-target="#sm' . $i . '">
-                                    ' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '<span class="caret"></span>
+                                    ' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span>' . '<span class="caret"></span>
                         </button>' .
 						'<div id="sm' . $i . '" class="sublinks collapse">' .
 						$sub_menu .
 						'</div>';
-//                    $menu .=
-					//                        '<li>' .
-					//                        $results[$i]->kode_kategori . '. ' . $results[$i]->nama .
-					//                        $sub_menu .
-					//                        '</li>';
 				} else {
 					$menu .= ' <a class="list-group-item" href="' . site_url('katalog?kategori=') . $results[$i]->kode_kategori . '">
             ' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '
-        </a>';
-//                    $menu .= '<li>' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '</li>';
+        		<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span></a>';
 				}
 			}
 		}

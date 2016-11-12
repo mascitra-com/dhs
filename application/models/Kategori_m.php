@@ -71,46 +71,19 @@ class kategori_m extends MY_Model {
 		for ($i = 0; $i < $limit; $i++) {
 			$j = 0;
 			$indukDanSub[$i][$j++] = $induk[$i]->kode_kategori;
-			$jmlBrg = $this->totalBarangSesuaiIdKategori($i, $induk);
+			$jmlBrg = $this->count_barang($induk[$i]->kode_kategori);
 			$indukDanSub[$i][$j++] = $induk[$i]->nama;
-			$indukDanSub[$i][$j] = $jmlBrg[0]->jml;
+			$indukDanSub[$i][$j] = $jmlBrg;
 			$result = $this->kategori_m->get_many_by(array('kode_induk_kategori' => $induk[$i]->kode_kategori, 'status' => '1'));
 			foreach ($result as $list) {
 				$j++;
 				$indukDanSub[$i][$j++] = $list->kode_kategori;
 				$indukDanSub[$i][$j++] = $list->nama;
-				$jmlBrg = $this->totalBrgSesuaiIdKategori($list);
-				$indukDanSub[$i][$j] = $jmlBrg[0]->jml;
+				$jmlBrg = $this->count_barang($list->kode_kategori);
+				$indukDanSub[$i][$j] = $jmlBrg;
 			}
 		}
 		return $indukDanSub;
-	}
-
-	/**
-	 * @param $i
-	 * @param $induk
-	 * @return array
-	 */
-	private function totalBarangSesuaiIdKategori($i, $induk) {
-		$this->db->select('count(b.id) as jml');
-		$this->db->from('kategori k');
-		$this->db->join('barang b', 'k.kode_kategori = b.kode_kategori');
-		$this->db->where('b.kode_kategori', $induk[$i]->kode_kategori);
-		$jmlBrg = $this->db->get()->result();
-		return $jmlBrg;
-	}
-
-	/**
-	 * @param $list
-	 * @return array
-	 */
-	private function totalBrgSesuaiIdKategori($list) {
-		$this->db->select('count(b.id) as jml');
-		$this->db->from('kategori k');
-		$this->db->join('barang b', 'k.kode_kategori = b.kode_kategori');
-		$this->db->where('b.kode_kategori', $list->kode_kategori);
-		$jmlBrg = $this->db->get()->result();
-		return $jmlBrg;
 	}
 
 	public function get_autocomplete() {
@@ -133,5 +106,12 @@ class kategori_m extends MY_Model {
                         LEFT JOIN kategori AS t3 ON t3.kode_induk_kategori = t2.kode_kategori
                         WHERE CHARACTER_LENGTH(t1.kode_kategori) = 2")->result();
 
+	}
+
+	public function count_barang($kode_kategori) {
+		$this->db->select('COUNT(*) as jum');
+		$this->db->from('barang');
+		$this->db->like('kode_kategori', $kode_kategori, 'after');
+		return $this->db->get()->result()[0]->jum;
 	}
 }

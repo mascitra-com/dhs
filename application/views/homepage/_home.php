@@ -62,13 +62,12 @@ $listNumber = 0;
                         <!-- list & sublist -->
                         <?php if ($total > 3) {?>
                             <button class="list-group-item" data-toggle="collapse"
-                                    data-target="#sm<?=$i . '' . $j?>"><?=$daftar[$listNumber][0];?>. <?=$daftar[$listNumber][1]?>
+                                    data-target="#sm<?=$i . '' . $j?>"><?=$daftar[$listNumber][0];?>. <?=$daftar[$listNumber][1]?><span class="badge"><?=$daftar[$listNumber][2]?></span>
                                 <i class="fa fa-caret-down pull-right"></i>
                             </button>
                         <?php } else {?>
                             <a class="list-group-item"
-                               href="<?=site_url('daftar?kategori=') . $daftar[$listNumber][0]?>"><?=$daftar[$listNumber][1]?>
-
+                               href="<?=site_url('daftar?kategori=') . $daftar[$listNumber][0]?>"><?=$daftar[$listNumber][1]?><span class="badge"><?=$daftar[$listNumber][2]?></span>
                             </a>
                         <?php }?>
                         <div id="sm<?=$i . '' . $j?>" class="sublinks collapse">
@@ -76,7 +75,7 @@ $listNumber = 0;
                                 <a class="list-group-item small" style="background-color: #eaeaea;"
                                    href="<?=site_url('homepage/katalog?kategori=') . $daftar[$listNumber][$k]?>">
                                     <span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;
-                                    <?=$daftar[$listNumber][$k++];?>. <?=$daftar[$listNumber][$k++];?></a>
+                                    <?=$daftar[$listNumber][$k++];?>. <?=$daftar[$listNumber][$k++];?><span class="badge"><?=$daftar[$listNumber][$k]?></span></a>
                             <?php endfor;?>
                         </div>
                         <!-- batas list & sublist -->
