@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SISAGA | LOGIN</title>
+	<link rel="icon" type="image/png" href="<?=base_url('assets/img/favicon.png')?>">
 </head>
 <link href="<?=base_url('assets/plugin/template/css/light-bootstrap-dashboard.css')?>" rel="stylesheet"/>
 <link href="<?=base_url('assets/plugin/bootstrap/css/bootstrap.min.css')?>" rel='stylesheet' type='text/css' />
