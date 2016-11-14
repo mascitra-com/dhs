@@ -12,7 +12,7 @@
             </a>
         </div>
         <div class="navbar-collapse collapse navbar-right" id="navbar-collapsible">
-            <ul class="nav navbar-nav navbar-left">
+            <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?=site_url()?>">Home</a></li>
 
                 <?php if ($this->ion_auth->logged_in()) {?>
@@ -28,7 +28,18 @@
                 <li><a href="<?=site_url('homepage/kontak')?>">Hubungi Kami</a></li>
 
                 <?php if ($this->ion_auth->logged_in()) {?>
-                    <li><a href="<?=site_url('users/logout')?>">Logout</a></li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Akun
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?=site_url('dashboard')?>">Dashboard Admin</a></li>
+                            <li><a href="<?=site_url('profil/change_password')?>">Ganti Password</a></li>
+                            <li><a href="<?=site_url('profil/edit')?>">Edit Akun</a></li>
+                            <li><a href="<?=site_url('logout')?>">Logout</a></li>
+                        </ul>
+                    </li>
                 <?php } else {?>
                     <li><a href="<?=site_url('users/login')?>">Login</a></li>
                 <?php }?>
