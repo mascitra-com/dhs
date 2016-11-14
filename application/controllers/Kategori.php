@@ -43,8 +43,14 @@ class Kategori extends MY_Controller {
 	private function page($filter) {
 		//pagination settings
 		$config['base_url'] = site_url('kategori/index');
-		$config['total_rows'] = $this->kategori_m->count_by($filter);
-		$config['per_page'] = "10";
+        if(!empty($filter['page'])){
+            $per_page = $filter['page'];
+            unset($filter['page']);
+        } else {
+            $per_page = 10;
+        }
+        $config['per_page'] = $per_page;
+        $config['total_rows'] = $this->kategori_m->count_by($filter);
 		$config["uri_segment"] = 3;
 		$choice = $config["total_rows"] / $config["per_page"];
 		$config["num_links"] = 5;
@@ -75,6 +81,7 @@ class Kategori extends MY_Controller {
 		//call the model function to get the department data
 		$this->data['kategori'] = $this->kategori_m->fetch_data($config["per_page"], $this->data['page'], $filter);
 		$this->data['filter'] = $filter;
+        $this->data['per_page'] = $per_page;
 		$this->data['pagination'] = $this->pagination->create_links();
 
 	}

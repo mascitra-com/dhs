@@ -74,6 +74,9 @@ class Export extends MY_Controller
         $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
         // Menentukan nama kolom tabel
         $fields = $query->list_fields();
+        $this->kop($objPHPExcel, "STANDART HARGA SATUAN BARANG", 1);
+        $this->kop($objPHPExcel, "KEBUTUHAN PEMERINTAH KABUPATEN LUMAJANG", 2);
+        $this->kop($objPHPExcel, "TAHUN ANGGARAN ".date('Y'), 3);
         $headTable = array('No', 'Kode Barang', 'Nama Barang', 'Merk', 'Tipe', 'Ukuran', 'Satuan', 'Harga Pasar', 'Biaya Kirim', 'Resistensi', 'PPn', 'Harga SHSB', 'Keterangan', 'Spesifikasi', 'Kategori');
         $col = 0;
         $styleArray = array(
@@ -86,13 +89,13 @@ class Export extends MY_Controller
                 )
             ));
         for ($i = 0; $i < 15; $i++) {
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $headTable[$i]);
-            $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($col, 1)->applyFromArray($styleArray);
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 5, $headTable[$i]);
+            $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow($col, 5)->applyFromArray($styleArray);
             $col++;
         }
 
         // Mengambil data dari tabel excel
-        $row = 2;
+        $row = 6;
         foreach ($query->result() as $data) {
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $row, $row - 1);
             $objPHPExcel->getActiveSheet()->getStyleByColumnAndRow(0, $row)->applyFromArray($styleArray);
@@ -201,5 +204,24 @@ class Export extends MY_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight(0.75);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft(0.75);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom(1);
+    }
+
+    /**
+     * @param $objPHPExcel
+     */
+    private function kop($objPHPExcel, $text, $row)
+    {
+        $sheet = $objPHPExcel->getActiveSheet();
+        $sheet->setCellValueByColumnAndRow(0, $row, $text);
+        $sheet->mergeCells('A'.$row.':O'.$row);
+        $style = array(
+            'font' => array(
+                'bold' => true,
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            )
+        );
+        $sheet->getStyle('A'.$row.':O'.$row)->applyFromArray($style);
     }
 }

@@ -49,7 +49,6 @@ class Katalog extends MY_Controller
         // Apply filter
         if (!empty($filter)) {
             $this->data['filter'] = $filter;
-            $this->data['kategori_selected'] = $filter['kategori'];
             return $filter;
         }
         return $filter;
@@ -122,7 +121,7 @@ class Katalog extends MY_Controller
     private function addParent($results, $i, $sub_menu, $menu)
     {
         $menu .= '<button class="list-group-item" data-toggle="collapse" data-target="#sm' . $i . '">
-                                    ' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span>' . '<span class="caret"></span>
+                                    ' . $results[$i]->kode_kategori . '. ' . ucwords(strtolower($results[$i]->nama)) . '<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span>' . '<span class="caret"></span>
                         </button>' .
             '<div id="sm' . $i . '" class="sublinks collapse">' .
             $sub_menu .
@@ -139,7 +138,7 @@ class Katalog extends MY_Controller
     private function addChild($results, $i, $menu)
     {
         $menu .= ' <a class="list-group-item" href="' . site_url('katalog?kategori=') . $results[$i]->kode_kategori . '">
-            ' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '
+            ' . $results[$i]->kode_kategori . '. ' . ucwords(strtolower($results[$i]->nama)) . '
         		<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span></a>';
         return $menu;
     }

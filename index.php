@@ -55,13 +55,14 @@
  */
 $server = $_SERVER['HTTP_HOST'];
 switch ($server) {
-case "dhs.mascitra.com":
-	$env = 'production';
+case "localhost/dhs":
+case "127.0.0.1/dhs":
+	$env = 'development';
 	break;
 default:
-	$env = 'development';
+	$env = 'production';
 }
-define('ENVIRONMENT', $env);
+define('ENVIRONMENT', 'development');
 
 /*
  *---------------------------------------------------------------

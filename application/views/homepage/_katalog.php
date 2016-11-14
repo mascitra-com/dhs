@@ -6,14 +6,14 @@
             </div>
             <div class="content">
                 <!-- Dropdown menu -->
-                <div class="list-group">
+                <div class="list-group" id="kategori">
                     <?php $i = 1?>
                     <?php foreach ($list as $data): ?>
                         <?php $j = count($data);?>
                         <!-- list & sublist -->
                         <?php if ($j > 3) {?>
                             <button class="list-group-item" data-toggle="collapse" data-target="#sm<?=$i?>">
-                                <?=$data[0]?>. <?=$data[1]?>
+                                <?=$data[0]?>. <?=ucwords(strtolower($data[1]))?>
                                 <span class="caret"></span><span class="badge"><?=$data[2]?></span>
                             </button>
 
@@ -21,7 +21,7 @@
                                 <?php if (isset($data[3])): ?>
                                     <?php for ($k = 3; $k < $j; $k++): ?>
                                         <a class="list-group-item small"
-                                           href="<?=site_url('katalog?kategori=') . $data[$k]?>"><?=$data[$k++]?>. <?=$data[$k++]?><span class="badge"><?=$data[$k]?></span>
+                                           href="<?=site_url('katalog?kategori=') . $data[$k]?>"><?=$data[$k++]?>. <?=ucwords(strtolower($data[$k++]))?><span class="badge"><?=$data[$k]?></span>
                                             </a>
                                     <?php endfor;?>
                                 <?php endif;?>
@@ -29,7 +29,7 @@
                             <!-- batas list & sublist -->
                         <?php } else {?>
                             <a class="list-group-item" href="<?=site_url('katalog?kategori=') . $data[0]?>">
-                                <?=$data[1]?> <span class="badge"><?=$data[2]?></span>
+                                <?=ucwords(strtolower($data[1]))?> <span class="badge"><?=$data[2]?></span>
                             </a>
                         <?php }?>
                         <?php $i++;?>
@@ -136,11 +136,11 @@
                                 <a href="<?=site_url('homepage/katalog?kategori=' . $brg->kode_kategori);?>"><span class="badge"><?=$brg->kategori?></span></a>
                             </h5>
                             <h5>
-                                <a href="<?=site_url('katalog/detail/' . $brg->id)?>"><b
+                                <a href="<?=site_url('homepage/detail/' . $brg->id)?>"><b
                                     class="text-muted"><?=$brg->kode_kategori . '.' . $brg->id?></b></a>
                                 </h5>
                                 <h4>
-                                    <a href="<?=site_url('katalog/detail/' . $brg->id)?>"><b><?=$brg->nama . ' ' . $brg->merk . ' ' . $brg->tipe?></b></a>
+                                    <a href="<?=site_url('homepage/detail/' . $brg->id)?>"><b><?=$brg->nama . ' ' . $brg->merk . ' ' . $brg->tipe?></b></a>
                                 </h4>
                             </td>
                             <td width="25%">

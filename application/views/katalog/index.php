@@ -6,7 +6,7 @@
             </div>
             <div class="content">
                 <!-- Dropdown menu -->
-                <div class="list-group">
+                <div class="list-group" id="kategori">
                     <?=$tree_menu?>
                 </div>
                 <!-- Batas Dropdown menu -->

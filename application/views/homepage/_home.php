@@ -21,7 +21,7 @@
                 </div>
                 <div class="content">
                     <div class="form-group">
-                    <input type="text" class="form-control" name="kategori" placeholder="Nama Kategori" list="formkategori"
+                    <input type="text" class="form-control" name="kategori" placeholder="Semua Kategori" list="formkategori"
                     list="formkategori">
                         <datalist id="formkategori">
                                     <?php foreach ($kategori as $kat): ?>
@@ -46,7 +46,7 @@ $row = ceil(count($daftar) / 3);
 $countList = count($daftar);
 $listNumber = 0;
 ?>
-<div class="row">
+<div class="row" id="kategori">
     <?php for ($i = 0; $i < 3; $i++): ?>
         <?php if ($listNumber == $countList) {
 	goto end;
@@ -62,12 +62,12 @@ $listNumber = 0;
                         <!-- list & sublist -->
                         <?php if ($total > 3) {?>
                             <button class="list-group-item" data-toggle="collapse"
-                                    data-target="#sm<?=$i . '' . $j?>"><?=$daftar[$listNumber][0];?>. <?=$daftar[$listNumber][1]?><span class="badge"><?=$daftar[$listNumber][2]?></span>
+                                    data-target="#sm<?=$i . '' . $j?>"><?=$daftar[$listNumber][0];?>. <?=ucwords(strtolower($daftar[$listNumber][1]))?><span class="badge"><?=$daftar[$listNumber][2]?></span>
                                 <i class="fa fa-caret-down pull-right"></i>
                             </button>
                         <?php } else {?>
                             <a class="list-group-item"
-                               href="<?=site_url('daftar?kategori=') . $daftar[$listNumber][0]?>"><?=$daftar[$listNumber][1]?><span class="badge"><?=$daftar[$listNumber][2]?></span>
+                               href="<?=site_url('daftar?kategori=') . $daftar[$listNumber][0]?>"><?=ucwords(strtolower($daftar[$listNumber][1]))?><span class="badge"><?=$daftar[$listNumber][2]?></span>
                             </a>
                         <?php }?>
                         <div id="sm<?=$i . '' . $j?>" class="sublinks collapse">
@@ -75,7 +75,7 @@ $listNumber = 0;
                                 <a class="list-group-item small" style="background-color: #eaeaea;"
                                    href="<?=site_url('homepage/katalog?kategori=') . $daftar[$listNumber][$k]?>">
                                     <span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;
-                                    <?=$daftar[$listNumber][$k++];?>. <?=$daftar[$listNumber][$k++];?><span class="badge"><?=$daftar[$listNumber][$k]?></span></a>
+                                    <?=$daftar[$listNumber][$k++];?>. <?=ucwords(strtolower($daftar[$listNumber][$k++]));?><span class="badge"><?=$daftar[$listNumber][$k]?></span></a>
                             <?php endfor;?>
                         </div>
                         <!-- batas list & sublist -->
