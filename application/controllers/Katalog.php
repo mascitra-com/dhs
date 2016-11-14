@@ -49,6 +49,7 @@ class Katalog extends MY_Controller
         // Apply filter
         if (!empty($filter)) {
             $this->data['filter'] = $filter;
+            $this->data['kategori_selected'] = $filter['kategori'];
             return $filter;
         }
         return $filter;
@@ -135,7 +136,7 @@ class Katalog extends MY_Controller
      * @param $menu
      * @return string
      */
-    private function addChild($results, $i, $menu):string
+    private function addChild($results, $i, $menu)
     {
         $menu .= ' <a class="list-group-item" href="' . site_url('katalog?kategori=') . $results[$i]->kode_kategori . '">
             ' . $results[$i]->kode_kategori . '. ' . $results[$i]->nama . '
