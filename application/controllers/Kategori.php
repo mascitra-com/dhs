@@ -158,7 +158,7 @@ class Kategori extends MY_Controller {
 		if ($this->kategori_m->update($id, array('status' => 0))) {
             $kode_induk = $this->kategori_m->get_by(array('id' => $id))->kode_kategori;
             $this->kategori_m->update_by(array("kode_induk_kategori like " => $kode_induk."%"), array('status' => 0));
-            // $this->barang_m->update_by(array("kode_kategori like " => $kode_induk."%"), array('status' => 0));
+            $this->barang_m->update_by(array("kode_kategori like " => $kode_induk."%"), array('status' => 0));
 			$this->message('Berhasil! Data berhasil di nonaktifkan', 'success');
 		} else {
 			$this->message('Gagal! Data gagal di nonaktifkan', 'danger');
@@ -170,7 +170,7 @@ class Kategori extends MY_Controller {
 		if ($this->kategori_m->update($id, array('status' => 1))) {
             $kode_induk = $this->kategori_m->get_by(array('id' => $id))->kode_kategori;
             $this->kategori_m->update_by(array("kode_induk_kategori like " => $kode_induk."%"), array('status' => 1));
-            // $this->barang_m->update_by(array("kode_kategori like " => $kode_induk."%"), array('status' => 1));
+            $this->barang_m->update_by(array("kode_kategori like " => $kode_induk."%"), array('status' => 1));
 			$this->message('Berhasil! Data berhasil di aktifkan', 'success');
 		} else {
 			$this->message('Gagal! Data gagal di aktifkan', 'danger');
