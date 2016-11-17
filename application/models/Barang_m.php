@@ -13,7 +13,7 @@ class barang_m extends MY_Model {
 		$this->db->join('kategori k', 'b.kode_kategori = k.kode_kategori');
 
 		if ($filter != null) {
-			$where = "1";
+			$where = "k.status = 1";
 			// Nama
 			if (isset($filter['nama']) && $filter['nama'] != '') {
 				$where .= " AND b.nama like '%" . $filter['nama'] . "%'";
@@ -40,7 +40,7 @@ class barang_m extends MY_Model {
 				$where .= " AND hargashsb <= " . $filter['hargamax'];
 			}
 
-			if ($where != "1") {
+			if ($where != "k.status = 1") {
 				$this->db->where($where);
 			}
 
@@ -69,7 +69,7 @@ class barang_m extends MY_Model {
 		);
 
 		$index = ($filter != null && isset($filter['order'])) ? $filter['order'] : 0;
-        $this->db->where('b.status', 1);
+
 		$this->order_by($order[$index][0], $order[$index][1]);
 
 		// return $this->db->get_compiled_select();
