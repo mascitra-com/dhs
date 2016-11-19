@@ -32,7 +32,7 @@ body{
 
 #highlight h1, h3, h4{
 	color: #FFF;
-	line-height: 10px;
+	margin:0;
 }
 
 #highlight h1{
@@ -48,10 +48,11 @@ body{
 	font-size: 10pt;
 }
 
-@media (max-width: 750px) {
+@media (max-width:500px) {
 	#highlight{
 		width: 100%;
 		padding: 0;
 	}
+
 }
 
