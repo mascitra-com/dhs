@@ -7,33 +7,14 @@
             <div class="content">
                 <!-- Dropdown menu -->
                 <div class="list-group" id="kategori">
-                    <?php $i = 1?>
-                    <?php foreach ($list as $data): ?>
-                        <?php $j = count($data);?>
-                        <!-- list & sublist -->
-                        <?php if ($j > 3) {?>
-                            <button class="list-group-item" data-toggle="collapse" data-target="#sm<?=$i?>">
-                                <?=$data[0]?>. <?=ucwords(strtolower($data[1]))?>
-                                <span class="caret"></span><span class="badge"><?=$data[2]?></span>
-                            </button>
-
-                            <div id="sm<?=$i?>" class="sublinks collapse">
-                                <?php if (isset($data[3])): ?>
-                                    <?php for ($k = 3; $k < $j; $k++): ?>
-                                        <a class="list-group-item small"
-                                           href="<?=site_url('katalog?kategori=') . $data[$k]?>"><?=$data[$k++]?>. <?=ucwords(strtolower($data[$k++]))?><span class="badge"><?=$data[$k]?></span>
-                                            </a>
-                                    <?php endfor;?>
-                                <?php endif;?>
-                            </div>
-                            <!-- batas list & sublist -->
-                        <?php } else {?>
-                            <a class="list-group-item" href="<?=site_url('katalog?kategori=') . $data[0]?>">
-                                <?=ucwords(strtolower($data[1]))?> <span class="badge"><?=$data[2]?></span>
-                            </a>
-                        <?php }?>
-                        <?php $i++;?>
-                    <?php endforeach;?>
+                <?php for ($i = 0; $i < count($kategori); $i++) {?>
+                    <button class="list-group-item" data-toggle="collapse" data-target="#sx<?=$i?>">
+                            <?=$hotlist[$i]->kode_kategori?>. <?=$hotlist[$i]->nama?><span class="caret"></span></button>
+                        <div id="sx<?=$i?>" class="sublinks collapse">
+                            <?=$kategori[$i]?>
+                            <br>
+                        </div>
+                <?php }?>
                 </div>
                 <!-- Batas Dropdown menu -->
             </div>
@@ -143,7 +124,7 @@
                                     <a href="<?=site_url('homepage/detail/' . $brg->id)?>"><b><?=$brg->nama . ' ' . $brg->merk . ' ' . $brg->tipe?></b></a>
                                 </h4>
                             </td>
-                            <td width="25%">
+                            <td width="35%">
                                 <p><i class="fa fa-tag fa-fw"></i> Harga Pasar :
                                     Rp.<?=number_format($brg->hargaPasar, '0', '', '.')?>,-</p>
                                 <p><i class="fa fa-tags fa-fw"></i> Harga SHSB :
@@ -155,8 +136,7 @@
                                     : <?php echo mdate('%d-%m-%Y', strtotime(str_replace('-', '/', $brg->createdAt))); ?>
                                 </p>
                             </td>
-                            <td width="15%" align="center">
-
+                            <td align="center">
                             </td>
                         </tr>
                     <?php endforeach;?>

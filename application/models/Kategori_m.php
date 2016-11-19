@@ -61,7 +61,7 @@ class kategori_m extends MY_Model {
 	public function getKategoriWithChild() {
 		$result = $this->db->query('SELECT *
                         FROM kategori
-                        WHERE CHARACTER_LENGTH(kode_kategori) = 6')->result();
+                        WHERE CHARACTER_LENGTH(kode_kategori) = 2')->result();
 		$induk = array();
 		foreach ($result as $list) {
 			array_push($induk, $list);

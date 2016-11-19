@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-8">
         <div class="card">
             <div class="header">
                 <h4 class="title">Kategori barang</h4>
@@ -9,16 +9,18 @@
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
+                        <th>No</th>
                         <th>Status</th>
                         <th>Kode</th>
                         <th>Nama Kategori</th>
-                        <th width="25%">Aksi</th>
+                        <th width="20%">Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
+                        <td></td>
                         <td>
-                            <select id="ip-status" name="status" class="form-control input-sm">
+                            <select id="ip-status" name="status" class="form-control">
                                 <option value="" <?= (!isset($filter['status'])) ? 'selected' : '' ?>>Semua</option>
                                 <option
                                     value="1" <?= (isset($filter['status']) && $filter['status'] == "1") ? 'selected' : '' ?>>
@@ -55,8 +57,10 @@
                         </td>
                     </tr>
                     <?php if (!empty($kategori)): ?>
+                        <?php $no = 1 + $page; ?>
                         <?php foreach ($kategori as $list): ?>
                             <tr>
+                                <td><?=$no++;?></td>
                                 <td><?php if ($list->status == 1) { ?>
                                         <a href="<?= site_url('kategori/destroy/' . $list->id) ?>"
                                            class="btn btn-fill btn-xs btn-success"><i class="fa fa-check"></i>Aktif</a>
@@ -68,10 +72,10 @@
                                 <td><?= $list->kode_kategori ?></td>
                                 <td><?= $list->nama ?></td>
                                 <td>
-                                    <a onclick="edit('<?= $list->id ?>')" class="btn btn-fill btn-xs btn-primary"><i
+                                    <a onclick="edit('<?= $list->id ?>')" class="btn btn-fill btn-sm btn-primary"><i
                                             class="fa fa-pencil"></i></a>
                                     <a href="<?= site_url('kategori/destroy/' . $list->id) ?>"
-                                       class="btn btn-fill btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                       class="btn btn-fill btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -83,20 +87,22 @@
                         <?php echo $pagination; ?>
                     </div>
                     <div class="col-md-2">
+                        <?php if($segment == 0): ?>
                         <label>Per Page</label>
-                        <select name="page" id="page" onchange="page()" class="form-control">
+                        <select name="page" id="page" class="form-control">
                             <option value="10" <?= ($per_page == 10) ? 'selected' : '' ?>>10</option>
                             <option value="25" <?= ($per_page == 25) ? 'selected' : '' ?>>25</option>
                             <option value="50" <?= ($per_page == 50) ? 'selected' : '' ?>>50</option>
                             <option value="100" <?= ($per_page == 100) ? 'selected' : '' ?>>100</option>
                             <option value="200" <?= ($per_page == 200) ? 'selected' : '' ?>>200</option>
                         </select>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="card">
             <div class="header">
                 <h4 class="title">Form Kategori</h4>
@@ -191,11 +197,6 @@
                 $("#sub_kategori").val(data);
             }
         });
-    }
-
-    function page() {
-        var total = $("#page").val();
-        window.location.assign("<?=site_url('kategori?page=')?>" + total);
     }
 
     function refresh() {

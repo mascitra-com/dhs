@@ -15,7 +15,7 @@
                                 <select id="listkategori" data-placeholder="Pilih kategori..." class="form-control" name="kode_kategori">
                                     <option value="">Pilih kategori...</option>
                                     <?php foreach($kategori as $kat): ?>
-                                    <option value="<?=$kat->kode_kategori.'-'.$kat->nama?>" <?=($data->kode_kategori==$kat->kode_kategori)?'selected':''?> <?=($kat->status=='0')?'disabled':''?>><?=$kat->kode_kategori.'-'.$kat->nama?></option>
+                                    <option value="<?=$kat->kode_kategori.'-'.$kat->nama?>" <?=(isset($data) && $data->kode_kategori==$kat->kode_kategori)?'selected':''?> <?=($kat->status=='0')?'disabled':''?>><?=$kat->kode_kategori.'-'.$kat->nama?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

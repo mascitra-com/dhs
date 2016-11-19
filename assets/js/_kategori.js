@@ -12,8 +12,8 @@ $(document).ready(function () {
         }
     });
 
-    $('#induk').change(function(e){
-     var kode_kategori = $('#induk').val();
+    $('#induk').change(function (e) {
+        var kode_kategori = $('#induk').val();
         $.ajax({
             type: "GET",
             url: "get_kode?kategori=" + kode_kategori,
@@ -24,6 +24,11 @@ $(document).ready(function () {
     });
 });
 
+$('#page').change(function (e) {
+    var total = $("#page").val();
+    link = replace_link(/page=[A-Za-z0-9]/i, 'page=' + total);
+    window.location = link;
+})
 
 $("#btn-filter").click(function () {
     var status = $("#ip-status").val();

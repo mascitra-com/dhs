@@ -59,7 +59,7 @@ class Katalog extends MY_Controller
      */
     public function get_level_0()
     {
-        $results = $this->kategori_m->get_all(); //capture the query data inside $results variable
+        $results = $this->kategori_m->get_many_by(array('status' => 1)); //capture the query data inside $results variable
         $menu = $this->get_parent($results); //get_menu() function is bellow
         return $menu;
     }

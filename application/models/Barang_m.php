@@ -31,7 +31,7 @@ class barang_m extends MY_Model {
 				$where .= " AND b.kode_kategori like '" . $filter['kategori'] . "%'";
 			}
 			// Harga Pokok
-			
+
 			if ((isset($filter['hargamin']) && isset($filter['hargamax'])) && ($filter['hargamin'] != '' && $filter['hargamax'] != '')) {
 				$where .= " AND hargashsb BETWEEN " . $filter['hargamin'] . " AND " . $filter['hargamax'];
 			} elseif ((isset($filter['hargamin']) && $filter['hargamin'] != '') && (!isset($filter['hargamax']) || $filter['hargamax'] == '')) {

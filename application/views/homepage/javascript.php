@@ -5,14 +5,15 @@
 <!-- jQuery UI -->
 <script src="<?=base_url('assets/plugin/jquery-ui/jquery-ui.min.js')?>"></script>
 <!--  Checkbox, Radio & Switch Plugins -->
-<script src="<?=base_url('assets/plugin/template/js/bootstrap-checkbox-radio-switch.js')?>"></
+<script src="<?=base_url('assets/plugin/template/js/bootstrap-checkbox-radio-switch.js')?>"></script>
 <script src="<?=base_url('assets/plugin/template/js/homepage.js')?>"></script>
- <!-- jQuery Marquee -->
+<!-- jQuery Marquee -->
 <script src="<?=base_url('assets/plugin/jquery-marquee/jquery.marquee.min.js')?>"></script>
 
+<script src="<?=base_url('assets/plugin/chosen/chosen.jquery.min.js')?>"></script>
 <!--  Load custom JS -->
 <?php if (isset($js) && $js != ''): ?>
-    <script type="text/javascript" src="<?= base_url('assets/js/_'.$js.'.js') ?>"></script>
+	<script type="text/javascript" src="<?= base_url('assets/js/_'.$js.'.js') ?>"></script>
 <?php endif; ?>
 
 <script>

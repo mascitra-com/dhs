@@ -22,8 +22,8 @@ class Kategori extends MY_Controller {
 	 */
 	public function index() {
 		$filter = $this->input->get();
-		$segment = $this->uri->segment(3, 0);
-		if ($segment == 0 && empty($filter)) {
+		$this->data['segment'] = $this->uri->segment(3, 0);
+		if ($this->data['segment'] == 0 && empty($filter)) {
 			$this->session->unset_userdata('filter_kategori');
 		}
 		if (empty($filter)) {

@@ -28,10 +28,101 @@ class Homepage extends MY_Controller {
 	 */
 	public function index() {
 		$this->data['content'] = 'home';
-		$this->data['daftar'] = $this->kategori_m->getKategoriWithChild();
-		$this->data['kategori'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 6'));
+		$this->data['kategori'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
 		$this->data['hotlist'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
+		$this->data['daftar'] = $this->get_level_0($this->data['hotlist']);
 		$this->load->view('homepage/index', $this->data);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_level_0($parent) {
+		$results = $this->kategori_m->get_many_by(array('status' => 1)); //capture the query data inside $results variable
+		$menu = array();
+		foreach ($parent as $list) {
+			array_push($menu, $this->get_parent($results, $list->kode_kategori)); //get_menu() function is bellow
+		}
+		return $menu;
+	}
+
+	/**
+	 * @param      $results
+	 * @param null $parent_id
+	 *
+	 * @return string
+	 */
+	public function get_parent($results, $parent_id = NULL) {
+		$menu = '';
+		for ($i = 0; $i < sizeof($results); $i++) {
+			if ($results[$i]->kode_induk_kategori == $parent_id) {
+				if ($this->parent_child($results, $results[$i]->kode_kategori)) {
+					$sub_menu = $this->get_parent($results, $results[$i]->kode_kategori);
+					$menu = $this->addParent($results, $i, $sub_menu, $menu);
+				} else {
+					$menu = $this->addChild($results, $i, $menu);
+				}
+			}
+		}
+		return $menu;
+	}
+
+	/**
+	 * @param $results
+	 * @param $kode_induk
+	 *
+	 * @return bool
+	 */
+	public function parent_child($results, $kode_induk) {
+		for ($i = 0; $i < sizeof($results); $i++) {
+			if ($this->categoryCodeMatchedAndLessThanSixLength($results, $kode_induk, $i)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param $results
+	 * @param $kode_induk
+	 * @param $i
+	 *
+	 * @return bool
+	 */
+	private function categoryCodeMatchedAndLessThanSixLength($results, $kode_induk, $i) {
+		return $results[$i]->kode_induk_kategori == $kode_induk && strlen($results[$i]->kode_induk_kategori) <= 6;
+	}
+
+	/**
+	 * @param $results
+	 * @param $i
+	 * @param $sub_menu
+	 * @param $menu
+	 *
+	 * @return string
+	 */
+	private function addParent($results, $i, $sub_menu, $menu) {
+		$menu .= '<button class="list-group-item" data-toggle="collapse" data-target="#sm' . $i . '">
+                                    ' . $results[$i]->kode_kategori . '. ' . ucwords(strtolower($results[$i]->nama)) . '<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span>' . '<span class="caret"></span>
+                        </button>' .
+			'<div id="sm' . $i . '" class="sublinks collapse">' .
+			$sub_menu .
+			'</div>';
+		return $menu;
+	}
+
+	/**
+	 * @param $results
+	 * @param $i
+	 * @param $menu
+	 *
+	 * @return string
+	 */
+	private function addChild($results, $i, $menu) {
+		$menu .= ' <a class="list-group-item" href="' . site_url('hompage/katalog?kategori=') . $results[$i]->kode_kategori . '" style="background-color: #eaeaea">
+            ' . $results[$i]->kode_kategori . '. ' . ucwords(strtolower($results[$i]->nama)) . '
+        		<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span></a>';
+		return $menu;
 	}
 
 	/**
@@ -46,7 +137,8 @@ class Homepage extends MY_Controller {
 		// Get filter
 		$filter = $this->applyFilter();
 		// Prepare Data
-		$this->data['kategori'] = $this->kategori_m->get_all();
+		$this->data['hotlist'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
+		$this->data['kategori'] = $this->get_level_0($this->data['hotlist']);
 		$this->data['barang'] = $this->barang_m->get_all_data($filter);
 		$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
 		// Do init
@@ -133,6 +225,7 @@ class Homepage extends MY_Controller {
 
 	/**
 	 * Download file regulasi
+	 *
 	 * @param $file
 	 */
 	public function download_regulasi($file) {
@@ -142,11 +235,11 @@ class Homepage extends MY_Controller {
 
 	/**
 	 * Download file berkas
+	 *
 	 * @param $file
 	 */
 	public function download_berkas($file) {
 		$this->load->helper('download');
 		force_download('././assets/file/berkas/' . $file, NULL);
 	}
-
 }
