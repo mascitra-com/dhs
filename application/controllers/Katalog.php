@@ -171,10 +171,18 @@ class Katalog extends MY_Controller
         $data['createdBy'] = $this->ion_auth->get_user_id();
 
         if ($this->fileHasName()) {
-            $this->uploadNewImage($data);
+            $do = $this->uploadNewImage($data);
+            if($do == 'sukses')
+            {
+                echo json_encode(array($do));
+            }else{
+                echo json_encode(array($do));
+            }
         } else {
-            if ($this->barang_m->insert($data) == FALSE) {
-                echo "Input data gagal";
+            if ($this->barang_m->insert($data) == TRUE) {
+                 echo json_encode(array('sukses'));
+            }else{
+                echo json_encode(array('Data tidak dapat disimpan'));
             }
         }
     }
@@ -192,17 +200,17 @@ class Katalog extends MY_Controller
      */
     private function uploadNewImage($data)
     {
-        $data['gambar'] = 'img-' . date('Ymdhis', time(oid));
+        $data['gambar'] = 'img-' . date('Ymdhis');
         if ($this->do_upload($data['gambar'])) {
             $data['gambar'] = $this->upload->data('file_name');
             if ($this->barang_m->insert($data) == TRUE) {
-                echo "sukses";
+                return 'sukses';
             } else {
                 delete_files($this->upload->data('full_path'));
-                echo "Input data gagal";
+                return 'Upload gagal';
             }
         } else {
-            echo "Upload gambar gagal";
+                return 'data gagal disimpan';
         }
     }
 

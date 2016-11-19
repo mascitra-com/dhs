@@ -1,5 +1,5 @@
 <div class="row">
-    <form id="form-katalog" method="post" action="<?= site_url((isset($data)) ? 'katalog/update' : 'katalog/store') ?>" enctype="multipart/form-data">
+    <form id="form-katalog" method="post" action="<?= site_url((isset($data)) ? 'katalog/update' : 'katalog/store') ?>" enctype="multipart/form-data" autocomplete="off">
         <input type="hidden" name="id" value="<?= (isset($data)) ? $data->id : '' ?>">
         <input type="hidden" name="createdAt" value="<?= (isset($data)) ? $data->createdAt : '' ?>">
         <div class="col-md-12">
@@ -12,13 +12,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Kategori</label>
-                                <!-- <input type="text" name="kategori" class="form-control" placeholder="pilih kategori" > -->
-                                <input type="text" class="form-control" name="kode_kategori" placeholder="kategori" list="listkategori" value="<?= (isset($data)) ? $data->kode_kategori . '-' . $data->kategori : '' ?>" required>
-                                <datalist id="listkategori">
+                                <select id="listkategori" data-placeholder="Pilih kategori..." class="form-control" name="kode_kategori">
+                                    <option value="">Pilih kategori...</option>
                                     <?php foreach($kategori as $kat): ?>
-                                    <option value="<?=$kat->kode_kategori.'-'.$kat->nama?>"><?=$kat->kode_kategori.'-'.$kat->nama?></option>
+                                    <option value="<?=$kat->kode_kategori.'-'.$kat->nama?>" <?=($data->kode_kategori==$kat->kode_kategori)?'selected':''?> <?=($kat->status=='0')?'disabled':''?>><?=$kat->kode_kategori.'-'.$kat->nama?></option>
                                     <?php endforeach; ?>
-                                </datalist>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -100,7 +99,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Keterangan Harga</label>
-                                <input type="text" class="form-control" name="keterangan" placeholder="keterangan harga" value="<?= (isset($data)) ? $data->keterangan : '' ?>" required>
+                                <input type="text" class="form-control" name="keterangan" placeholder="keterangan harga" value="<?= (isset($data)) ? $data->keterangan : '' ?>">
                             </div>
                         </div>
                     </div>

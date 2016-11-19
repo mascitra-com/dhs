@@ -8,14 +8,16 @@ var navbar_initialized = false;
 
 $(document).ready(function(){
     window_width = $(window).width();
+
+    $("#listkategori").chosen({no_results_text: "Data tidak ditemukan "});
     
     // check if there is an image set for the sidebar's background
     lbd.checkSidebarImage();
     
     // Init navigation toggle for small screens   
-    if(window_width <= 991){
-        lbd.initRightMenu();   
-    }
+    // if(window_width <= 991){
+    //     lbd.initRightMenu();   
+    // }
      
     //  Activate the tooltips   
     $('[rel="tooltip"]').tooltip();
@@ -38,11 +40,11 @@ $(document).ready(function(){
 });
 
 // activate collapse right menu when the windows is resized 
-$(window).resize(function(){
-    if($(window).width() <= 991){
-        lbd.initRightMenu();   
-    }
-});
+// $(window).resize(function(){
+//     if($(window).width() <= 991){
+//         lbd.initRightMenu();
+//     }
+// });
     
 lbd = {
     misc:{
@@ -56,7 +58,7 @@ lbd = {
         if(image_src !== undefined){
             sidebar_container = '<div class="sidebar-background" style="background-image: url(' + image_src + ') "/>'
             $sidebar.append(sidebar_container);
-        }  
+        }
     },
     initRightMenu: function(){  
          if(!navbar_initialized){

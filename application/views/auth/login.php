@@ -30,7 +30,7 @@
 										<button type="submit" class="btn btn-lg btn-primary">MASUK</button>
 									</div>
 									<div class="btn-group" role="group">
-										<button type="reset" class="btn btn-lg btn-warning">BATAL</button>
+										<button type="button" class="btn btn-lg btn-warning" onclick="window.location='<?=site_url()?>'">KEMBALI</button>
 									</div>
 								</div>
 							</div>

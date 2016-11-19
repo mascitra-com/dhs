@@ -1,7 +1,7 @@
-<nav class="navbar navbar-trans navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-trans navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -11,11 +11,11 @@
                 <img alt="SIAGA" src="<?=base_url('assets/img/icon-sm.png')?>">
             </a>
         </div>
-        <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse" id="nav-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="<?=site_url('dashboard')?>">
-                    <i class="fa fa-dashboard fa-fw"></i> Dashboard
+                        <i class="fa fa-dashboard fa-fw"></i> Dashboard
                     </a>
                 </li>
                 <li class="dropdown">
