@@ -93,7 +93,7 @@ class Pengumuman extends MY_Controller
      * @param $data
      * @return bool
      */
-    private function isImportant($data):bool
+    private function isImportant($data)
     {
         return isset($data['penting']) || $data['penting'] === 'on';
     }
@@ -102,7 +102,7 @@ class Pengumuman extends MY_Controller
      * @param $data
      * @return bool
      */
-    private function noActiveDate($data):bool
+    private function noActiveDate($data)
     {
         return !isset($data['masa_aktif']) || empty($data['masa_aktif']);
     }
