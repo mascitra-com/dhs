@@ -1,6 +1,25 @@
-<div class='row' id="highlight">
-    <div class="col-lg-5">
-        <div id="desc">
+<div class='row' id="highlight-container">
+    <div class="col-md-12" id="highlight">
+        <h1>SISAGA LUMAJANG</h1>
+        <h4>Sistem informasi daftar harga satuan barang Kabupaten Lumajang</h4>
+        <div class="input-group">
+            <form action="<?= site_url('homepage/katalog') ?>" method="get">
+                <input type="text" class="form-control" placeholder="Kata Kunci">
+                <span class="input-group-btn"></span>
+                <select class="form-control" name="kategori">
+                    <option value="">Pilih Kategori...</option>
+                    <?php foreach ($kategori as $kat): ?>
+                        <option value="<?= $kat->kode_kategori ?>" <?=($kat->status=='0')?'disabled':''?>><?= $kat->nama ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="input-group-btn"></span>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-fill" type="button"><i class="fa fa-search"></i> cari</button>
+                </span>
+            </form>
+        </div>
+    </div>
+    <!-- <div class="col-lg-5 col-md-12 col-sm-12">
             <h1>
                 <b>SISAGA</b><br>
                 <small style="color: #fff">Kabupaten Lumajang</small>
@@ -9,11 +28,11 @@
                 Sistem Informasi Standar Harga Barang
                 Pemerintah Kabupaten Lumajang
             </p>
-            <a class="btn btn-info btn-fill" href="<?=site_url('homepage/kontak')?>">Selengkapnya</a>
+            <a class="btn btn-info btn-fill" href="<?= site_url('homepage/kontak') ?>">Selengkapnya</a>
         </div>
     </div>
     <div class="col-lg-7">
-        <form action="<?=site_url('homepage/katalog')?>" method="get">
+        <form action="<?= site_url('homepage/katalog') ?>" method="get">
             <div class="card">
                 <div class="header">
                     <h2 class="title">QUICK SEARCH</h2>
@@ -24,8 +43,8 @@
                         <select id="listkategori" data-placeholder="Pilih Kategori..." class="form-control" name="kategori">
                             <option value="">Pilih Kategori...</option>
                             <?php foreach ($kategori as $kat): ?>
-                                <option value="<?=$kat->kode_kategori?>" <?=($kat->status == '0') ? 'disabled' : ''?>><?=strtoupper($kat->nama)?></option>
-                            <?php endforeach;?>
+                                <option value="<?= $kat->kode_kategori ?>" <?=($kat->status=='0')?'disabled':''?>><?= $kat->nama ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -37,7 +56,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    </div> -->
 </div>
 <?php
 $parent = count($daftar);
@@ -51,8 +70,7 @@ $x = 0;
                 <h4 class="title">Hot List</h4>
             </div>
             <div class="content">
-                <?php for ($i = 0; $i < $row; $i++) {
-	?>
+                <?php for($i = 0; $i < $row; $i++){ ?>
                 <div class="row">
                     <?php for ($j = 0; $j < 2; $j++) {
 		?>
@@ -61,19 +79,19 @@ $x = 0;
 		}?>
                     <div class="col-md-6">
                         <button class="list-group-item" data-toggle="collapse" data-target="#sx<?=$x?>">
-                            <?=$hotlist[$x]->kode_kategori?>. <?=strtoupper($hotlist[$x]->nama)?><span class="caret"></span></button>
-                        <div id="sx<?=$x?>" class="sublinks collapse">
-                            <?=$daftar[$x++]?>
-                            <br>
+                            <?=$hotlist[$x]->kode_kategori?>. <?=$hotlist[$x]->nama?><span class="caret"></span></button>
+                            <div id="sx<?=$x?>" class="sublinks collapse">
+                                <?= $daftar[$x++] ?>
+                                <br>
+                            </div>
                         </div>
+                        <?php } ?>
                     </div>
-                    <?php }?>
+                    <?php } ?>
                 </div>
-                <?php }?>
             </div>
         </div>
     </div>
-</div>
 
 <div class="row">
     <div class="container-fluid" id="hot-list">

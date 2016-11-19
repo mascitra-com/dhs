@@ -11,50 +11,48 @@ body{
 	background-color: #d4d4d6;
 }
 
-#highlight{
+#highlight-container{
 	display: flex;
-	align-items: center;
-	height:350px;
-	margin-bottom: 30px;
+	justify-content: center;
 	background: grey url(../img/highlight.jpg);
 	background-size: cover;
 	background-position: center center;
 }
 
-#highlight #desc{
-	margin: 10px;
-	padding-left: 50px;
+#highlight{
+	display: flex;
+	max-width: 75%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height:95vh;
+	margin-bottom: 30px;
+	padding-bottom: 100px;
+}
+
+#highlight h1, h3, h4{
 	color: #FFF;
+	margin:0;
 }
 
-#highlight #desc h2{
+#highlight h1{
 	font-weight: bolder;
-}
-#highlight #desc p{
-	font-size: 13pt;
+	font-size: 5em;
 }
 
-#highlight .card{
-	width: 50%;
-	/*height: 350px;*/
-	float: right;
-	padding:15px;
-	margin: 5px;
-	margin-right: 20px;
-	border-radius: 0;
-	background-color: rgba(255,255,255,1);
-	border-right: 10px #c2c4c6 solid;
-	border-left: 10px #c2c4c6 solid;
-}
-
-#highlight .card .title{
-	font-weight: bold;
-}
-
-#highlight .card .content{
-	margin-top: 25px;
+#highlight .input-group{
+	margin-top: 50px;
 }
 
 #kategori {
 	font-size: 10pt;
 }
+
+@media (max-width:500px) {
+	#highlight{
+		width: 100%;
+		padding: 0;
+	}
+
+}
+
