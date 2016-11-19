@@ -109,9 +109,10 @@ class kategori_m extends MY_Model {
 	}
 
 	public function count_barang($kode_kategori) {
-		$this->db->select('COUNT(*) as jum');
+		$this->db->select('COUNT(id) as jum');
 		$this->db->from('barang');
 		$this->db->like('kode_kategori', $kode_kategori, 'after');
+		$this->db->where('status', 1);
 		return $this->db->get()->result()[0]->jum;
 	}
 }
