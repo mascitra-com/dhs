@@ -69,7 +69,7 @@ class barang_m extends MY_Model {
 		);
 
 		$index = ($filter != null && isset($filter['order'])) ? $filter['order'] : 0;
-        $this->db->where('b.status', 1);
+        $this->db->where('k.status', 1);
 		$this->order_by($order[$index][0], $order[$index][1]);
 
 		// return $this->db->get_compiled_select();

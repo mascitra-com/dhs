@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?=site_url('kategori')?>">
+                    <a href="<?=site_url('kategori?status=1')?>">
                         <i class="fa fa-tags fa-fw"></i> Kategori
                     </a>
                 </li>
