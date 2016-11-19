@@ -9,11 +9,11 @@
                 Sistem Informasi Standar Harga Barang
                 Pemerintah Kabupaten Lumajang
             </p>
-            <a class="btn btn-info btn-fill" href="<?= site_url('homepage/kontak') ?>">Selengkapnya</a>
+            <a class="btn btn-info btn-fill" href="<?=site_url('homepage/kontak')?>">Selengkapnya</a>
         </div>
     </div>
     <div class="col-lg-7">
-        <form action="<?= site_url('homepage/katalog') ?>" method="get">
+        <form action="<?=site_url('homepage/katalog')?>" method="get">
             <div class="card">
                 <div class="header">
                     <h2 class="title">QUICK SEARCH</h2>
@@ -24,8 +24,8 @@
                         <select id="listkategori" data-placeholder="Pilih Kategori..." class="form-control" name="kategori">
                             <option value="">Pilih Kategori...</option>
                             <?php foreach ($kategori as $kat): ?>
-                                <option value="<?= $kat->kode_kategori ?>" <?=($kat->status=='0')?'disabled':''?>><?= $kat->nama ?></option>
-                            <?php endforeach; ?>
+                                <option value="<?=$kat->kode_kategori?>" <?=($kat->status == '0') ? 'disabled' : ''?>><?=strtoupper($kat->nama)?></option>
+                            <?php endforeach;?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -51,20 +51,25 @@ $x = 0;
                 <h4 class="title">Hot List</h4>
             </div>
             <div class="content">
-                <?php for($i = 0; $i < $row; $i++){ ?>
+                <?php for ($i = 0; $i < $row; $i++) {
+	?>
                 <div class="row">
-                    <?php for($j = 0; $j < 2; $j++){ ?>
+                    <?php for ($j = 0; $j < 2; $j++) {
+		?>
+                    <?php if ($x == $parent) {
+			break;
+		}?>
                     <div class="col-md-6">
                         <button class="list-group-item" data-toggle="collapse" data-target="#sx<?=$x?>">
-                            <?=$hotlist[$x]->kode_kategori?>. <?=$hotlist[$x]->nama?><span class="caret"></span></button>
+                            <?=$hotlist[$x]->kode_kategori?>. <?=strtoupper($hotlist[$x]->nama)?><span class="caret"></span></button>
                         <div id="sx<?=$x?>" class="sublinks collapse">
-                            <?= $daftar[$x++] ?>
+                            <?=$daftar[$x++]?>
                             <br>
                         </div>
                     </div>
-                    <?php } ?>
+                    <?php }?>
                 </div>
-                <?php } ?>
+                <?php }?>
             </div>
         </div>
     </div>
@@ -78,17 +83,17 @@ $x = 0;
             </div>
             <div class="content">
                 <?php foreach ($hotlist as $list): ?>
-                    <a href="<?= site_url('homepage/katalog?kategori=') . $list->kode_kategori ?>">
-                        <div class="col-sm-6 col-md-4 col-lg-3">
+                    <a href="<?=site_url('homepage/katalog?kategori=') . $list->kode_kategori?>">
+                        <div class="col-sm-6 col-md-4 col-lg-2">
                             <div class="thumbnail">
-                                <img src="<?= base_url('assets/img/kategori.gif') ?>" alt="...">
+                                <img src="<?=base_url('assets/img/kategori.gif')?>" alt="...">
                                 <div class="caption">
-                                    <h3><?= $list->nama ?></h3>
+                                    <h3><?=$list->nama?></h3>
                                 </div>
                             </div>
                         </div>
                     </a>
-                <?php endforeach; ?>
+                <?php endforeach;?>
             </div>
         </div>
     </div>
