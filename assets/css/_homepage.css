@@ -52,6 +52,12 @@ body{
 	font-size: 10pt;
 }
 
+.card *{color:#000;}
+.card .caption h3{
+	font-size: 14pt;
+}
+.badge{color:#fff;}
+
 @media (max-width:500px) {
 	#highlight{
 		width: 100%;

@@ -9,7 +9,7 @@
 				<div class="row">
 					<div class="col-md-7">
 						<h5 class="title">Total Kategori</h5>
-						<h3><?=number_format($jumlah['kategori'],0,'','.')?></h3>
+						<h3><?=number_format($jumlah['kategori'], 0, '', '.')?></h3>
 					</div>
 					<div class="col-md-5 flex"><i class="fa fa-tags fa-4x"></i></div>
 				</div>
@@ -22,7 +22,7 @@
 				<div class="row">
 					<div class="col-md-7">
 						<h5 class="title">Total Barang</h5>
-						<h3><?=number_format($jumlah['barang'],0,'','.')?></h3>
+						<h3><?=number_format($jumlah['barang'], 0, '', '.')?></h3>
 					</div>
 					<div class="col-md-5 flex"><i class="fa fa-archive fa-4x"></i></div>
 				</div>
@@ -59,7 +59,7 @@
 
 <!-- Chart -->
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<div class="card">
 			<div class="header">
 				<h4 class="title">Total Barang</h4>
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-6">
+	<!-- <div class="col-md-6">
 		<div class="card">
 			<div class="header">
 				<h4 class="title">Kategori Poluler</h4>
@@ -80,43 +80,43 @@
 				<canvas id="chart2"></canvas>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <!-- newest item -->
 <h4>Barang Terpopuler</h4>
 <div class="row">
-	<?php foreach($populer as $key):?>
+	<?php foreach ($populer as $key): ?>
 	<div class="col-md-2">
-		<a href="<?=site_url('katalog/detail/'.$key->id)?>">
+		<a href="<?=site_url('katalog/detail/' . $key->id)?>">
 			<div class="card hotlist">
 				<div class="header"></div>
 				<div class="content">
-					<img src="<?=base_url('assets/img/img-barang/'.cek_file($key->gambar))?>" alt="">
-					<div class="stats"><?=shorten($key->nama.' '.$key->merk.' '.$key->tipe)?></div>
+					<img src="<?=base_url('assets/img/img-barang/' . cek_file($key->gambar))?>" alt="">
+					<div class="stats"><?=shorten($key->nama . ' ' . $key->merk . ' ' . $key->tipe)?></div>
 				</div>
 			</div>
 		</a>
 	</div>
-	<?php endforeach; ?>
+	<?php endforeach;?>
 </div>
 
 <!-- newest list -->
 <h4>Barang Terbaru</h4>
 <div class="row">
-	<?php foreach($newest as $key):?>
+	<?php foreach ($newest as $key): ?>
 	<div class="col-md-2">
-		<a href="<?=site_url('katalog/detail/'.$key->id)?>">
+		<a href="<?=site_url('katalog/detail/' . $key->id)?>">
 			<div class="card hotlist">
 				<div class="header"></div>
 				<div class="content">
-					<img src="<?=base_url('assets/img/img-barang/'.cek_file($key->gambar))?>" alt="">
-					<div class="stats"><?=shorten($key->nama.' '.$key->merk.' '.$key->tipe)?></div>
+					<img src="<?=base_url('assets/img/img-barang/' . cek_file($key->gambar))?>" alt="">
+					<div class="stats"><?=shorten($key->nama . ' ' . $key->merk . ' ' . $key->tipe)?></div>
 				</div>
 			</div>
 		</a>
 	</div>
-	<?php endforeach; ?>
+	<?php endforeach;?>
 </div>
 
 <script>
@@ -132,10 +132,9 @@ function cek_file($filename) {
 	return $filename;
 }
 
-function shorten($var)
-{
-	if (strlen($var)>20) {
-		$var = substr($var, 0,19).'...';
+function shorten($var) {
+	if (strlen($var) > 20) {
+		$var = substr($var, 0, 19) . '...';
 	}
 	return $var;
 }

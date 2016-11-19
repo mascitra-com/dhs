@@ -9,7 +9,7 @@
                 <div class="list-group" id="kategori">
                 <?php for ($i = 0; $i < count($kategori); $i++) {?>
                     <button class="list-group-item" data-toggle="collapse" data-target="#sx<?=$i?>">
-                            <?=$hotlist[$i]->kode_kategori?>. <?=$hotlist[$i]->nama?><span class="caret"></span></button>
+                            <?=$hotlist[$i]->kode_kategori?>. <?=ucwords(strtolower($hotlist[$i]->nama))?><span class="caret"></span></button>
                         <div id="sx<?=$i?>" class="sublinks collapse">
                             <?=$kategori[$i]?>
                             <br>
