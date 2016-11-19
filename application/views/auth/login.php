@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>SISAGA | LOGIN</title>
 	<link rel="icon" type="image/png" href="<?=base_url('assets/img/favicon.png')?>">
+	<meta content='width=device-width, initial-scale=0.9, maximum-scale=1.0, user-scalable=0' name='viewport'/>
 </head>
 <link href="<?=base_url('assets/plugin/template/css/light-bootstrap-dashboard.css')?>" rel="stylesheet"/>
 <link href="<?=base_url('assets/plugin/bootstrap/css/bootstrap.min.css')?>" rel='stylesheet' type='text/css' />

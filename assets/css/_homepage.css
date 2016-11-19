@@ -30,6 +30,10 @@ body{
 	padding-bottom: 100px;
 }
 
+#highlight .form-control {
+	background-color: rgba(255,255,255,.5);
+}
+
 #highlight h1, h3, h4{
 	color: #FFF;
 	margin:0;
@@ -54,5 +58,12 @@ body{
 		padding: 0;
 	}
 
+	#highlight h1{
+		font-size: 24pt;
+	}
+
+	#highlight h4{
+		font-size: 12pt;
+	}
 }
 
