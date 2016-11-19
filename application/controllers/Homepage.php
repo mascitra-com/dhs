@@ -119,7 +119,7 @@ class Homepage extends MY_Controller {
 	 * @return string
 	 */
 	private function addChild($results, $i, $menu) {
-		$menu .= ' <a class="list-group-item" href="' . site_url('hompage/katalog?kategori=') . $results[$i]->kode_kategori . '" style="background-color: #eaeaea">
+		$menu .= ' <a class="list-group-item" href="' . site_url('homepage/katalog?kategori=') . $results[$i]->kode_kategori . '" style="background-color: #eaeaea">
             ' . $results[$i]->kode_kategori . '. ' . ucwords(strtolower($results[$i]->nama)) . '
         		<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span></a>';
 		return $menu;

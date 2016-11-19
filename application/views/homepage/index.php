@@ -9,7 +9,7 @@
 </head>
 <body>
 	<?php $this->load->view('homepage/navbar');?>
-	<div class="container-fluid" id="content" style="margin-top: 5em">
+	<div class="container-fluid" id="content" style="margin-top: 4em">
 		<?php if (isset($content)): $this->load->view('homepage/_' . $content);endif;?>
 	</div>
 
