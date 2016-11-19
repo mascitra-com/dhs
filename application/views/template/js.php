@@ -12,6 +12,8 @@
 <script src="<?= base_url('assets/plugin/template/js/light-bootstrap-dashboard.js') ?>"></script>
  <!-- jQuery Marquee -->
 <script src="<?= base_url('assets/plugin/jquery-marquee/jquery.marquee.min.js') ?>"></script>
+<!-- Choosen -->
+<script src="<?= base_url('assets/plugin/chosen/chosen.jquery.min.js') ?>"></script>
 
 <!--  Load custom JS -->
 <?php 

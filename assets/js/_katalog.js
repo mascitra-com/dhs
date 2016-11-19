@@ -115,12 +115,16 @@ $("#form-katalog").on('submit', function(e){
     		contentType: false,
     		cache: false,
     		processData: false,
+    		dataType: 'json',
     		success:function(result){
-    			alert((result=='sukses')?'data berhasil diinputkan':result);
+    			if (result[0] == 'sukses'){
+    				alert('Data berhasil disimpan');
+    				resetForm();
+    			}else{
+    				alert(result[0]);
+    			}
+
     			unfreeze();
-    			if(result=='sukses'){
-            		// reset
-            	}
             },
             error: function (xhr, ajaxOption, thrownError) {
             	alert('terjadi kesalahan: '+thrownError);
@@ -183,6 +187,14 @@ function validasi()
 		}
 	});
 	return par;
+}
+
+function resetForm()
+{
+	$("input[type='text'], textarea").val("");
+	$("input[type='number']").val(0);
+	tinyMCE.activeEditor.setContent('');
+	$('#img-preview').attr('src', 'assets/img/img-barang/default.jpg');
 }
 
 function freeze()

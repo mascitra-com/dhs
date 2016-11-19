@@ -39,6 +39,7 @@
     <?php endif; ?>
     
     <?php $this->load->view('template/navbar');?>
+    
     <div class="container-fluid" id="main">
         <?php if (isset($content)) {
            $this->load->view($content);
