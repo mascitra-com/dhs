@@ -3,19 +3,21 @@
         <h1>SISAGA LUMAJANG</h1>
         <h4>Sistem informasi daftar harga satuan barang Kabupaten Lumajang</h4>
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Kata Kunci">
-            <span class="input-group-btn"></span>
-            <select class="form-control" name="kategori">
-                <option value="">Pilih Kategori...</option>
-                <?php foreach ($kategori as $kat): ?>
-                    <option value="<?= $kat->kode_kategori ?>" <?=($kat->status=='0')?'disabled':''?>><?= $kat->nama ?></option>
-                <?php endforeach; ?>
-            </select>
-            <span class="input-group-btn"></span>
-            <span class="input-group-btn">
-                <button class="btn btn-primary btn-fill" type="button"><i class="fa fa-search"></i> cari</button>
-            </span>
-        </div><!-- /input-group -->
+            <form action="<?= site_url('homepage/katalog') ?>" method="get">
+                <input type="text" class="form-control" placeholder="Kata Kunci">
+                <span class="input-group-btn"></span>
+                <select class="form-control" name="kategori">
+                    <option value="">Pilih Kategori...</option>
+                    <?php foreach ($kategori as $kat): ?>
+                        <option value="<?= $kat->kode_kategori ?>" <?=($kat->status=='0')?'disabled':''?>><?= $kat->nama ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="input-group-btn"></span>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-fill" type="button"><i class="fa fa-search"></i> cari</button>
+                </span>
+            </form>
+        </div>
     </div>
     <!-- <div class="col-lg-5 col-md-12 col-sm-12">
             <h1>
