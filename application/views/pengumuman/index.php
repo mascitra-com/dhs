@@ -63,9 +63,9 @@
 	                            <input type="radio" name="status" value="0" data-toggle="radio"><span>Non-Aktif</span>
 	                        </label>
 						</div>
-						<div class="form-group">
+						<div class="form-group form-inline">
 							<label class="checkbox">
-								<input type="checkbox" name="penting" data-toggle="checkbox"><span>Pengumuman Penting</span>
+								<input type="checkbox" name="penting"><span>Pengumuman Penting</span>
 							</label>
 							<span id="helpBlock" class="help-block">* Pengumuman penting akan diberi penekanan.</span>
 						</div>

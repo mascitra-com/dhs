@@ -135,7 +135,7 @@
                                     : <?= substr($brg->keterangan, 0, 14) ?></p>
                                 <p><i class="fa fa-calendar fa-fw"></i> Harga Pada
                                     Tanggal
-                                    : <?php echo mdate('%d-%m-%Y', strtotime(str_replace('-', '/', $brg->createdAt))); ?>
+                                    : <?php echo mdate('%d-%m-%Y', strtotime(str_replace('-', '/', $brg->updatedAt))); ?>
                                 </p>
                             </td>
                             <td align="center">
