@@ -1,12 +1,11 @@
-<?php $segment = $this->uri->segment(1, 1); ?>
-<div class="row">
+<div class="row" style="margin-top: 2em">
     <div class="col-md-8">
         <div class="card">
             <div class="header">
                 <h4 class="title">Edit Profile</h4>
             </div>
             <div class="content">
-                <form action="<?=site_url('auth/edit_user')?>" method="post">
+                <form action="update" method="post">
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
@@ -64,9 +63,6 @@
                             </div>
                         </div>
                     </div>
-                    <?php if($segment != 'profil'): ?>
-                    <a class="btn btn-default btn-fill" href="<?=site_url('users')?>">Kembali</a>
-                    <?php endif; ?>
                     <button type="submit" class="btn btn-info btn-fill pull-right">Simpan</button>
                     <div class="clearfix"></div>
                 </form>

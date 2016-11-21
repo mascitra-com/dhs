@@ -28,9 +28,13 @@ class Katalog extends MY_Controller
 
         // Get filter
         $filter = $this->applyFilter();
-        $this->data['tree_menu'] = $this->get_level_0();
+        if (!$list_kategori = $this->cache->get('list_kategori')) {
+            $this->data['tree_menu'] = $this->get_level_0();
+            $this->cache->save('list_kategori', $this->get_level_0(), 3600);
+        } else {
+            $this->data['tree_menu'] = $list_kategori;
+        }
         // Prepare Data
-        $this->data['kategori'] = $this->kategori_m->get_all();
         $this->data['barang'] = $this->barang_m->get_all_data($filter);
         $this->data['autocomplete'] = $this->barang_m->get_autocomplete();
         // Do init
@@ -65,8 +69,9 @@ class Katalog extends MY_Controller
     }
 
     /**
-     * @param $results
+     * @param      $results
      * @param null $parent_id
+     *
      * @return string
      */
     public function get_parent($results, $parent_id = NULL)
@@ -88,6 +93,7 @@ class Katalog extends MY_Controller
     /**
      * @param $results
      * @param $kode_induk
+     *
      * @return bool
      */
     public function parent_child($results, $kode_induk)
@@ -104,6 +110,7 @@ class Katalog extends MY_Controller
      * @param $results
      * @param $kode_induk
      * @param $i
+     *
      * @return bool
      */
     private function categoryCodeMatchedAndLessThanSixLength($results, $kode_induk, $i)
@@ -116,13 +123,13 @@ class Katalog extends MY_Controller
      * @param $i
      * @param $sub_menu
      * @param $menu
+     *
      * @return string
      */
     private function addParent($results, $i, $sub_menu, $menu)
     {
         $menu .= '<button class="list-group-item" data-toggle="collapse" data-target="#sm' . $i . '">
-                                    ' . $results[$i]->kode_kategori . '. ' . ucwords(strtolower($results[$i]->nama)) . '<span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span>' . '<span class="caret"></span>
-                        </button>' .
+                                    ' . $results[$i]->kode_kategori . '. ' . ucwords(strtolower($results[$i]->nama)) . '<span class="caret"></span><span class="badge">' . $this->kategori_m->count_barang($results[$i]->kode_kategori) . '</span></button>' .
             '<div id="sm' . $i . '" class="sublinks collapse">' .
             $sub_menu .
             '</div>';
@@ -133,6 +140,7 @@ class Katalog extends MY_Controller
      * @param $results
      * @param $i
      * @param $menu
+     *
      * @return string
      */
     private function addChild($results, $i, $menu)
@@ -172,16 +180,19 @@ class Katalog extends MY_Controller
 
         if ($this->fileHasName()) {
             $do = $this->uploadNewImage($data);
-            if($do == 'sukses')
-            {
+            if ($do == 'sukses') {
+                $this->cache->delete('homepage');
+                $this->cache->delete('list_kategori');
                 echo json_encode(array($do));
-            }else{
+            } else {
                 echo json_encode(array($do));
             }
         } else {
             if ($this->barang_m->insert($data) == TRUE) {
-                 echo json_encode(array('sukses'));
-            }else{
+                $this->cache->delete('homepage');
+                $this->cache->delete('list_kategori');
+                echo json_encode(array('sukses'));
+            } else {
                 echo json_encode(array('Data tidak dapat disimpan'));
             }
         }
@@ -210,13 +221,15 @@ class Katalog extends MY_Controller
                 return 'Upload gagal';
             }
         } else {
-                return 'data gagal disimpan';
+            return 'data gagal disimpan';
         }
     }
 
     /**
      * Mengunggah foto yang di inputkan saat entri data barang
+     *
      * @param $name
+     *
      * @return bool
      */
     public function do_upload($name)
@@ -240,6 +253,7 @@ class Katalog extends MY_Controller
 
     /**
      * Menampilkan detail barang sesuai id barang
+     *
      * @param int $id barang
      */
     public function detail($id = 0)
@@ -263,6 +277,7 @@ class Katalog extends MY_Controller
 
     /**
      * Tampilan edit data
+     *
      * @param $id
      */
     public function edit($id = 0)
@@ -288,6 +303,7 @@ class Katalog extends MY_Controller
 
     /**
      * Update data di database
+     *
      * @param $id
      */
     public function update()
@@ -308,9 +324,9 @@ class Katalog extends MY_Controller
             if ($this->barang_m->update($id, $data) == FALSE) {
                 // echo "Salah input2";
                 // show_404();
-                echo 'Terjadi kesalahan input';
+                echo json_encode(array('Terjadi kesalahan input'));
             } else {
-                echo 'data berhasil disimpan';
+                echo json_encode(array('sukses'));
             }
         }
     }
@@ -328,9 +344,9 @@ class Katalog extends MY_Controller
             if ($this->barang_m->update($id, $data) == FALSE) {
                 delete_files($this->upload->data('full_path'));
                 // echo "Salah input";
-                echo 'Terjadi kesalahan input';
+                echo json_encode(array('Upload gagal'));
             } else {
-                echo "sukses";
+                echo json_encode(array('sukses'));
             }
         } else {
             // echo $this->upload->display_errors();
@@ -353,6 +369,8 @@ class Katalog extends MY_Controller
             } else {
                 echo "true-false";
             }
+            $this->cache->delete('homepage');
+            $this->cache->delete('list_kategori');
         } else {
             echo "false";
         }
@@ -418,6 +436,8 @@ class Katalog extends MY_Controller
             }
             if ($this->barang_m->insert_many($rowData)) {
                 $this->message('Berhasil! Data berhasil di upload', 'success');
+                $this->cache->delete('homepage');
+                $this->cache->delete('list_kategori');
             } else {
                 $this->message('Gagal! Data gagal di upload', 'danger');
             }
@@ -429,6 +449,7 @@ class Katalog extends MY_Controller
 
     /**
      * @param $kode_kategori
+     *
      * @return int
      */
     public function get_total_barang($kode_kategori)
@@ -438,7 +459,9 @@ class Katalog extends MY_Controller
 
     /**
      * Mengambil id kategori berdasarkan nama
+     *
      * @param $nama_kategori
+     *
      * @return mixed
      */
     private function checkIdKategori($nama_kategori)

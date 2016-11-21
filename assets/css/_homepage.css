@@ -30,6 +30,10 @@ body{
 	padding-bottom: 100px;
 }
 
+#highlight .form-control {
+	background-color: rgba(255,255,255,.5);
+}
+
 #highlight h1, h3, h4{
 	color: #FFF;
 	margin:0;
@@ -37,7 +41,11 @@ body{
 
 #highlight h1{
 	font-weight: bolder;
-	font-size: 5em;
+	font-size: 4em;
+}
+
+#highlight h4 {
+	font-size: 1.2em;
 }
 
 #highlight .input-group{
@@ -48,11 +56,24 @@ body{
 	font-size: 10pt;
 }
 
+.card *{color:#000;}
+.card .caption h3{
+	font-size: 14pt;
+}
+.badge{color:#fff;}
+
 @media (max-width:500px) {
 	#highlight{
 		width: 100%;
 		padding: 0;
 	}
 
+	#highlight h1{
+		font-size: 24pt;
+	}
+
+	#highlight h4{
+		font-size: 12pt;
+	}
 }
 

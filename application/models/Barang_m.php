@@ -8,9 +8,10 @@ class barang_m extends MY_Model {
 	}
 
 	public function get_all_data($filter = null) {
-		$this->db->select("b.id as id, b.kode_kategori as kode_kategori, b.nama as nama, merk, tipe, spesifikasi, gambar, k.nama as kategori, hargaPasar, hargashsb, keterangan, createdAt");
+		$this->db->select("b.id as id, b.kode_kategori as kode_kategori, b.nama as nama, merk, tipe, spesifikasi, gambar, k.nama as kategori, hargaPasar, hargashsb, keterangan, createdAt, u.first_name, u.last_name");
 		$this->db->from('barang b');
 		$this->db->join('kategori k', 'b.kode_kategori = k.kode_kategori');
+		$this->db->join('users u', 'b.createdBy = u.id');
 
 		if ($filter != null) {
 			$where = "1";

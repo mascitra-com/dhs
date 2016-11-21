@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 11 Nov 2016 pada 23.18
+-- Generation Time: 23 Nov 2016 pada 05.55
 -- Versi Server: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -34,11 +34,11 @@ CREATE TABLE `barang` (
   `tipe` varchar(255) DEFAULT NULL,
   `ukuran` varchar(255) NOT NULL,
   `satuan` varchar(255) NOT NULL,
-  `hargaPasar` double NOT NULL,
-  `biayaKirim` double NOT NULL,
-  `resistensi` double NOT NULL,
-  `ppn` double NOT NULL,
-  `hargashsb` double NOT NULL,
+  `hargaPasar` double DEFAULT NULL,
+  `biayaKirim` double DEFAULT NULL,
+  `resistensi` double DEFAULT NULL,
+  `ppn` double DEFAULT NULL,
+  `hargashsb` double DEFAULT NULL,
   `keterangan` text,
   `spesifikasi` text,
   `gambar` text,
@@ -47,21 +47,24 @@ CREATE TABLE `barang` (
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updateAt` timestamp NULL DEFAULT NULL,
   `createdBy` int(11) NOT NULL,
-  `updateBy` int(11) DEFAULT NULL
+  `updateBy` int(11) DEFAULT NULL,
+  `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='5';
 
 --
 -- Dumping data untuk tabel `barang`
 --
 
-INSERT INTO `barang` (`id`, `kode_kategori`, `nama`, `merk`, `tipe`, `ukuran`, `satuan`, `hargaPasar`, `biayaKirim`, `resistensi`, `ppn`, `hargashsb`, `keterangan`, `spesifikasi`, `gambar`, `tahun_anggaran`, `popularitas`, `createdAt`, `updateAt`, `createdBy`, `updateBy`) VALUES
-(2, '020602', 'Handphone', 'Samsung', 'X2', '5', 'Inchi', 2500000, 22000, 20000, 254200, 2796200, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161112040933.jpg', 2016, 8, '2016-11-11 22:02:17', '2016-11-11 03:10:15', 1, 1),
-(3, '0206030102', 'PDA', 'Toth', '1352', '6', 'Inchi', 2500000, 22000, 20000, 254200, 2796200, 'Tidak Ada', '<p>Tidak Ada</p>', NULL, 2016, 9, '2016-11-11 22:02:17', '2016-11-11 00:34:13', 1, 1),
-(6, '02060301', 'Handphone', 'Xiaomi', 'Mi5', '5', 'Inchi', 2500000, 22000, 20000, 254200, 2796200, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161111103021.jpg', 2016, 0, '2016-11-11 22:02:17', '2016-11-11 03:30:21', 1, 1),
-(7, '02060301', 'Handphone', 'Lenovo', 'Vibe', '6', 'Inchi', 2000000, 22000, 20000, 204200, 2246200, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161112041138.png', 2016, 0, '2016-11-11 22:02:17', '2016-11-11 03:22:15', 1, 1),
-(8, '02060301', 'Laptop', 'Toshiba', '1594', '15', 'Inchi', 5000000, 40000, 50000, 509000, 5599000, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161111102922.jpg', 2016, 0, '2016-11-11 22:02:17', '2016-11-11 03:29:22', 1, 1),
-(9, '02060206', 'Kulkas', 'LG', '2 pintu', '1.5', 'Meter', 3000000, 160000, 25000, 318500, 3503500, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161112041138.jpg', 2016, 0, '2016-11-11 22:02:17', '2016-11-11 03:54:40', 1, 1),
-(13, '0206020603', 'Televisi', 'Samsung', 'Curve', '32', 'Inchi', 5400000, 100000, 50000, 555000, 6105000, 'Lazada', 'Layar Cekung', NULL, 2016, 0, '2016-11-11 22:13:03', NULL, 1, NULL);
+INSERT INTO `barang` (`id`, `kode_kategori`, `nama`, `merk`, `tipe`, `ukuran`, `satuan`, `hargaPasar`, `biayaKirim`, `resistensi`, `ppn`, `hargashsb`, `keterangan`, `spesifikasi`, `gambar`, `tahun_anggaran`, `popularitas`, `createdAt`, `updateAt`, `createdBy`, `updateBy`, `status`) VALUES
+(3, '0206030102', 'PDA', 'Toth', '1352', '6', 'Inchi', 2500000, 22000, 20000, 254200, 2796200, 'Tidak Ada', '<p>Tidak Ada</p>', NULL, 2016, 9, '2016-11-23 04:24:12', '2016-11-11 00:34:13', 1, NULL, 1),
+(6, '02060301', 'Handphone', 'Xiaomi', 'Mi5', '5', 'Inchi', 2500000, 22000, 20000, 254200, 2796200, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161111103021.jpg', 2016, 4, '2016-11-23 04:24:15', '2016-11-11 03:30:21', 1, NULL, 1),
+(7, '02060301', 'Handphone', 'Lenovo', 'Vibe', '6', 'Inchi', 2000000, 22000, 20000, 204200, 2246200, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161112041138.png', 2016, 8, '2016-11-23 04:18:57', '2016-11-11 03:22:15', 1, 1, 1),
+(8, '02060301', 'Laptop', 'Toshiba', '1594', '15', 'Inchi', 5000000, 40000, 50000, 509000, 5599000, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161111102922.jpg', 2016, 4, '2016-11-23 04:18:57', '2016-11-11 03:29:22', 1, 1, 1),
+(9, '02060206', 'Kulkas', 'LG', '2 pintu', '1.5', 'Meter', 3000000, 160000, 25000, 318500, 3503500, 'Tidak Ada', '<p>Tidak Ada</p>', 'img-20161112041138.jpg', 2016, 0, '2016-11-23 04:18:57', '2016-11-11 03:54:40', 1, 1, 1),
+(13, '0206020603', 'Televisi', 'Samsung', 'Curve', '32', 'Inchi', 5400000, 100000, 50000, 555000, 6105000, 'Lazada', 'Layar Cekung', NULL, 2016, 0, '2016-11-23 04:18:57', NULL, 1, 1, 1),
+(14, '0202010104', 'Traktor', 'new', 'new', '1', 'Unit', 126047000, 0, 0, 0, 126047000, 'bhinneka.com', '<p>New Traktor Empat Roda : Model : China Tractor parts , 4x4 compact agricultural tractor. (US $7,800 - 8,900) Nilai Beli Indonesia (13.235 x 7.800 US $) IDR : 103.233.000</p>', 'img-20161119104207.jpg', 2017, 2, '2016-11-23 04:18:57', '2016-11-19 03:42:07', 1, 1, 1),
+(15, '0202010104', 'Traktor', 'new', 'new', '1', 'Unit', 143823000, 0, 0, 0, 143823000, 'bhinneka.com', '<p>New Traktor Empat Roda : Model : China HX504 Agricultural Tractor part with front end loader. (US $7,800 - 8,900) Nilai Beli Indonesia (13.235 x 8.900 US $) IDR : 117.791.500</p>', 'img-20161119114219.jpg', 2017, 4, '2016-11-23 04:18:57', '2016-11-19 04:42:19', 1, 1, 1),
+(18, '02060201', 'Ranjang Pasien', 'Bed Pasien Crank 3', '', '1', 'Set', 10384000, 200000, 1038000, 1162200, 12784200, '', '', NULL, 0000, 0, '2016-11-22 22:50:30', NULL, 2, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -87,6 +90,22 @@ CREATE TABLE `berkas` (
 
 INSERT INTO `berkas` (`nomor`, `judul`, `keterangan`, `status`, `nama_file`, `createdAt`, `createdBy`, `updatedAt`, `updatedBy`) VALUES
 (16, 'jadwal kerja pegawai', 'jadwal kerja pegawai', 1, 'jadwalkerjapega.xls', '2016-11-10 23:35:34', NULL, '2016-11-11 00:35:27', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `detail_harga`
+--
+
+CREATE TABLE `detail_harga` (
+  `id_detail` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `normal` double NOT NULL,
+  `sedang` double NOT NULL,
+  `jauh` double NOT NULL,
+  `khusus` double NOT NULL,
+  `keterangan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -8485,7 +8504,10 @@ INSERT INTO `kategori` (`id`, `kode_kategori`, `nama`, `kode_induk_kategori`, `s
 (8347, '0519020206', 'Jeruk', '05190202', 1),
 (8348, '0519020207', 'Mangga', '05190202', 1),
 (8349, '0519020208', 'Rambutan', '05190202', 1),
-(8350, '0519020209', 'Lain-lain', '05190202', 1);
+(8350, '0519020209', 'Lain-lain', '05190202', 1),
+(8351, '06', 'Kategori Barang', NULL, 1),
+(8352, '07', 'Kategori Lainnya', NULL, 1),
+(8353, '08', 'Kategori Tambahan', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -8581,8 +8603,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, 'LNovQL3sncAHvhpbmHDBXe', 1268889823, 1478898878, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(2, '::1', 'rizkiherda@gmail.com', '$2y$08$rhJwtbO/Q6M26847s1dfFeJ77WcJbZqBue67L.4FOoaPtuVLixsfm', NULL, 'rizkiherda@gmail.com', NULL, 'o.gpY4GpP9WBnu-Zi1Dsc.09b3725c196d398db2', 1475723946, NULL, 1475722620, 1475722653, 1, 'Rizki', 'Herdatullah', 'MasCitra', '082234367866');
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, 'LNovQL3sncAHvhpbmHDBXe', 1268889823, 1479875979, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(2, '::1', 'rizkiherda@gmail.com', '$2y$08$ZCHnIA205BL8zKGsCXuEFORGfQCtveer.T6aGs4bVd/iCZ5w/wXW.', NULL, 'rizkiherda@gmail.com', NULL, 'o.gpY4GpP9WBnu-Zi1Dsc.09b3725c196d398db2', 1475723946, NULL, 1475722620, 1479876435, 1, 'Rizki', 'Herdatullah', 'MasCitra', '082234367866'),
+(3, '127.0.0.1', 'ainulyaqin@gmail.com', '$2y$08$lMlIoUNcXn5u4AdNIaywYeSOJxx6xPffRMMMw8YagBSJhoq/yutka', NULL, 'ainulyaqin@gmail.com', NULL, NULL, NULL, NULL, 1479797935, 1479875961, 1, 'Ainul', 'Yaqin', 'MasCitra', '08990983093');
 
 -- --------------------------------------------------------
 
@@ -8603,7 +8626,8 @@ CREATE TABLE `users_groups` (
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
-(3, 2, 2);
+(27, 2, 1),
+(26, 3, 2);
 
 --
 -- Indexes for dumped tables
@@ -8621,6 +8645,13 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `berkas`
   ADD PRIMARY KEY (`nomor`);
+
+--
+-- Indexes for table `detail_harga`
+--
+ALTER TABLE `detail_harga`
+  ADD PRIMARY KEY (`id_detail`),
+  ADD KEY `id_barang` (`id_barang`);
 
 --
 -- Indexes for table `groups`
@@ -8680,12 +8711,17 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `berkas`
 --
 ALTER TABLE `berkas`
-  MODIFY `nomor` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `nomor` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `detail_harga`
+--
+ALTER TABLE `detail_harga`
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -8695,12 +8731,12 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8351;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8354;
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `pengumuman`
 --
@@ -8715,12 +8751,12 @@ ALTER TABLE `regulasi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
