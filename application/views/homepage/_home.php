@@ -2,8 +2,8 @@
     <div class="col-md-12" id="highlight">
         <h1>SISAGA LUMAJANG</h1>
         <h4>Sistem informasi daftar harga satuan barang Kabupaten Lumajang</h4>
-        <div class="input-group">
-            <form action="<?= site_url('homepage/katalog') ?>" method="get">
+        <form action="<?= site_url('homepage/katalog') ?>" method="get">
+            <div class="input-group">
                 <input type="text" class="form-control" placeholder="Kata Kunci">
                 <span class="input-group-btn"></span>
                 <select class="form-control" name="kategori">
@@ -16,41 +16,9 @@
                 <span class="input-group-btn">
                     <button class="btn btn-primary btn-fill" type="button"><i class="fa fa-search"></i> cari</button>
                 </span>
-            </form>
-        </div>
-    </div>
-    <!-- <div class="col-lg-5 col-md-12 col-sm-12">
-            <h1>
-                <b>SISAGA</b><br>
-                <small style="color: #fff">Kabupaten Lumajang</small>
-            </h1>
-            <p>
-                Sistem Informasi Standar Harga Barang
-                Pemerintah Kabupaten Lumajang
-            </p>
-            <a class="btn btn-info btn-fill" href="<?= site_url('homepage/kontak') ?>">Selengkapnya</a>
-    </div>
-    <div class="col-lg-7 col-md-12 col-sm-12">
-        <form action="<?= site_url('homepage/katalog') ?>" method="get">
-            <div class="card">
-                <div class="header">
-                    <h2 class="title">QUICK SEARCH</h2>
-                    <span class="category">Cari barang dengan cepat</span>
-                </div>
-                <div class="content">
-                    <div class="form-group">
-                        
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="nama" class="form-control" placeholder="KATA KUNCI">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-warning btn-fill btn-block" type="submit">CARI</button>
-                    </div>
-                </div>
             </div>
         </form>
-    </div> -->
+    </div>
 </div>
 
 <?php
