@@ -36,4 +36,9 @@ class Dashboard extends MY_Controller
 
         $this->init();
     }
+
+    public function tes()
+    {
+        echo $this->insight->getChartKategori();
+    }
 }

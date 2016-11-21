@@ -69,9 +69,9 @@ class Pengumuman extends MY_Controller
         $id = $data['id'];
         unset($data['id']);
         if ($this->pengumuman_m->update($id, $data)) {
-            $this->message('Berhasil! Data berhasil ditambahkan', 'success');
+            $this->message('Berhasil! Data berhasil diperbaharui', 'success');
         } else {
-            $this->message('Gagal! Data gagal ditambahkan', 'danger');
+            $this->message('Gagal! Data gagal diperbaharui', 'danger');
         }
         redirect('pengumuman');
     }

@@ -63,13 +63,22 @@ class Insight_m extends CI_Model
     }
 
     public function getChartKategori()
-    {
-    	$result = array();
-    	for ($i=2; $i <=5 ; $i++) { 
-    		$this->db->select('COUNT(*) as jum');
+    {   
+        $this->db->select('kode_kategori, nama');
+        $this->db->from('kategori');
+        $this->db->where('LENGTH(kode_kategori) = 2');
+        $dataKategori = $this->db->get()->result_array();
+
+    	$result = array("nama"=>array(), "jumlah"=>array());
+
+    	for ($i=0; $i < count($dataKategori) ; $i++) { 
+    		$this->db->select('COUNT(barang.id) as jum');
 	    	$this->db->from('barang');
-	    	$this->db->like('kode_kategori','0'.$i, 'after');
-	    	array_push($result, $this->db->get()->result()[0]->jum);
+            $this->db->join('kategori', 'barang.kode_kategori = kategori.kode_kategori');
+	    	$this->db->like('barang.kode_kategori', $dataKategori[$i]['kode_kategori'], 'after');
+
+            array_push($result['nama'], $dataKategori[$i]['nama']);
+	    	array_push($result['jumlah'], $this->db->get()->result()[0]->jum);
     	}
 
     	return json_encode($result);

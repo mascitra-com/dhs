@@ -120,7 +120,7 @@
                                 </h5>
                                 <h5>
                                     <a href="<?= site_url('homepage/detail/' . $brg->id) ?>"><b
-                                            class="text-muted"><?= $brg->kode_kategori . '.' . $brg->id ?></b></a>
+                                            class="text-muted"><?= $brg->kode_kategori?></b></a>
                                 </h5>
                                 <h4>
                                     <a href="<?= site_url('homepage/detail/' . $brg->id) ?>"><b><?= $brg->nama . ' ' . $brg->merk . ' ' . $brg->tipe ?></b></a>
@@ -135,7 +135,7 @@
                                     : <?= substr($brg->keterangan, 0, 14) ?></p>
                                 <p><i class="fa fa-calendar fa-fw"></i> Harga Pada
                                     Tanggal
-                                    : <?php echo mdate('%d-%m-%Y', strtotime(str_replace('-', '/', $brg->updatedAt))); ?>
+                                    : <?php echo mdate('%d-%m-%Y', strtotime(str_replace('-', '/', $brg->updateAt))); ?>
                                 </p>
                             </td>
                             <td align="center">

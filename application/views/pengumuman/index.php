@@ -71,7 +71,8 @@
 						</div>
 						<div class="form-group form-inline text-center">
 							<button class="btn btn-fill btn-success" style="width:65%">simpan</button>
-							<button class="btn btn-fill btn-warning" style="width:30%" type="reset"><i class="fa fa-refresh"></i></button>
+							<button class="btn btn-fill btn-warning" style="width:30%" type="button" onclick="resets()"><i class="fa fa-refresh"></i></button>
+							<button type="button" onclick="cek()">tes</button>
 						</div>
 					</form>
 				</div>

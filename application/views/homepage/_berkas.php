@@ -1,6 +1,6 @@
 <div class="row" style="margin-top: 30px;">
 	<div class="col-md-12">
-		<h3>Download Berkas</h3>
+		<h3 style="color: #000">Download Berkas</h3>
 		<?php foreach($data as $key): ?>
 		<div class="card">
 			<div class="header">
