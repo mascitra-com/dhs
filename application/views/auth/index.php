@@ -23,7 +23,7 @@
                             <?php if ($user->id <> 1) { ?>
                                 <td>
                                     <?php foreach ($user->groups as $group) : ?>
-                                        <?php echo anchor("users/edit_group/" . $group->id, htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8'), 'class="text text-info"'); ?>
+                                        <?php echo form_label(htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8'), '', 'class="text text-info"'); ?>
                                         <br/>
                                     <?php endforeach ?>
                                 </td>
