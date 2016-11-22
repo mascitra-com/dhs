@@ -41,8 +41,12 @@ class Users extends Auth {
 		if ($this->form_validation->run() == TRUE) {
 			// Mencoba login
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $this->input->post('remember'))) {
-				$this->makeFolder($this->ion_auth->get_user_id());
-				redirect('dashboard');
+                if($this->ion_auth->is_admin()){
+                    $this->makeFolder($this->ion_auth->get_user_id());
+                    redirect('dashboard');
+                } else {
+                    redirect('homepage');
+                }
 			} else {
 				$this->data['operation'] = 'danger';
 				$this->data['message'] = 'E-mail dan Password yang Anda masukkan salah!';
@@ -54,7 +58,7 @@ class Users extends Auth {
 		// Tampilkan pesan error jika non user memaksa kesuatu fitur
 		if ($this->session->flashdata('force')) {
 			$this->data['operation'] = 'danger';
-			$this->data['message'] = "Silahkan Login Terlebih Dahulu";
+			$this->data['message'] = "Silahkan login untuk mengakses website ini!";
 		}
 		$this->load->view('auth/login', $this->data);
 	}

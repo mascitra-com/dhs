@@ -18,12 +18,15 @@
 						<h2 class="title">LOGIN<b class="text-warning">SISAGA</b></h2>
 					</div>
 					<div class="content">
+						<?php if(isset($message)): ?>
+                        <p class="alert alert-warning"><?=$message?></p>
+                        <?php endif; ?>
 						<form action="<?=site_url('users/login')?>" method="post">
 							<div class="form-group">
-								<input type="text" class="form-control input-lg" name="identity" placeholder="nama pengguna" required>
+								<input type="text" class="form-control input-lg" name="identity" placeholder="E-mail" required>
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control input-lg" name="password" placeholder="kata sandi" required>
+								<input type="password" class="form-control input-lg" name="password" placeholder="Password" required>
 							</div>
 							<div class="form-group">
 								<div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -31,7 +34,7 @@
 										<button type="submit" class="btn btn-lg btn-primary">MASUK</button>
 									</div>
 									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-lg btn-warning" onclick="window.location='<?=site_url('homepage')?>'">HOMEPAGE</button>
+										<button type="reset" class="btn btn-lg btn-warning">RESET</button>
 									</div>
 								</div>
 							</div>

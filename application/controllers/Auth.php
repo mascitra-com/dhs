@@ -369,14 +369,14 @@ class Auth extends MY_Controller {
 		{
 			// redirect them to the auth page
             $this->data['operation'] = 'success';
-			$this->session->set_flashdata('message', $this->ion_auth->messages());
+			$this->message($this->ion_auth->messages());
 			redirect("auth", 'refresh');
 		}
 		else
 		{
 			// redirect them to the forgot password page
             $this->data['operation'] = 'danger';
-			$this->session->set_flashdata('message', $this->ion_auth->errors());
+			$this->message($this->ion_auth->errors());
 			redirect("auth/forgot_password", 'refresh');
 		}
 	}
@@ -477,7 +477,7 @@ class Auth extends MY_Controller {
             // check to see if we are creating the user
             // redirect them back to the admin page
             $this->data['operation'] = 'success';
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
+            $this->message($this->ion_auth->messages());
             redirect("auth", 'refresh');
         }
         else
@@ -485,7 +485,7 @@ class Auth extends MY_Controller {
             // display the create user form
             // set the flash data error message if there is one
             $this->data['operation'] = 'danger';
-            $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+            $this->message(validation_errors() ? validation_errors() : $this->ion_auth->errors());
 
             $this->data['first_name'] = array(
                 'name'  => 'first_name',
@@ -547,7 +547,7 @@ class Auth extends MY_Controller {
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
-			redirect('auth', 'refresh');
+			redirect('users', 'refresh');
 		}
 
 		$user = $this->ion_auth->user($id)->row();
@@ -614,10 +614,10 @@ class Auth extends MY_Controller {
 			    {
 			    	// redirect them back to the admin page if admin, or to the base url if non admin
                     $this->data['operation'] = 'success';
-				    $this->session->set_flashdata('message', $this->ion_auth->messages() );
+				    $this->message($this->ion_auth->messages() );
 				    if ($this->ion_auth->is_admin())
 					{
-						redirect('auth', 'refresh');
+						redirect('users', 'refresh');
 					}
 					else
 					{
@@ -629,10 +629,10 @@ class Auth extends MY_Controller {
 			    {
 			    	// redirect them back to the admin page if admin, or to the base url if non admin
                     $this->data['operation'] = 'danger';
-				    $this->session->set_flashdata('message', $this->ion_auth->errors() );
+				    $this->message($this->ion_auth->errors() );
 				    if ($this->ion_auth->is_admin())
 					{
-						redirect('auth', 'refresh');
+						redirect('users', 'refresh');
 					}
 					else
 					{
@@ -649,7 +649,7 @@ class Auth extends MY_Controller {
 
 		// set the flash data error message if there is one
         $this->data['operation'] = 'danger';
-		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+		$this->message(validation_errors() ? validation_errors() : $this->ion_auth->errors());
 
 		// pass the user to the view
 		$this->data['user'] = $user;

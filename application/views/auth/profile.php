@@ -6,7 +6,7 @@
                 <h4 class="title">Edit Profile</h4>
             </div>
             <div class="content">
-                <form action="update" method="post">
+                <form action="<?=site_url('auth/edit_user')?>" method="post">
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">

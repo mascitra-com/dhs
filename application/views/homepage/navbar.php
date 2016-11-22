@@ -30,8 +30,8 @@
                             <?php if ($this->ion_auth->is_admin()): ?>
                                 <li><a href="<?= site_url('dashboard') ?>">Dashboard Admin</a></li>
                             <?php endif; ?>
-                            <li><a href="<?= site_url('profil/change_password') ?>">Ganti Password</a></li>
-                            <li><a href="<?= site_url('profil/edit') ?>">Edit Akun</a></li>
+                            <li><a href="<?= site_url('homepage/change_password') ?>">Ganti Password</a></li>
+                            <li><a href="<?= site_url('homepage/edit') ?>">Edit Akun</a></li>
                             <li><a href="<?= site_url('logout') ?>">Logout</a></li>
                         </ul>
                     </li>
