@@ -56,7 +56,6 @@
                     <?php echo lang('create_user_password_confirm_label', 'password_confirm'); ?> <br/>
                     <?php echo form_input($password_confirm); ?>
                 </div>
-
                 <br/>
                 <p>
                     <a class="btn btn-default btn-fill" href="javascript:goBack()">Kembali</a>

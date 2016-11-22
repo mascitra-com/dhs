@@ -20,6 +20,7 @@ class Homepage extends MY_Controller {
 		$this->data['css'] = 'homepage';
 		$this->data['info'] = $this->pengumuman_m->get_info();
 		$this->load->model(array('kategori_m', 'barang_m'));
+        
 	}
 
 	/**

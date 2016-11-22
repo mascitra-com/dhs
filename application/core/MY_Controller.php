@@ -40,10 +40,6 @@ class MY_Controller extends CI_Controller
         $this->load->view($this->template, $this->data);
     }
 
-    public function temp(){
-        dump($this->session->userdata('temp'));
-    }
-
     /**
      *  Melakukan pengecekan status login
      */
@@ -55,6 +51,9 @@ class MY_Controller extends CI_Controller
             if ($this->ion_auth->logged_in() == FALSE) {
                 $this->session->set_flashdata('force', TRUE);
                 redirect('login');
+            } 
+            if($this->ion_auth->is_admin() == FALSE) {
+                redirect('homepage');
             }
         }
     }
