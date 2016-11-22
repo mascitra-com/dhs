@@ -4,7 +4,7 @@
         <h4>Sistem Informasi Standar Harga Satuan Barang Kabupaten Lumajang</h4>
         <form action="<?=site_url('homepage/katalog')?>" method="get">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Kata Kunci">
+                <input type="text" class="form-control" name="nama" placeholder="Kata Kunci">
                 <span class="input-group-btn"></span>
                 <select class="form-control" name="kategori">
                     <option value="">Semua Kategori</option>

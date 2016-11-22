@@ -136,7 +136,8 @@ class Homepage extends MY_Controller {
 		$this->data['css'] = 'katalog';
 		$this->data['js'] = 'katalog';
 		// Get filter
-		$filter = $this->applyFilter();
+        $filter = $this->input->get();
+		$filter = $this->applyFilter($filter);
 		// Prepare Data
 		$this->data['hotlist'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
 		$this->data['kategori'] = $this->get_level_0($this->data['hotlist']);
@@ -149,8 +150,7 @@ class Homepage extends MY_Controller {
 	/**
 	 * @return mixed
 	 */
-	private function applyFilter() {
-		$filter = $this->input->get();
+	private function applyFilter($filter) {
 		if (!isset($filter['offset'])) {
 			$filter['offset'] = 5;
 		}
