@@ -98,6 +98,8 @@ class Kategori extends MY_Controller {
 		}
 		if ($this->kategori_m->insert($insert)) {
 			$this->message('Berhasil! Data berhasil di simpan', 'success');
+            $this->cache->delete('homepage');
+            $this->cache->delete('list_kategori');
 		} else {
 			$this->message('Gagal! Data gagal di simpan', 'danger');
 		}
@@ -144,6 +146,8 @@ class Kategori extends MY_Controller {
 		$update['nama'] = $data['nama_kategoriUpdate'];
 		if ($this->kategori_m->update($id, $update)) {
 			$this->message('Berhasil! Data berhasil di update', 'success');
+            $this->cache->delete('homepage');
+            $this->cache->delete('list_kategori');
 		} else {
 			$this->message('Gagal! Data gagal di update', 'danger');
 		}
@@ -159,6 +163,8 @@ class Kategori extends MY_Controller {
             $kode_induk = $this->kategori_m->get_by(array('id' => $id))->kode_kategori;
             $this->kategori_m->update_by(array("kode_induk_kategori like " => $kode_induk."%"), array('status' => 0));
 			$this->message('Berhasil! Data berhasil di nonaktifkan', 'success');
+            $this->cache->delete('homepage');
+            $this->cache->delete('list_kategori');
 		} else {
 			$this->message('Gagal! Data gagal di nonaktifkan', 'danger');
 		}
@@ -170,6 +176,8 @@ class Kategori extends MY_Controller {
             $kode_induk = $this->kategori_m->get_by(array('id' => $id))->kode_kategori;
             $this->kategori_m->update_by(array("kode_induk_kategori like " => $kode_induk."%"), array('status' => 1));
 			$this->message('Berhasil! Data berhasil di aktifkan', 'success');
+            $this->cache->delete('homepage');
+            $this->cache->delete('list_kategori');
 		} else {
 			$this->message('Gagal! Data gagal di aktifkan', 'danger');
 		}

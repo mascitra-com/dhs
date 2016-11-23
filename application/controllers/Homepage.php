@@ -20,6 +20,7 @@ class Homepage extends MY_Controller {
 		$this->data['css'] = 'homepage';
 		$this->data['info'] = $this->pengumuman_m->get_info();
 		$this->load->model(array('kategori_m', 'barang_m', 'user_model'));
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
 	}
 
     public function _remap($method, $param = array())
@@ -36,11 +37,28 @@ class Homepage extends MY_Controller {
 	 *  Kategori : Menampilkan Daftar Kategori
 	 */
 	public function index() {
-		$this->data['content'] = 'home';
-		$this->data['kategori'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
-		$this->data['hotlist'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
-		$this->data['daftar'] = $this->get_level_0($this->data['hotlist']);
-		$this->load->view('homepage/index', $this->data);
+        if (! $home = $this->cache->get('homepage'))
+        {
+            $this->data['content'] = 'home';
+            $this->data['kategori'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
+            $this->data['hotlist'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
+            $this->data['daftar'] = $this->get_level_0($this->data['hotlist']);
+            $this->data['jml_hotlist'] = $this->count_hotlist($this->data['hotlist']);
+            $home = $this->load->view('homepage/index', $this->data, TRUE);
+            $this->cache->save('homepage', $home, 3600);
+            echo $home;
+        } else {
+            echo $home;
+        }
+	}
+
+    public function count_hotlist($hotlist)
+    {
+        $result = array();
+        foreach ($hotlist as $list){
+            array_push($result, $this->kategori_m->count_barang($list->kode_kategori));
+        }
+        return $result;
 	}
 
 	/**
@@ -63,7 +81,7 @@ class Homepage extends MY_Controller {
 	 */
 	public function get_parent($results, $parent_id = NULL) {
 		$menu = '';
-		for ($i = 0; $i < sizeof($results); $i++) {
+		for ($i = 0, $iMax = count($results); $i < $iMax; $i++) {
 			if ($results[$i]->kode_induk_kategori == $parent_id) {
 				if ($this->parent_child($results, $results[$i]->kode_kategori)) {
 					$sub_menu = $this->get_parent($results, $results[$i]->kode_kategori);
@@ -83,7 +101,7 @@ class Homepage extends MY_Controller {
 	 * @return bool
 	 */
 	public function parent_child($results, $kode_induk) {
-		for ($i = 0; $i < sizeof($results); $i++) {
+		for ($i = 0, $iMax = count($results); $i < $iMax; $i++) {
 			if ($this->categoryCodeMatchedAndLessThanSixLength($results, $kode_induk, $i)) {
 				return true;
 			}
@@ -147,8 +165,11 @@ class Homepage extends MY_Controller {
         $filter = $this->input->get();
 		$filter = $this->applyFilter($filter);
 		// Prepare Data
-		$this->data['hotlist'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
-		$this->data['kategori'] = $this->get_level_0($this->data['hotlist']);
+        if (!$list_kategori = $this->cache->get('list_kategori')) {
+            $this->data['hotlist'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
+            $this->data['jml_hotlist'] = $this->count_hotlist($this->data['hotlist']);
+            $this->data['kategori'] = $this->get_level_0($this->data['hotlist']);
+        }
 		$this->data['barang'] = $this->barang_m->get_all_data($filter);
 		$this->data['autocomplete'] = $this->barang_m->get_autocomplete();
 		$this->load->view('homepage/index', $this->data);

@@ -12,6 +12,7 @@ class MY_Controller extends CI_Controller
         parent::__construct();
         $this->load->model('Pengumuman_m', 'pengumuman_m');
         $this->data['info'] = $this->pengumuman_m->get_info();
+        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
     }
 
     /**

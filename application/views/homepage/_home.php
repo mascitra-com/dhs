@@ -1,4 +1,4 @@
-<div class='row' id="highlight-container">
+<div class='row' id="highlight-container" style="margin-top: -2em">
     <div class="col-md-12" id="highlight">
         <h1>SISAGA LUMAJANG</h1>
         <h4>Sistem Informasi Standar Harga Satuan Barang Kabupaten Lumajang</h4>
@@ -44,7 +44,7 @@ $x = 0;
                             <div class="col-md-6">
                                 <button class="list-group-item" data-toggle="collapse" data-target="#sx<?=$x?>">
                                     <?=$hotlist[$x]->kode_kategori?>. <?=strtoupper($hotlist[$x]->nama)?><span
-                                        class="caret"></span></button>
+                                        class="caret"></span><span class="badge"><?=$jml_hotlist[$x];?></span></button>
                                 <div id="sx<?=$x?>" class="sublinks collapse">
                                     <?=$daftar[$x++]?>
                                     <br>
