@@ -9,8 +9,8 @@
                 <div class="list-group" id="kategori">
                     <?php if (!$list_kategori = $this->cache->get('list_kategori')) { ?>
                         <?php $list_kategori = $this->load->view('homepage/list_kategori', array($hotlist, $jml_hotlist, $kategori), TRUE);
-                        $this->cache->save('list_kategori', $list_kategori, 3600);
-                        echo $list_kategori; ?>
+                        echo $list_kategori;
+                        $this->cache->save('list_kategori', $list_kategori, 3600); ?>
                     <?php } else {
                         echo $list_kategori;
                     } ?>
