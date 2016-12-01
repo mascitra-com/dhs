@@ -67,11 +67,11 @@ $x = 0;
             <div class="content">
                 <?php foreach ($hotlist as $list): ?>
                     <a href="<?=site_url('homepage/katalog?kategori=') . $list->kode_kategori?>">
-                        <div class="col-sm-6 col-md-4 col-lg-2">
+                        <div class="col-sm-6 col-md-4 col-lg-4">
                             <div class="thumbnail">
                                 <img src="<?=base_url('assets/img/kategori.gif')?>" alt="...">
                                 <div class="caption">
-                                    <h3><?=ucwords(strtolower(shorten($list->nama)))?></h3>
+                                    <h3><?=ucwords(strtolower($list->nama))?></h3>
                                 </div>
                             </div>
                         </div>
