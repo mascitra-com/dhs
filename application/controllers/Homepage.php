@@ -165,7 +165,7 @@ class Homepage extends MY_Controller {
         $filter = $this->input->get();
 		$filter = $this->applyFilter($filter);
 		// Prepare Data
-        if (!$list_kategori = $this->cache->get('list_kategori')) {
+        if (!$this->data['listkategori'] = $this->cache->get('list_kategori')) {
             $this->data['hotlist'] = $this->kategori_m->get_many_by(array('CHARACTER_LENGTH(kode_kategori) <= 2'));
             $this->data['jml_hotlist'] = $this->count_hotlist($this->data['hotlist']);
             $this->data['kategori'] = $this->get_level_0($this->data['hotlist']);
