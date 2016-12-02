@@ -16,6 +16,7 @@ class Export extends MY_Controller
         $this->load->helper('download');
         require_once APPPATH . 'libraries/PHPExcel.php';
         include_once APPPATH . 'libraries/PHPExcel/Writer/PDF.php';
+        include_once APPPATH . 'libraries/PHPExcel/Writer/Excel5.php';
         $this->load->model(array('barang_m', 'kategori_m'));
     }
 
